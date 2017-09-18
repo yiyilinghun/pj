@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="02.窗体文件">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="03.入口文件">
+      <UniqueIdentifier>{27994c20-f1d1-4cf5-b50a-1af63eb5fbb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.生成文件">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="04.资源文件">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="00.预编译头">
+      <UniqueIdentifier>{0b6a85df-1ce7-4b47-824b-169f7e3f2671}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_pj_tools.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_pj_tools.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_pj_tools.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Precompiled.cpp">
+      <Filter>00.预编译头</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>03.入口文件</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_tools.cpp">
+      <Filter>03.入口文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_pj_tools.h">
+      <Filter>04.生成文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Precompiled.h">
+      <Filter>00.预编译头</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="pj_tools.ui">
+      <Filter>02.窗体文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="pj_tools.qrc">
+      <Filter>04.资源文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="pj_tools.h">
+      <Filter>03.入口文件</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pj_tools.rc">
+      <Filter>04.资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
