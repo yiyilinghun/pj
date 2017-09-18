@@ -16,7 +16,7 @@ module MsNet
 
     interface ILogin
     {
-        string c2sRegister(Login xParam);
-        bool c2sLogin(Login xParam);
+        string  c2sRegister     (Login xParam);
+        bool    c2sLogin        (Login xParam);
     };
 };

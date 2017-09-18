@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="00. 预编译头">
-      <UniqueIdentifier>{70d8334c-8894-424d-9b81-59e380770e65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{de374d8e-7928-40e4-bad4-72f311e8a4f4}</UniqueIdentifier>
     </Filter>
@@ -23,10 +20,13 @@
       <UniqueIdentifier>{88010bed-405c-4764-915f-1b2ce0cf8571}</UniqueIdentifier>
       <Extensions>ice</Extensions>
     </Filter>
+    <Filter Include="00.预编译头">
+      <UniqueIdentifier>{70d8334c-8894-424d-9b81-59e380770e65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Precompiled.h">
-      <Filter>00. 预编译头</Filter>
+      <Filter>00.预编译头</Filter>
     </ClInclude>
     <ClInclude Include="generated\pj_common.h">
       <Filter>Header Files</Filter>
@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Precompiled.cpp">
-      <Filter>00. 预编译头</Filter>
+      <Filter>00.预编译头</Filter>
     </ClCompile>
     <ClCompile Include="generated\pj_common.cpp">
       <Filter>Source Files</Filter>
@@ -74,9 +74,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <IceBuilder Include="pj_Login.ice" />
-    <IceBuilder Include="pj_common.ice" />
-    <IceBuilder Include="pj_database.ice" />
+    <IceBuilder Include="pj_common.ice">
+      <Filter>Slice Files</Filter>
+    </IceBuilder>
+    <IceBuilder Include="pj_database.ice">
+      <Filter>Slice Files</Filter>
+    </IceBuilder>
+    <IceBuilder Include="pj_Login.ice">
+      <Filter>Slice Files</Filter>
+    </IceBuilder>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

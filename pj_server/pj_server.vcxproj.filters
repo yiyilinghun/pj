@@ -13,13 +13,16 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="04.资源文件">
+    <Filter Include="00.预编译头">
+      <UniqueIdentifier>{c29c58e9-8fc0-4350-90f7-b19dde44bd0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.登录管理">
+      <UniqueIdentifier>{05e9903c-acb0-4134-a287-49e51a594987}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.资源文件">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
-    </Filter>
-    <Filter Include="00.预编译头">
-      <UniqueIdentifier>{c29c58e9-8fc0-4350-90f7-b19dde44bd0b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +44,9 @@
     <ClCompile Include="main.cpp">
       <Filter>03.入口文件</Filter>
     </ClCompile>
+    <ClCompile Include="LoginManager.cpp">
+      <Filter>10.登录管理</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_pj_server.h">
@@ -49,13 +55,16 @@
     <ClInclude Include="Precompiled.h">
       <Filter>00.预编译头</Filter>
     </ClInclude>
+    <ClInclude Include="LoginManager.h">
+      <Filter>10.登录管理</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="pj_server.ui">
       <Filter>02.窗体文件</Filter>
     </CustomBuild>
     <CustomBuild Include="pj_server.qrc">
-      <Filter>04.资源文件</Filter>
+      <Filter>05.资源文件</Filter>
     </CustomBuild>
     <CustomBuild Include="pj_server.h">
       <Filter>03.入口文件</Filter>
@@ -63,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="pj_server.rc">
-      <Filter>04.资源文件</Filter>
+      <Filter>05.资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
 </Project>

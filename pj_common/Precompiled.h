@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <tchar.h>
 
-
 // Ice
 #include "Ice/Ice.h"
 #include "Freeze/Freeze.h"
