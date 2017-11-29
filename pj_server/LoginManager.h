@@ -8,8 +8,10 @@ public:
 
     DBDictionary<pj_db> m_DictData;
 
-
     virtual ::std::string c2sRegister(const ::MsNet::Login&, const ::Ice::Current&);
     virtual bool c2sLogin(const ::MsNet::Login&, const ::Ice::Current&);
+
+    ::std::string local_Register(::std::string&& account, ::std::string&& password);
+
 };
 

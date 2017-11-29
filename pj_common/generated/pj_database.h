@@ -55,10 +55,11 @@ struct Account
     ::std::string account;
     ::std::string password;
     ::std::string Info;
+    long long int create_time;
 
-    std::tuple<const ::std::string&, const ::std::string&, const ::std::string&> ice_tuple() const
+    std::tuple<const ::std::string&, const ::std::string&, const ::std::string&, const long long int&> ice_tuple() const
     {
-        return std::tie(account, password, Info);
+        return std::tie(account, password, Info, create_time);
     }
 };
 
@@ -78,7 +79,7 @@ template<>
 struct StreamableTraits<::MsDB::Account>
 {
     static const StreamHelperCategory helper = StreamHelperCategoryStruct;
-    static const int minWireSize = 3;
+    static const int minWireSize = 11;
     static const bool fixedLength = false;
 };
 
@@ -87,7 +88,7 @@ struct StreamReader<::MsDB::Account, S>
 {
     static void read(S* istr, ::MsDB::Account& v)
     {
-        istr->readAll(v.account, v.password, v.Info);
+        istr->readAll(v.account, v.password, v.Info, v.create_time);
     }
 };
 
@@ -103,6 +104,7 @@ struct Account
     ::std::string account;
     ::std::string password;
     ::std::string Info;
+    ::Ice::Long create_time;
 
     bool operator==(const Account& rhs_) const
     {
@@ -119,6 +121,10 @@ struct Account
             return false;
         }
         if(Info != rhs_.Info)
+        {
+            return false;
+        }
+        if(create_time != rhs_.create_time)
         {
             return false;
         }
@@ -155,6 +161,14 @@ struct Account
         {
             return false;
         }
+        if(create_time < rhs_.create_time)
+        {
+            return true;
+        }
+        else if(rhs_.create_time < create_time)
+        {
+            return false;
+        }
         return false;
     }
 
@@ -185,7 +199,7 @@ template<>
 struct StreamableTraits< ::MsDB::Account>
 {
     static const StreamHelperCategory helper = StreamHelperCategoryStruct;
-    static const int minWireSize = 3;
+    static const int minWireSize = 11;
     static const bool fixedLength = false;
 };
 
@@ -197,6 +211,7 @@ struct StreamWriter< ::MsDB::Account, S>
         ostr->write(v.account);
         ostr->write(v.password);
         ostr->write(v.Info);
+        ostr->write(v.create_time);
     }
 };
 
@@ -208,6 +223,7 @@ struct StreamReader< ::MsDB::Account, S>
         istr->read(v.account);
         istr->read(v.password);
         istr->read(v.Info);
+        istr->read(v.create_time);
     }
 };
 

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pj_server.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,7 +13,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'pj_server.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.9.1. It"
+#error "This file was generated using the moc from 5.9.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -21,70 +21,115 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_pj_server_t {
-    QByteArrayData data[1];
-    char stringdata0[10];
+struct qt_meta_stringdata_qt_server_wnd_t {
+    QByteArrayData data[8];
+    char stringdata0[51];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_pj_server_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_qt_server_wnd_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_pj_server_t qt_meta_stringdata_pj_server = {
+static const qt_meta_stringdata_qt_server_wnd_t qt_meta_stringdata_qt_server_wnd = {
     {
-QT_MOC_LITERAL(0, 0, 9) // "pj_server"
+QT_MOC_LITERAL(0, 0, 13), // "qt_server_wnd"
+QT_MOC_LITERAL(1, 14, 5), // "test0"
+QT_MOC_LITERAL(2, 20, 0), // ""
+QT_MOC_LITERAL(3, 21, 5), // "test1"
+QT_MOC_LITERAL(4, 27, 5), // "test2"
+QT_MOC_LITERAL(5, 33, 5), // "test3"
+QT_MOC_LITERAL(6, 39, 5), // "test4"
+QT_MOC_LITERAL(7, 45, 5) // "test5"
 
     },
-    "pj_server"
+    "qt_server_wnd\0test0\0\0test1\0test2\0test3\0"
+    "test4\0test5"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_pj_server[] = {
+static const uint qt_meta_data_qt_server_wnd[] = {
 
  // content:
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   44,    2, 0x0a /* Public */,
+       3,    0,   45,    2, 0x0a /* Public */,
+       4,    0,   46,    2, 0x0a /* Public */,
+       5,    0,   47,    2, 0x0a /* Public */,
+       6,    0,   48,    2, 0x0a /* Public */,
+       7,    0,   49,    2, 0x0a /* Public */,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+
        0        // eod
 };
 
-void pj_server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void qt_server_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        qt_server_wnd *_t = static_cast<qt_server_wnd *>(_o);
+        Q_UNUSED(_t)
+        switch (_id) {
+        case 0: _t->test0(); break;
+        case 1: _t->test1(); break;
+        case 2: _t->test2(); break;
+        case 3: _t->test3(); break;
+        case 4: _t->test4(); break;
+        case 5: _t->test5(); break;
+        default: ;
+        }
+    }
     Q_UNUSED(_a);
 }
 
-const QMetaObject pj_server::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_pj_server.data,
-      qt_meta_data_pj_server,  qt_static_metacall, nullptr, nullptr}
+const QMetaObject qt_server_wnd::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_qt_server_wnd.data,
+      qt_meta_data_qt_server_wnd,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *pj_server::metaObject() const
+const QMetaObject *qt_server_wnd::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *pj_server::qt_metacast(const char *_clname)
+void *qt_server_wnd::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_pj_server.stringdata0))
-        return static_cast<void*>(const_cast< pj_server*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_qt_server_wnd.stringdata0))
+        return static_cast<void*>(this);
     return QMainWindow::qt_metacast(_clname);
 }
 
-int pj_server::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int qt_server_wnd::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 6)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 6;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 6)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 6;
+    }
     return _id;
 }
 QT_WARNING_POP

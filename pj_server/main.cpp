@@ -3,8 +3,8 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    pj_server w;
-    w.show();
-    return a.exec();
+    Ice::InitializationData xInitData;
+    xInitData.properties = Ice::createProperties();
+    xInitData.properties->load("server.cfg");
+    return g_ice_server_app.main(argc, argv, xInitData);
 }

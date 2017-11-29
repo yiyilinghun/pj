@@ -5,5 +5,7 @@ module MsDB
         string  account;
         string  password;
         string  Info;
+        long    create_time;
     }
 }
+

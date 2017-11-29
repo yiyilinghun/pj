@@ -11,7 +11,8 @@ PJ_LoginManager::PJ_LoginManager(Ice::ObjectAdapterPtr xAdapter, Freeze::Connect
 static int c2sRegister_num = 0;
 static int c2sLoginnum = 0;
 static Int64 last_time = 0;
-::std::string PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, const ::Ice::Current& xCurrent)
+::std::string
+PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, const ::Ice::Current& xCurrent)
 {
     c2sRegister_num++;
 
@@ -45,7 +46,8 @@ static Int64 last_time = 0;
     return u8"账号注册成功!";
 }
 
-bool PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, const ::Ice::Current& xCurrent)
+bool
+PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, const ::Ice::Current& xCurrent)
 {
     c2sLoginnum++;
     //if (c2sLoginnum % 1000 == 0)
@@ -69,3 +71,37 @@ bool PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, const ::Ice::Curren
     //return "账号密码正确!";
     return true;
 }
+
+
+::std::string
+PJ_LoginManager::local_Register(::std::string&& account, ::std::string&& password)
+{
+    //c2sRegister_num++;
+
+    //SYSTEMTIME st;
+    //::GetLocalTime(&st);
+
+    //Int64 xNow;
+    //::SystemTimeToFileTime(&st, (LPFILETIME)&xNow);
+    //if (xNow - last_time > 10000000)
+    //{
+    //    printf("c2sRegister:%d  c2sLogin:%d\n", c2sRegister_num, c2sLoginnum);
+    //    last_time = xNow;
+    //    c2sRegister_num = 0;
+    //}
+
+    if (m_DictData.ContainsKey(account))
+    {
+        return u8"账号已经存在!";
+    }
+
+    ::MsDB::Account xAccount;
+    xAccount.account = account;
+    xAccount.password = password;
+    xAccount.Info = u8"";
+    m_DictData[account] = xAccount;
+
+    return u8"账号注册成功!";
+}
+
+
