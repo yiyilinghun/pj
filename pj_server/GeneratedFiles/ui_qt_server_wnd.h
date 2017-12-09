@@ -13,11 +13,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,30 +25,36 @@ class Ui_ui_qt_server_wnd
 {
 public:
     QWidget *centralWidget;
-    QMenuBar *menuBar;
-    QToolBar *mainToolBar;
-    QStatusBar *statusBar;
+    QGridLayout *gridLayout;
+    QPushButton *testButton1;
+    QPushButton *testButton2;
 
     void setupUi(QMainWindow *ui_qt_server_wnd)
     {
         if (ui_qt_server_wnd->objectName().isEmpty())
             ui_qt_server_wnd->setObjectName(QStringLiteral("ui_qt_server_wnd"));
-        ui_qt_server_wnd->resize(600, 400);
+        ui_qt_server_wnd->resize(816, 747);
         centralWidget = new QWidget(ui_qt_server_wnd);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        gridLayout = new QGridLayout(centralWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        testButton1 = new QPushButton(centralWidget);
+        testButton1->setObjectName(QStringLiteral("testButton1"));
+
+        gridLayout->addWidget(testButton1, 0, 0, 1, 1);
+
+        testButton2 = new QPushButton(centralWidget);
+        testButton2->setObjectName(QStringLiteral("testButton2"));
+
+        gridLayout->addWidget(testButton2, 0, 1, 1, 1);
+
         ui_qt_server_wnd->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(ui_qt_server_wnd);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 23));
-        ui_qt_server_wnd->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(ui_qt_server_wnd);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        ui_qt_server_wnd->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        statusBar = new QStatusBar(ui_qt_server_wnd);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
-        ui_qt_server_wnd->setStatusBar(statusBar);
 
         retranslateUi(ui_qt_server_wnd);
+        QObject::connect(testButton1, SIGNAL(clicked()), ui_qt_server_wnd, SLOT(test1()));
+        QObject::connect(testButton2, SIGNAL(clicked()), ui_qt_server_wnd, SLOT(test2()));
 
         QMetaObject::connectSlotsByName(ui_qt_server_wnd);
     } // setupUi
@@ -57,6 +62,8 @@ public:
     void retranslateUi(QMainWindow *ui_qt_server_wnd)
     {
         ui_qt_server_wnd->setWindowTitle(QApplication::translate("ui_qt_server_wnd", "pj_server", Q_NULLPTR));
+        testButton1->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\270\200", Q_NULLPTR));
+        testButton2->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\272\214", Q_NULLPTR));
     } // retranslateUi
 
 };

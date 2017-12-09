@@ -112,10 +112,23 @@ public:
 
     static const ::std::string& ice_staticId();
 
-    virtual ::std::string c2sRegister(::MsNet::Login, const ::Ice::Current&) = 0;
+    struct C2sRegisterResult
+    {
+        bool returnValue;
+        int count;
+        ::MsNet::Login ret;
+    };
+
+    virtual bool c2sRegister(::MsNet::Login, int&, ::MsNet::Login&, const ::Ice::Current&) = 0;
     bool _iceD_c2sRegister(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual bool c2sLogin(::MsNet::Login, const ::Ice::Current&) = 0;
+    struct C2sLoginResult
+    {
+        bool returnValue;
+        int count;
+    };
+
+    virtual bool c2sLogin(::MsNet::Login, int&, const ::Ice::Current&) = 0;
     bool _iceD_c2sLogin(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual bool _iceDispatch(::IceInternal::Incoming&, const ::Ice::Current&) override;
@@ -130,53 +143,66 @@ class ILoginPrx : public virtual ::Ice::Proxy<ILoginPrx, ::Ice::ObjectPrx>
 {
 public:
 
-    ::std::string c2sRegister(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = Ice::noExplicitContext)
+    bool c2sRegister(const ::MsNet::Login& iceP_xParam, int& iceP_count, ::MsNet::Login& iceP_ret, const ::Ice::Context& context = Ice::noExplicitContext)
     {
-        return _makePromiseOutgoing<::std::string>(true, this, &MsNet::ILoginPrx::_iceI_c2sRegister, iceP_xParam, context).get();
+        auto result = _makePromiseOutgoing<::MsNet::ILogin::C2sRegisterResult>(true, this, &MsNet::ILoginPrx::_iceI_c2sRegister, iceP_xParam, context).get();
+        iceP_count = result.count;
+        iceP_ret = ::std::move(result.ret);
+        return result.returnValue;
     }
 
     template<template<typename> class P = ::std::promise>
     auto c2sRegisterAsync(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = Ice::noExplicitContext)
-        -> decltype(::std::declval<P<::std::string>>().get_future())
+        -> decltype(::std::declval<P<::MsNet::ILogin::C2sRegisterResult>>().get_future())
     {
-        return _makePromiseOutgoing<::std::string, P>(false, this, &MsNet::ILoginPrx::_iceI_c2sRegister, iceP_xParam, context);
+        return _makePromiseOutgoing<::MsNet::ILogin::C2sRegisterResult, P>(false, this, &MsNet::ILoginPrx::_iceI_c2sRegister, iceP_xParam, context);
     }
 
     ::std::function<void()>
     c2sRegisterAsync(const ::MsNet::Login& iceP_xParam,
-                     ::std::function<void(::std::string)> response,
+                     ::std::function<void(bool, int, ::MsNet::Login)> response,
                      ::std::function<void(::std::exception_ptr)> ex = nullptr,
                      ::std::function<void(bool)> sent = nullptr,
                      const ::Ice::Context& context = Ice::noExplicitContext)
     {
-        return _makeLamdaOutgoing<::std::string>(response, ex, sent, this, &MsNet::ILoginPrx::_iceI_c2sRegister, iceP_xParam, context);
+        auto responseCb = [response](::MsNet::ILogin::C2sRegisterResult&& result)
+        {
+            response(result.returnValue, result.count, ::std::move(result.ret));
+        };
+        return _makeLamdaOutgoing<::MsNet::ILogin::C2sRegisterResult>(responseCb, ex, sent, this, &MsNet::ILoginPrx::_iceI_c2sRegister, iceP_xParam, context);
     }
 
-    void _iceI_c2sRegister(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::std::string>>&, const ::MsNet::Login&, const ::Ice::Context&);
+    void _iceI_c2sRegister(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::C2sRegisterResult>>&, const ::MsNet::Login&, const ::Ice::Context&);
 
-    bool c2sLogin(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = Ice::noExplicitContext)
+    bool c2sLogin(const ::MsNet::Login& iceP_xParam, int& iceP_count, const ::Ice::Context& context = Ice::noExplicitContext)
     {
-        return _makePromiseOutgoing<bool>(true, this, &MsNet::ILoginPrx::_iceI_c2sLogin, iceP_xParam, context).get();
+        auto result = _makePromiseOutgoing<::MsNet::ILogin::C2sLoginResult>(true, this, &MsNet::ILoginPrx::_iceI_c2sLogin, iceP_xParam, context).get();
+        iceP_count = result.count;
+        return result.returnValue;
     }
 
     template<template<typename> class P = ::std::promise>
     auto c2sLoginAsync(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = Ice::noExplicitContext)
-        -> decltype(::std::declval<P<bool>>().get_future())
+        -> decltype(::std::declval<P<::MsNet::ILogin::C2sLoginResult>>().get_future())
     {
-        return _makePromiseOutgoing<bool, P>(false, this, &MsNet::ILoginPrx::_iceI_c2sLogin, iceP_xParam, context);
+        return _makePromiseOutgoing<::MsNet::ILogin::C2sLoginResult, P>(false, this, &MsNet::ILoginPrx::_iceI_c2sLogin, iceP_xParam, context);
     }
 
     ::std::function<void()>
     c2sLoginAsync(const ::MsNet::Login& iceP_xParam,
-                  ::std::function<void(bool)> response,
+                  ::std::function<void(bool, int)> response,
                   ::std::function<void(::std::exception_ptr)> ex = nullptr,
                   ::std::function<void(bool)> sent = nullptr,
                   const ::Ice::Context& context = Ice::noExplicitContext)
     {
-        return _makeLamdaOutgoing<bool>(response, ex, sent, this, &MsNet::ILoginPrx::_iceI_c2sLogin, iceP_xParam, context);
+        auto responseCb = [response](::MsNet::ILogin::C2sLoginResult&& result)
+        {
+            response(result.returnValue, result.count);
+        };
+        return _makeLamdaOutgoing<::MsNet::ILogin::C2sLoginResult>(responseCb, ex, sent, this, &MsNet::ILoginPrx::_iceI_c2sLogin, iceP_xParam, context);
     }
 
-    void _iceI_c2sLogin(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<bool>>&, const ::MsNet::Login&, const ::Ice::Context&);
+    void _iceI_c2sLogin(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::C2sLoginResult>>&, const ::MsNet::Login&, const ::Ice::Context&);
 
     static const ::std::string& ice_staticId();
 
@@ -447,9 +473,9 @@ class ILogin : public virtual ::Ice::Proxy<ILogin, ::IceProxy::Ice::Object>
 {
 public:
 
-    ::std::string c2sRegister(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = ::Ice::noExplicitContext)
+    bool c2sRegister(const ::MsNet::Login& iceP_xParam, ::Ice::Int& iceP_count, ::MsNet::Login& iceP_ret, const ::Ice::Context& context = ::Ice::noExplicitContext)
     {
-        return end_c2sRegister(_iceI_begin_c2sRegister(iceP_xParam, context, ::IceInternal::dummyCallback, 0, true));
+        return end_c2sRegister(iceP_count, iceP_ret, _iceI_begin_c2sRegister(iceP_xParam, context, ::IceInternal::dummyCallback, 0, true));
     }
 
     ::Ice::AsyncResultPtr begin_c2sRegister(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = ::Ice::noExplicitContext)
@@ -477,7 +503,7 @@ public:
         return _iceI_begin_c2sRegister(iceP_xParam, context, del, cookie);
     }
 
-    ::std::string end_c2sRegister(const ::Ice::AsyncResultPtr&);
+    bool end_c2sRegister(::Ice::Int& iceP_count, ::MsNet::Login& iceP_ret, const ::Ice::AsyncResultPtr&);
 
 private:
 
@@ -485,9 +511,9 @@ private:
 
 public:
 
-    bool c2sLogin(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = ::Ice::noExplicitContext)
+    bool c2sLogin(const ::MsNet::Login& iceP_xParam, ::Ice::Int& iceP_count, const ::Ice::Context& context = ::Ice::noExplicitContext)
     {
-        return end_c2sLogin(_iceI_begin_c2sLogin(iceP_xParam, context, ::IceInternal::dummyCallback, 0, true));
+        return end_c2sLogin(iceP_count, _iceI_begin_c2sLogin(iceP_xParam, context, ::IceInternal::dummyCallback, 0, true));
     }
 
     ::Ice::AsyncResultPtr begin_c2sLogin(const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context = ::Ice::noExplicitContext)
@@ -515,7 +541,7 @@ public:
         return _iceI_begin_c2sLogin(iceP_xParam, context, del, cookie);
     }
 
-    bool end_c2sLogin(const ::Ice::AsyncResultPtr&);
+    bool end_c2sLogin(::Ice::Int& iceP_count, const ::Ice::AsyncResultPtr&);
 
 private:
 
@@ -552,10 +578,10 @@ public:
 
     static const ::std::string& ice_staticId();
 
-    virtual ::std::string c2sRegister(const ::MsNet::Login&, const ::Ice::Current& = ::Ice::emptyCurrent) = 0;
+    virtual bool c2sRegister(const ::MsNet::Login&, ::Ice::Int&, ::MsNet::Login&, const ::Ice::Current& = ::Ice::emptyCurrent) = 0;
     bool _iceD_c2sRegister(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual bool c2sLogin(const ::MsNet::Login&, const ::Ice::Current& = ::Ice::emptyCurrent) = 0;
+    virtual bool c2sLogin(const ::MsNet::Login&, ::Ice::Int&, const ::Ice::Current& = ::Ice::emptyCurrent) = 0;
     bool _iceD_c2sLogin(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual bool _iceDispatch(::IceInternal::Incoming&, const ::Ice::Current&);
@@ -655,7 +681,7 @@ public:
 
     typedef void (T::*Exception)(const ::Ice::Exception&);
     typedef void (T::*Sent)(bool);
-    typedef void (T::*Response)(const ::std::string&);
+    typedef void (T::*Response)(bool, ::Ice::Int, const ::MsNet::Login&);
 
     CallbackNC_ILogin_c2sRegister(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), _response(cb)
@@ -665,10 +691,12 @@ public:
     virtual void completed(const ::Ice::AsyncResultPtr& result) const
     {
         ::MsNet::ILoginPrx proxy = ::MsNet::ILoginPrx::uncheckedCast(result->getProxy());
-        ::std::string ret;
+        ::Ice::Int iceP_count;
+        ::MsNet::Login iceP_ret;
+        bool ret;
         try
         {
-            ret = proxy->end_c2sRegister(result);
+            ret = proxy->end_c2sRegister(iceP_count, iceP_ret, result);
         }
         catch(const ::Ice::Exception& ex)
         {
@@ -677,7 +705,7 @@ public:
         }
         if(_response)
         {
-            (::IceInternal::CallbackNC<T>::_callback.get()->*_response)(ret);
+            (::IceInternal::CallbackNC<T>::_callback.get()->*_response)(ret, iceP_count, iceP_ret);
         }
     }
 
@@ -687,13 +715,13 @@ private:
 };
 
 template<class T> Callback_ILogin_c2sRegisterPtr
-newCallback_ILogin_c2sRegister(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::std::string&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+newCallback_ILogin_c2sRegister(const IceUtil::Handle<T>& instance, void (T::*cb)(bool, ::Ice::Int, const ::MsNet::Login&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
     return new CallbackNC_ILogin_c2sRegister<T>(instance, cb, excb, sentcb);
 }
 
 template<class T> Callback_ILogin_c2sRegisterPtr
-newCallback_ILogin_c2sRegister(T* instance, void (T::*cb)(const ::std::string&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+newCallback_ILogin_c2sRegister(T* instance, void (T::*cb)(bool, ::Ice::Int, const ::MsNet::Login&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
     return new CallbackNC_ILogin_c2sRegister<T>(instance, cb, excb, sentcb);
 }
@@ -707,7 +735,7 @@ public:
 
     typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
     typedef void (T::*Sent)(bool , const CT&);
-    typedef void (T::*Response)(const ::std::string&, const CT&);
+    typedef void (T::*Response)(bool, ::Ice::Int, const ::MsNet::Login&, const CT&);
 
     Callback_ILogin_c2sRegister(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), _response(cb)
@@ -717,10 +745,12 @@ public:
     virtual void completed(const ::Ice::AsyncResultPtr& result) const
     {
         ::MsNet::ILoginPrx proxy = ::MsNet::ILoginPrx::uncheckedCast(result->getProxy());
-        ::std::string ret;
+        ::Ice::Int iceP_count;
+        ::MsNet::Login iceP_ret;
+        bool ret;
         try
         {
-            ret = proxy->end_c2sRegister(result);
+            ret = proxy->end_c2sRegister(iceP_count, iceP_ret, result);
         }
         catch(const ::Ice::Exception& ex)
         {
@@ -729,7 +759,7 @@ public:
         }
         if(_response)
         {
-            (::IceInternal::Callback<T, CT>::_callback.get()->*_response)(ret, CT::dynamicCast(result->getCookie()));
+            (::IceInternal::Callback<T, CT>::_callback.get()->*_response)(ret, iceP_count, iceP_ret, CT::dynamicCast(result->getCookie()));
         }
     }
 
@@ -739,13 +769,13 @@ private:
 };
 
 template<class T, typename CT> Callback_ILogin_c2sRegisterPtr
-newCallback_ILogin_c2sRegister(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::std::string&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+newCallback_ILogin_c2sRegister(const IceUtil::Handle<T>& instance, void (T::*cb)(bool, ::Ice::Int, const ::MsNet::Login&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_ILogin_c2sRegister<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT> Callback_ILogin_c2sRegisterPtr
-newCallback_ILogin_c2sRegister(T* instance, void (T::*cb)(const ::std::string&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+newCallback_ILogin_c2sRegister(T* instance, void (T::*cb)(bool, ::Ice::Int, const ::MsNet::Login&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_ILogin_c2sRegister<T, CT>(instance, cb, excb, sentcb);
 }
@@ -759,7 +789,7 @@ public:
 
     typedef void (T::*Exception)(const ::Ice::Exception&);
     typedef void (T::*Sent)(bool);
-    typedef void (T::*Response)(bool);
+    typedef void (T::*Response)(bool, ::Ice::Int);
 
     CallbackNC_ILogin_c2sLogin(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), _response(cb)
@@ -769,10 +799,11 @@ public:
     virtual void completed(const ::Ice::AsyncResultPtr& result) const
     {
         ::MsNet::ILoginPrx proxy = ::MsNet::ILoginPrx::uncheckedCast(result->getProxy());
+        ::Ice::Int iceP_count;
         bool ret;
         try
         {
-            ret = proxy->end_c2sLogin(result);
+            ret = proxy->end_c2sLogin(iceP_count, result);
         }
         catch(const ::Ice::Exception& ex)
         {
@@ -781,7 +812,7 @@ public:
         }
         if(_response)
         {
-            (::IceInternal::CallbackNC<T>::_callback.get()->*_response)(ret);
+            (::IceInternal::CallbackNC<T>::_callback.get()->*_response)(ret, iceP_count);
         }
     }
 
@@ -791,13 +822,13 @@ private:
 };
 
 template<class T> Callback_ILogin_c2sLoginPtr
-newCallback_ILogin_c2sLogin(const IceUtil::Handle<T>& instance, void (T::*cb)(bool), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+newCallback_ILogin_c2sLogin(const IceUtil::Handle<T>& instance, void (T::*cb)(bool, ::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
     return new CallbackNC_ILogin_c2sLogin<T>(instance, cb, excb, sentcb);
 }
 
 template<class T> Callback_ILogin_c2sLoginPtr
-newCallback_ILogin_c2sLogin(T* instance, void (T::*cb)(bool), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+newCallback_ILogin_c2sLogin(T* instance, void (T::*cb)(bool, ::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
     return new CallbackNC_ILogin_c2sLogin<T>(instance, cb, excb, sentcb);
 }
@@ -811,7 +842,7 @@ public:
 
     typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
     typedef void (T::*Sent)(bool , const CT&);
-    typedef void (T::*Response)(bool, const CT&);
+    typedef void (T::*Response)(bool, ::Ice::Int, const CT&);
 
     Callback_ILogin_c2sLogin(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), _response(cb)
@@ -821,10 +852,11 @@ public:
     virtual void completed(const ::Ice::AsyncResultPtr& result) const
     {
         ::MsNet::ILoginPrx proxy = ::MsNet::ILoginPrx::uncheckedCast(result->getProxy());
+        ::Ice::Int iceP_count;
         bool ret;
         try
         {
-            ret = proxy->end_c2sLogin(result);
+            ret = proxy->end_c2sLogin(iceP_count, result);
         }
         catch(const ::Ice::Exception& ex)
         {
@@ -833,7 +865,7 @@ public:
         }
         if(_response)
         {
-            (::IceInternal::Callback<T, CT>::_callback.get()->*_response)(ret, CT::dynamicCast(result->getCookie()));
+            (::IceInternal::Callback<T, CT>::_callback.get()->*_response)(ret, iceP_count, CT::dynamicCast(result->getCookie()));
         }
     }
 
@@ -843,13 +875,13 @@ private:
 };
 
 template<class T, typename CT> Callback_ILogin_c2sLoginPtr
-newCallback_ILogin_c2sLogin(const IceUtil::Handle<T>& instance, void (T::*cb)(bool, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+newCallback_ILogin_c2sLogin(const IceUtil::Handle<T>& instance, void (T::*cb)(bool, ::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_ILogin_c2sLogin<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT> Callback_ILogin_c2sLoginPtr
-newCallback_ILogin_c2sLogin(T* instance, void (T::*cb)(bool, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+newCallback_ILogin_c2sLogin(T* instance, void (T::*cb)(bool, ::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_ILogin_c2sLogin<T, CT>(instance, cb, excb, sentcb);
 }

@@ -61,13 +61,15 @@
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>01.pj_common.lib;qtmaind.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5Bluetoothd.lib;Qt5Concurrentd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Helpd.lib;Qt5Locationd.lib;Qt5Multimediad.lib;Qt5MultimediaWidgetsd.lib;Qt5Networkd.lib;Qt5Nfcd.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5Positioningd.lib;Qt5PrintSupportd.lib;Qt5Qmld.lib;Qt5Quickd.lib;Qt5QuickWidgetsd.lib;Qt5Scriptd.lib;Qt5ScriptToolsd.lib;Qt5Sensorsd.lib;Qt5SerialPortd.lib;Qt5Sqld.lib;Qt5Svgd.lib;Qt5Testd.lib;Qt5UiToolsd.lib;Qt5WebChanneld.lib;Qt5WebSocketsd.lib;Qt5Widgetsd.lib;Qt5WinExtrasd.lib;Qt5Xmld.lib;Qt5XmlPatternsd.lib;Qt5AxBase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_BLUETOOTH_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_HELP_LIB;QT_LOCATION_LIB;QT_MULTIMEDIA_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_NETWORK_LIB;QT_NFC_LIB;QT_OPENGL_LIB;QT_POSITIONING_LIB;QT_PRINTSUPPORT_LIB;QT_QML_LIB;QT_QUICK_LIB;QT_QUICKWIDGETS_LIB;QT_SCRIPT_LIB;QT_SCRIPTTOOLS_LIB;QT_SENSORS_LIB;QT_SERIALPORT_LIB;QT_SQL_LIB;QT_SVG_LIB;QT_TESTLIB_LIB;QT_UITOOLS_LIB;QT_WEBCHANNEL_LIB;QT_WEBSOCKETS_LIB;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_XML_LIB;QT_XMLPATTERNS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtBluetooth;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtLocation;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNfc;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtPositioning;$(QTDIR)\include\QtPrintSupport;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtQuick;$(QTDIR)\include\QtQuickWidgets;$(QTDIR)\include\QtScript;$(QTDIR)\include\QtScriptTools;$(QTDIR)\include\QtSensors;$(QTDIR)\include\QtSerialPort;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtSvg;$(QTDIR)\include\QtTest;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebSockets;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWinExtras;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtXmlPatterns;$(SolutionDir)pj_common\generated\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat />
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -81,8 +83,11 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>01.pj_common.lib;qtmain.lib;Qt5AxContainer.lib;Qt5AxBase.lib;Qt5Bluetooth.lib;Qt5Concurrent.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Help.lib;Qt5Location.lib;Qt5Multimedia.lib;Qt5MultimediaWidgets.lib;Qt5Network.lib;Qt5Nfc.lib;Qt5OpenGL.lib;opengl32.lib;glu32.lib;Qt5Positioning.lib;Qt5PrintSupport.lib;Qt5Qml.lib;Qt5Quick.lib;Qt5QuickWidgets.lib;Qt5Script.lib;Qt5ScriptTools.lib;Qt5Sensors.lib;Qt5SerialPort.lib;Qt5Sql.lib;Qt5Svg.lib;Qt5Test.lib;Qt5UiTools.lib;Qt5WebChannel.lib;Qt5WebSockets.lib;Qt5Widgets.lib;Qt5WinExtras.lib;Qt5Xml.lib;Qt5XmlPatterns.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

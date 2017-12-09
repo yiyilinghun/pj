@@ -5,6 +5,6 @@ int main(int argc, char *argv[])
 {
     Ice::InitializationData xInitData;
     xInitData.properties = Ice::createProperties();
-    xInitData.properties->load("server.cfg");
+    xInitData.properties->load("../../server.cfg");
     return g_ice_server_app.main(argc, argv, xInitData);
 }

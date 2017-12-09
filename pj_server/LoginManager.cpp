@@ -2,19 +2,43 @@
 #include "pj_server.h"
 #include "LoginManager.h"
 
-PJ_LoginManager::PJ_LoginManager(Ice::ObjectAdapterPtr xAdapter, Freeze::ConnectionPtr xFreezeConnection)
-    : m_DictData(xFreezeConnection, "LoginDB")
+//PJ_LoginManager::PJ_LoginManager(Ice::ObjectAdapterPtr xAdapter, Freeze::ConnectionPtr xFreezeConnection)
+//    : m_writeDictData(xFreezeConnection, "LoginDB")
+//{
+//    xAdapter->add(this, Ice::stringToIdentity("PJ"));
+//    for (int32_t i = 0; i < 100; i++)
+//    {
+//        m_readDictData.push_back(new DBDictionary<pj_db>(xFreezeConnection, "LoginDB"));
+//    }
+//    m_count = m_writeDictData.GetCount();
+//}
+
+PJ_LoginManager::PJ_LoginManager(Ice::ObjectAdapterPtr xAdapter, ::std::string name)
+//: m_writeDictData(xFreezeConnection, "LoginDB")
 {
-    xAdapter->add(this, Ice::stringToIdentity("PJ"));
+    xAdapter->add(this, Ice::stringToIdentity(name));
+    //for (int32_t i = 0; i < 100; i++)
+    //{
+    //    m_readDictData.push_back(new DBDictionary<pj_db>(xFreezeConnection, "LoginDB"));
+    //}
+    //m_count = m_writeDictData.GetCount();
 }
 
 static int c2sRegister_num = 0;
 static int c2sLoginnum = 0;
 static Int64 last_time = 0;
-::std::string
-PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, const ::Ice::Current& xCurrent)
+
+
+bool
+PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, ::Ice::Int& r0, ::MsNet::Login& ret, const ::Ice::Current& xCurrent)
 {
     c2sRegister_num++;
+    qDebug(QString("Register%1").arg(c2sRegister_num).toStdString().c_str());
+
+    ret.account = "243579081111111111111111111111111111758924375908234759085479082543079845230798254307982570493878945023780924537089";
+    ret.password = ret.account + ret.account + ret.account + ret.account;
+    ret.Info = ret.password + ret.password + ret.password + ret.password;
+    r0 = c2sRegister_num;
 
     SYSTEMTIME st;
     ::GetLocalTime(&st);
@@ -32,43 +56,69 @@ PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, const ::Ice::Current&
     //{
     //    printf("c2sRegister:%d  c2sLogin:%d\n", c2sRegister_num, c2sLoginnum);
     //}
-    if (m_DictData.ContainsKey(xParam.account))
-    {
-        return u8"’À∫≈“—æ≠¥Ê‘⁄!";
-    }
+    //if (m_writeDictData.ContainsKey(xParam.account))
+    //{
+    //    return u8"’À∫≈“—æ≠¥Ê‘⁄!";
+    //}
 
-    ::MsDB::Account xAccount;
-    xAccount.account = xParam.account;
-    xAccount.password = xParam.password;
-    xAccount.Info = xParam.Info;
-    m_DictData[xParam.account] = xAccount;
+    //::MsDB::Account xAccount;
+    //xAccount.account = xParam.account;
+    //xAccount.password = xParam.password;
+    //xAccount.Info = xParam.Info;
+    //m_writeDictData.Add(xParam.account, xAccount);
 
     return u8"’À∫≈◊¢≤·≥…π¶!";
 }
 
 bool
-PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, const ::Ice::Current& xCurrent)
+PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, ::Ice::Int& r0, const ::Ice::Current& xCurrent)
 {
+    //if (aa)
+    //{
+    //    MsNet::Login xxParam;
+    //    xxParam.account = "1";
+    //    xxParam.password = "1";
+    //    g_ice_server_app.m_LoginPrx2->begin_c2sLogin(xxParam);
+    //}
+    //else
+    //{
+    //    MsNet::Login xxParam;
+    //    xxParam.account = "1";
+    //    xxParam.password = "1";
+    //    g_ice_server_app.m_LoginPrx1->begin_c2sLogin(xxParam);
+    //}
+
+
     c2sLoginnum++;
+    qDebug(QString("c2sLogin%1").arg(c2sLoginnum).toStdString().c_str());
+    r0 = c2sLoginnum;
     //if (c2sLoginnum % 1000 == 0)
     //{
     //    printf("c2sRegister:%d  c2sLogin:%d\n", c2sRegister_num, c2sLoginnum);
     //}
 
-    if (!m_DictData.ContainsKey(xParam.account))
-    {
-        //return "’À∫≈√‹¬Î¥ÌŒÛ!";
-        //return "’À∫≈≤ª¥Ê‘⁄!";
-        return false;
-    }
+    //if (!m_writeDictData.ContainsKey(xParam.account))
+    //{
+    //    //return "’À∫≈√‹¬Î¥ÌŒÛ!";
+    //    //return "’À∫≈≤ª¥Ê‘⁄!";
+    //    return false;
+    //}
 
-    if (m_DictData[xParam.account].GetValue().account != xParam.account || m_DictData[xParam.account].GetValue().password != xParam.password)
-    {
-        //return "’À∫≈√‹¬Î¥ÌŒÛ!";
-        return false;
-    }
+    //if (m_writeDictData.GetValue(xParam.account).password != xParam.password)
+    //{
+    //    //return "’À∫≈√‹¬Î¥ÌŒÛ!";
+    //    return false;
+    //}
 
     //return "’À∫≈√‹¬Î’˝»∑!";
+    if (true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
     return true;
 }
 
@@ -76,32 +126,44 @@ PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, const ::Ice::Current& xC
 ::std::string
 PJ_LoginManager::local_Register(::std::string&& account, ::std::string&& password)
 {
-    //c2sRegister_num++;
-
-    //SYSTEMTIME st;
-    //::GetLocalTime(&st);
-
-    //Int64 xNow;
-    //::SystemTimeToFileTime(&st, (LPFILETIME)&xNow);
-    //if (xNow - last_time > 10000000)
+    //if (m_writeDictData.ContainsKey(account))
     //{
-    //    printf("c2sRegister:%d  c2sLogin:%d\n", c2sRegister_num, c2sLoginnum);
-    //    last_time = xNow;
-    //    c2sRegister_num = 0;
+    //    return u8"’À∫≈“—æ≠¥Ê‘⁄!";
     //}
 
-    if (m_DictData.ContainsKey(account))
-    {
-        return u8"’À∫≈“—æ≠¥Ê‘⁄!";
-    }
-
-    ::MsDB::Account xAccount;
-    xAccount.account = account;
-    xAccount.password = password;
-    xAccount.Info = u8"";
-    m_DictData[account] = xAccount;
+    //::MsDB::Account xAccount;
+    //xAccount.account = account;
+    //xAccount.password = password;
+    //xAccount.Info = u8"";
+    //m_writeDictData.Add(account, xAccount);
 
     return u8"’À∫≈◊¢≤·≥…π¶!";
 }
 
+
+bool
+PJ_LoginManager::local_Login(::std::string&& account, ::std::string&& password, int32_t index)
+{
+    DBDictionary<pj_db>* readDict = m_readDictData[index - 1];
+    if (!readDict->ContainsKey(account))
+    {
+        // "’À∫≈≤ª¥Ê‘⁄!";
+        return false;
+    }
+
+    if (readDict->GetValue(account).password != password)
+    {
+        // "’À∫≈√‹¬Î¥ÌŒÛ!";
+        return false;
+    }
+
+    // "’À∫≈√‹¬Î’˝»∑!";
+    return true;
+}
+
+int32_t PJ_LoginManager::update_count()
+{
+    //m_count = m_writeDictData.GetCount();
+    return m_count;
+}
 

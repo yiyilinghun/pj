@@ -6,47 +6,72 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>816</width>
+    <height>747</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>pj_server</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>600</width>
-     <height>23</height>
-    </rect>
-   </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="testButton1">
+      <property name="text">
+       <string>测试一</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="testButton2">
+      <property name="text">
+       <string>测试二</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="pj_server.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>testButton1</sender>
+   <signal>clicked()</signal>
+   <receiver>ui_qt_server_wnd</receiver>
+   <slot>test1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>59</x>
+     <y>370</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>testButton2</sender>
+   <signal>clicked()</signal>
+   <receiver>ui_qt_server_wnd</receiver>
+   <slot>test2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>370</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
-  <slot>test()</slot>
-  <slot>test0()</slot>
   <slot>test1()</slot>
   <slot>test2()</slot>
-  <slot>test3()</slot>
-  <slot>test4()</slot>
-  <slot>test5()</slot>
-  <slot>test6()</slot>
  </slots>
 </ui>

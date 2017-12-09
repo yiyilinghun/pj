@@ -28,15 +28,6 @@
     <ClInclude Include="Precompiled.h">
       <Filter>00.预编译头</Filter>
     </ClInclude>
-    <ClInclude Include="generated\pj_common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="generated\pj_database.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="generated\pj_Login.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\packages\datastruct\pj_db.h">
       <Filter>02.数据结构</Filter>
     </ClInclude>
@@ -55,10 +46,22 @@
     <ClInclude Include="..\packages\baselib\MsBase.h">
       <Filter>01.基础定义</Filter>
     </ClInclude>
+    <ClInclude Include="generated\pj_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generated\pj_database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generated\pj_Login.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Precompiled.cpp">
       <Filter>00.预编译头</Filter>
+    </ClCompile>
+    <ClCompile Include="..\packages\datastruct\pj_db.cpp">
+      <Filter>02.数据结构</Filter>
     </ClCompile>
     <ClCompile Include="generated\pj_common.cpp">
       <Filter>Source Files</Filter>
@@ -68,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="generated\pj_Login.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\packages\datastruct\pj_db.cpp">
-      <Filter>02.数据结构</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

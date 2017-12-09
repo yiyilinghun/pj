@@ -104,9 +104,11 @@ MsNet::ILogin::_iceD_c2sRegister(::IceInternal::Incoming& inS, const ::Ice::Curr
     ::MsNet::Login iceP_xParam;
     istr->readAll(iceP_xParam);
     inS.endReadParams();
-    ::std::string ret = this->c2sRegister(::std::move(iceP_xParam), current);
+    int iceP_count;
+    ::MsNet::Login iceP_ret;
+    bool ret = this->c2sRegister(::std::move(iceP_xParam), iceP_count, iceP_ret, current);
     auto ostr = inS.startWriteParams();
-    ostr->writeAll(ret);
+    ostr->writeAll(iceP_count, iceP_ret, ret);
     inS.endWriteParams();
     return true;
 }
@@ -119,9 +121,10 @@ MsNet::ILogin::_iceD_c2sLogin(::IceInternal::Incoming& inS, const ::Ice::Current
     ::MsNet::Login iceP_xParam;
     istr->readAll(iceP_xParam);
     inS.endReadParams();
-    bool ret = this->c2sLogin(::std::move(iceP_xParam), current);
+    int iceP_count;
+    bool ret = this->c2sLogin(::std::move(iceP_xParam), iceP_count, current);
     auto ostr = inS.startWriteParams();
-    ostr->writeAll(ret);
+    ostr->writeAll(iceP_count, ret);
     inS.endWriteParams();
     return true;
 }
@@ -170,7 +173,7 @@ MsNet::ILogin::_iceDispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
 }
 
 void
-MsNet::ILoginPrx::_iceI_c2sRegister(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::std::string>>& outAsync, const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context)
+MsNet::ILoginPrx::_iceI_c2sRegister(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::C2sRegisterResult>>& outAsync, const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context)
 {
     _checkTwowayOnly(iceC_MsNet_ILogin_c2sRegister_name);
     outAsync->invoke(iceC_MsNet_ILogin_c2sRegister_name, ::Ice::OperationMode::Normal, ::Ice::FormatType::DefaultFormat, context,
@@ -178,11 +181,17 @@ MsNet::ILoginPrx::_iceI_c2sRegister(const ::std::shared_ptr<::IceInternal::Outgo
         {
             ostr->writeAll(iceP_xParam);
         },
-        nullptr);
+        nullptr,
+        [](::Ice::InputStream* istr)
+        {
+            ::MsNet::ILogin::C2sRegisterResult v;
+            istr->readAll(v.count, v.ret, v.returnValue);
+            return v;
+        });
 }
 
 void
-MsNet::ILoginPrx::_iceI_c2sLogin(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<bool>>& outAsync, const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context)
+MsNet::ILoginPrx::_iceI_c2sLogin(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::C2sLoginResult>>& outAsync, const ::MsNet::Login& iceP_xParam, const ::Ice::Context& context)
 {
     _checkTwowayOnly(iceC_MsNet_ILogin_c2sLogin_name);
     outAsync->invoke(iceC_MsNet_ILogin_c2sLogin_name, ::Ice::OperationMode::Normal, ::Ice::FormatType::DefaultFormat, context,
@@ -190,7 +199,13 @@ MsNet::ILoginPrx::_iceI_c2sLogin(const ::std::shared_ptr<::IceInternal::Outgoing
         {
             ostr->writeAll(iceP_xParam);
         },
-        nullptr);
+        nullptr,
+        [](::Ice::InputStream* istr)
+        {
+            ::MsNet::ILogin::C2sLoginResult v;
+            istr->readAll(v.count, v.returnValue);
+            return v;
+        });
 }
 
 ::std::shared_ptr<::Ice::ObjectPrx>
@@ -257,11 +272,11 @@ IceProxy::MsNet::ILogin::_iceI_begin_c2sRegister(const ::MsNet::Login& iceP_xPar
     return result;
 }
 
-::std::string
-IceProxy::MsNet::ILogin::end_c2sRegister(const ::Ice::AsyncResultPtr& result)
+bool
+IceProxy::MsNet::ILogin::end_c2sRegister(::Ice::Int& iceP_count, ::MsNet::Login& iceP_ret, const ::Ice::AsyncResultPtr& result)
 {
     ::Ice::AsyncResult::_check(result, this, iceC_MsNet_ILogin_c2sRegister_name);
-    ::std::string ret;
+    bool ret;
     if(!result->_waitForResponse())
     {
         try
@@ -274,6 +289,8 @@ IceProxy::MsNet::ILogin::end_c2sRegister(const ::Ice::AsyncResultPtr& result)
         }
     }
     ::Ice::InputStream* istr = result->_startReadParams();
+    istr->read(iceP_count);
+    istr->read(iceP_ret);
     istr->read(ret);
     result->_endReadParams();
     return ret;
@@ -300,7 +317,7 @@ IceProxy::MsNet::ILogin::_iceI_begin_c2sLogin(const ::MsNet::Login& iceP_xParam,
 }
 
 bool
-IceProxy::MsNet::ILogin::end_c2sLogin(const ::Ice::AsyncResultPtr& result)
+IceProxy::MsNet::ILogin::end_c2sLogin(::Ice::Int& iceP_count, const ::Ice::AsyncResultPtr& result)
 {
     ::Ice::AsyncResult::_check(result, this, iceC_MsNet_ILogin_c2sLogin_name);
     bool ret;
@@ -316,6 +333,7 @@ IceProxy::MsNet::ILogin::end_c2sLogin(const ::Ice::AsyncResultPtr& result)
         }
     }
     ::Ice::InputStream* istr = result->_startReadParams();
+    istr->read(iceP_count);
     istr->read(ret);
     result->_endReadParams();
     return ret;
@@ -387,8 +405,12 @@ MsNet::ILogin::_iceD_c2sRegister(::IceInternal::Incoming& inS, const ::Ice::Curr
     ::MsNet::Login iceP_xParam;
     istr->read(iceP_xParam);
     inS.endReadParams();
-    ::std::string ret = this->c2sRegister(iceP_xParam, current);
+    ::Ice::Int iceP_count;
+    ::MsNet::Login iceP_ret;
+    bool ret = this->c2sRegister(iceP_xParam, iceP_count, iceP_ret, current);
     ::Ice::OutputStream* ostr = inS.startWriteParams();
+    ostr->write(iceP_count);
+    ostr->write(iceP_ret);
     ostr->write(ret);
     inS.endWriteParams();
     return true;
@@ -402,8 +424,10 @@ MsNet::ILogin::_iceD_c2sLogin(::IceInternal::Incoming& inS, const ::Ice::Current
     ::MsNet::Login iceP_xParam;
     istr->read(iceP_xParam);
     inS.endReadParams();
-    bool ret = this->c2sLogin(iceP_xParam, current);
+    ::Ice::Int iceP_count;
+    bool ret = this->c2sLogin(iceP_xParam, iceP_count, current);
     ::Ice::OutputStream* ostr = inS.startWriteParams();
+    ostr->write(iceP_count);
     ostr->write(ret);
     inS.endWriteParams();
     return true;

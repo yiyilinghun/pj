@@ -21,25 +21,25 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_pj_client_t {
+struct qt_meta_stringdata_qt_client_wnd_t {
     QByteArrayData data[1];
-    char stringdata0[10];
+    char stringdata0[14];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_pj_client_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_qt_client_wnd_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_pj_client_t qt_meta_stringdata_pj_client = {
+static const qt_meta_stringdata_qt_client_wnd_t qt_meta_stringdata_qt_client_wnd = {
     {
-QT_MOC_LITERAL(0, 0, 9) // "pj_client"
+QT_MOC_LITERAL(0, 0, 13) // "qt_client_wnd"
 
     },
-    "pj_client"
+    "qt_client_wnd"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_pj_client[] = {
+static const uint qt_meta_data_qt_client_wnd[] = {
 
  // content:
        7,       // revision
@@ -55,7 +55,7 @@ static const uint qt_meta_data_pj_client[] = {
        0        // eod
 };
 
-void pj_client::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void qt_client_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -63,26 +63,26 @@ void pj_client::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
     Q_UNUSED(_a);
 }
 
-const QMetaObject pj_client::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_pj_client.data,
-      qt_meta_data_pj_client,  qt_static_metacall, nullptr, nullptr}
+const QMetaObject qt_client_wnd::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_qt_client_wnd.data,
+      qt_meta_data_qt_client_wnd,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *pj_client::metaObject() const
+const QMetaObject *qt_client_wnd::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *pj_client::qt_metacast(const char *_clname)
+void *qt_client_wnd::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_pj_client.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_qt_client_wnd.stringdata0))
         return static_cast<void*>(this);
     return QMainWindow::qt_metacast(_clname);
 }
 
-int pj_client::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int qt_client_wnd::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     return _id;

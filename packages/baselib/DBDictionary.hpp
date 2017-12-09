@@ -81,15 +81,15 @@ public:
         return (int)m_dbMap.size();
     }
 
-    DBIterator operator [](_TKey key)
-    {
-        if (!this->ContainsKey(key))
-        {
-            _TValue xTempValue;
-            this->Add(key, xTempValue);
-        }
-        return DBIterator(this->m_dbMap, m_dbMap.find(key));
-    }
+    //DBIterator operator [](_TKey key)
+    //{
+    //    if (!this->ContainsKey(key))
+    //    {
+    //        _TValue xTempValue;
+    //        this->Add(key, xTempValue);
+    //    }
+    //    return DBIterator(this->m_dbMap, m_dbMap.find(key));
+    //}
 
     _TValue GetValue(_TKey key)
     {
