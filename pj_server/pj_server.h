@@ -102,7 +102,7 @@ protected:
                 {
                     qDebug(u8"Ê§°Ü");
                 }
-                qDebug("Completed");
+                qDebug(u8"Completed");
             }
         }
 

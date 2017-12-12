@@ -26,16 +26,16 @@ PJ_LoginManager::PJ_LoginManager(Ice::ObjectAdapterPtr xAdapter, ::std::string n
 
 static int c2sRegister_num = 0;
 static int c2sLoginnum = 0;
-static Int64 last_time = 0;
+static int64_t last_time = 0;
 
 
 bool
 PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, ::Ice::Int& r0, ::MsNet::Login& ret, const ::Ice::Current& xCurrent)
 {
     c2sRegister_num++;
-    qDebug(QString("Register%1").arg(c2sRegister_num).toStdString().c_str());
+    qDebug(QString(u8"Register%1").arg(c2sRegister_num).toStdString().c_str());
 
-    ret.account = "243579081111111111111111111111111111758924375908234759085479082543079845230798254307982570493878945023780924537089";
+    ret.account = u8"243579081111111111111111111111111111758924375908234759085479082543079845230798254307982570493878945023780924537089";
     ret.password = ret.account + ret.account + ret.account + ret.account;
     ret.Info = ret.password + ret.password + ret.password + ret.password;
     r0 = c2sRegister_num;
@@ -43,7 +43,7 @@ PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, ::Ice::Int& r0, ::MsN
     SYSTEMTIME st;
     ::GetLocalTime(&st);
 
-    Int64 xNow;
+    int64_t xNow;
     ::SystemTimeToFileTime(&st, (LPFILETIME)&xNow);
     if (xNow - last_time > 10000000)
     {
@@ -90,7 +90,7 @@ PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, ::Ice::Int& r0, const ::
 
 
     c2sLoginnum++;
-    qDebug(QString("c2sLogin%1").arg(c2sLoginnum).toStdString().c_str());
+    qDebug(QString(u8"c2sLogin%1").arg(c2sLoginnum).toStdString().c_str());
     r0 = c2sLoginnum;
     //if (c2sLoginnum % 1000 == 0)
     //{

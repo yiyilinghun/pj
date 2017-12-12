@@ -35,10 +35,10 @@
     <ClCompile Include="Precompiled.cpp">
       <Filter>00.预编译头</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="pj_tools.cpp">
       <Filter>03.入口文件</Filter>
     </ClCompile>
-    <ClCompile Include="pj_tools.cpp">
+    <ClCompile Include="pj_tools_main.cpp">
       <Filter>03.入口文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,9 +8,9 @@ ice_client_app::ice_client_app()
     ;
 }
 
-MemoryDictionary<mstr, Ice::CommunicatorPtr> g_CommunicatorPtr;
-MemoryDictionary<mstr, Ice::ObjectPrx> g_ObjectPrx;
-MemoryDictionary<mstr, MsNet::ILoginPrx> g_LoginPrx;
+Ice::CommunicatorPtr g_CommunicatorPtr;
+Ice::ObjectPrx g_ObjectPrx;
+MsNet::ILoginPrx g_LoginPrx;
 
 bool
 ice_client_app::init_client()
@@ -34,11 +34,11 @@ ice_client_app::init_client()
 
         //    if (g_LoginPrx["main"]->c2sLogin(xParam))
         //    {
-        //        qDebug("ok");
+        //        qDebug(u8"ok");
         //    }
         //    else
         //    {
-        //        qDebug("no");
+        //        qDebug(u8"no");
         //    }
         //    return (INT_PTR)TRUE;
         //}

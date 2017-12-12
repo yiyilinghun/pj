@@ -38,7 +38,7 @@ public:
         //    double xBegin = clock();
         //    for (int i = 0; i < 10000000; i++)
         //    {
-        //        QString x = QString("%1").arg(i, 8, 10, QChar('0'));
+        //        QString x = QString(u8"%1").arg(i, 8, 10, QChar('0'));
         //        if (!this->m_LoginManager->local_Login(x.toStdString(), x.toStdString(), m_index))
         //        {
         //            failed++;
@@ -204,7 +204,7 @@ void qt_server_wnd::closeEvent(QCloseEvent *event)
 //void
 //qt_server_wnd::timeout(QPrivateSignal)
 //{
-//    //qDebug("on timeout");
+//    //qDebug(u8"on timeout");
 //
 //    QList<::Ice::AsyncResultPtr> xTempList;
 //    QMapIterator<::Ice::AsyncResultPtr, std::function<bool(const ::Ice::AsyncResultPtr&)>> itmap(m_setAsyncResult);
@@ -225,7 +225,7 @@ void qt_server_wnd::closeEvent(QCloseEvent *event)
 //            {
 //                qDebug(u8"Ê§°Ü");
 //            }
-//            qDebug("Completed");
+//            qDebug(u8"Completed");
 //        }
 //    }
 //
@@ -240,14 +240,14 @@ void qt_server_wnd::closeEvent(QCloseEvent *event)
 
 void
 qt_server_wnd::test0() {
-    qDebug("test0");
+    qDebug(u8"test0");
 }
 
 
 
 void
 qt_server_wnd::test1() {
-    qDebug("test1");
+    qDebug(u8"test1");
     MsNet::Login xxParam;
     xxParam.account = "1";
     xxParam.password = "1";
@@ -303,25 +303,25 @@ qt_server_wnd::test2() {
     //g_ice_server_app.m_LoginPrx2
     //    = MsNet::ILoginPrx::checkedCast(g_ice_server_app.communicator()->stringToProxy("PJ2:tcp -h 192.168.4.227 -p 10001"));
 
-    qDebug("test2");
+    qDebug(u8"test2");
 }
 
 
 void
 qt_server_wnd::test3() {
-    qDebug("test3");
+    qDebug(u8"test3");
 }
 
 
 void
 qt_server_wnd::test4() {
-    qDebug("test4");
+    qDebug(u8"test4");
 }
 
 
 void
 qt_server_wnd::test5() {
-    qDebug("test5");
+    qDebug(u8"test5");
 }
 
 
@@ -331,9 +331,9 @@ MsNetLogin::ms_exec2sLogin(bool _ice_result,
     const int32_t r0
 )
 {
-    g_ice_server_app.m_MainWnd->ui.testButton1->setText(QString("%1").arg(r0));
+    g_ice_server_app.m_MainWnd->ui.testButton1->setText(QString(u8"%1").arg(r0));
     this->msc2sLogin(p1);
-    qDebug("dsjlkfjadslk;jf32u43823");
+    qDebug(u8"dsjlkfjadslk;jf32u43823");
     return _ice_result;
 }
 
@@ -345,10 +345,10 @@ MsNetLogin::ms_exec2sRegister(bool _ice_result,
     const MsNet::Login r1
 )
 {
-    g_ice_server_app.m_MainWnd->ui.testButton2->setText(QString("%1").arg(r0));
+    g_ice_server_app.m_MainWnd->ui.testButton2->setText(QString(u8"%1").arg(r0));
 
     this->msc2sRegister(p1);
-    qDebug("dsjlkfjadslk;jf32u43823");
+    qDebug(u8"dsjlkfjadslk;jf32u43823");
     return _ice_result;
 }
 

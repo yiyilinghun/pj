@@ -115,6 +115,7 @@
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <ForcedIncludeFiles>Precompiled.h</ForcedIncludeFiles>
       <AdditionalOptions>-Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,7 +127,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PJ_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -134,6 +135,7 @@
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <ForcedIncludeFiles>Precompiled.h</ForcedIncludeFiles>
       <AdditionalOptions>-Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,6 +156,7 @@
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <ForcedIncludeFiles>Precompiled.h</ForcedIncludeFiles>
       <AdditionalOptions>-Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,13 +172,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PJ_EXPORTS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeaderFile>Precompiled.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <ForcedIncludeFiles>Precompiled.h</ForcedIncludeFiles>
       <AdditionalOptions>-Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -186,14 +190,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\packages\baselib\DBDictionary.hpp" />
-    <ClInclude Include="..\packages\baselib\MemoryDictionary.hpp" />
-    <ClInclude Include="..\packages\baselib\MemoryList.hpp" />
-    <ClInclude Include="..\packages\baselib\MemoryVector.hpp" />
     <ClInclude Include="..\packages\baselib\MsBase.h" />
     <ClInclude Include="..\packages\datastruct\pj_db.h" />
     <ClInclude Include="generated\pj_common.h" />
     <ClInclude Include="generated\pj_database.h" />
     <ClInclude Include="generated\pj_Login.h" />
+    <ClInclude Include="pj_loader.h" />
     <ClInclude Include="Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +203,7 @@
     <ClCompile Include="generated\pj_common.cpp" />
     <ClCompile Include="generated\pj_database.cpp" />
     <ClCompile Include="generated\pj_Login.cpp" />
+    <ClCompile Include="pj_loader.cpp" />
     <ClCompile Include="Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

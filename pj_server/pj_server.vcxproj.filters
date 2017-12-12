@@ -41,11 +41,11 @@
     <ClCompile Include="pj_server.cpp">
       <Filter>03.入口文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>03.入口文件</Filter>
-    </ClCompile>
     <ClCompile Include="LoginManager.cpp">
       <Filter>10.登录管理</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_server_main.cpp">
+      <Filter>03.入口文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

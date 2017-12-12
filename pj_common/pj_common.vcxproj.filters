@@ -23,6 +23,9 @@
     <Filter Include="00.预编译头">
       <UniqueIdentifier>{70d8334c-8894-424d-9b81-59e380770e65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08.底层算法">
+      <UniqueIdentifier>{88cffaa8-2934-4485-8fdd-ffc5379be945}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Precompiled.h">
@@ -32,15 +35,6 @@
       <Filter>02.数据结构</Filter>
     </ClInclude>
     <ClInclude Include="..\packages\baselib\DBDictionary.hpp">
-      <Filter>01.基础定义</Filter>
-    </ClInclude>
-    <ClInclude Include="..\packages\baselib\MemoryDictionary.hpp">
-      <Filter>01.基础定义</Filter>
-    </ClInclude>
-    <ClInclude Include="..\packages\baselib\MemoryList.hpp">
-      <Filter>01.基础定义</Filter>
-    </ClInclude>
-    <ClInclude Include="..\packages\baselib\MemoryVector.hpp">
       <Filter>01.基础定义</Filter>
     </ClInclude>
     <ClInclude Include="..\packages\baselib\MsBase.h">
@@ -54,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="generated\pj_Login.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pj_loader.h">
+      <Filter>08.底层算法</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="generated\pj_Login.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_loader.cpp">
+      <Filter>08.底层算法</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
