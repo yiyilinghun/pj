@@ -71,6 +71,8 @@ typedef void*   IntPtr;
 #include <QtCore/QFile>
 #include <QtCore/QBuffer>
 
+#include <QtWidgets/QWidget>
+
 template <typename T>
 QDataStream& operator>>(QDataStream &s, T &c)
 {

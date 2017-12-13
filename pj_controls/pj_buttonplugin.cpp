@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_button.h"
 #include "pj_buttonplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_buttonPlugin::isInitialized() const
 
 QWidget *pj_buttonPlugin::createWidget(QWidget *parent)
 {
-    return new pj_button(parent);
+    return NEW pj_button(parent);
 }
 
 QString pj_buttonPlugin::name() const

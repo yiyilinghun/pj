@@ -40,6 +40,9 @@
     <ClInclude Include="..\packages\baselib\MsBase.h">
       <Filter>01.基础定义</Filter>
     </ClInclude>
+    <ClInclude Include="pj_loader.h">
+      <Filter>08.底层算法</Filter>
+    </ClInclude>
     <ClInclude Include="generated\pj_common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -49,9 +52,6 @@
     <ClInclude Include="generated\pj_Login.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pj_loader.h">
-      <Filter>08.底层算法</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Precompiled.cpp">
@@ -59,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="..\packages\datastruct\pj_db.cpp">
       <Filter>02.数据结构</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_loader.cpp">
+      <Filter>08.底层算法</Filter>
     </ClCompile>
     <ClCompile Include="generated\pj_common.cpp">
       <Filter>Source Files</Filter>
@@ -68,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="generated\pj_Login.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pj_loader.cpp">
-      <Filter>08.底层算法</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

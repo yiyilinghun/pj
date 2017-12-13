@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_listview.h"
 #include "pj_listviewplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_listviewPlugin::isInitialized() const
 
 QWidget *pj_listviewPlugin::createWidget(QWidget *parent)
 {
-    return new pj_listview(parent);
+    return NEW pj_listview(parent);
 }
 
 QString pj_listviewPlugin::name() const

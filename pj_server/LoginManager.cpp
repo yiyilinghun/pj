@@ -8,7 +8,7 @@
 //    xAdapter->add(this, Ice::stringToIdentity("PJ"));
 //    for (int32_t i = 0; i < 100; i++)
 //    {
-//        m_readDictData.push_back(new DBDictionary<pj_db>(xFreezeConnection, "LoginDB"));
+//        m_readDictData.push_back(NEW DBDictionary<pj_db>(xFreezeConnection, "LoginDB"));
 //    }
 //    m_count = m_writeDictData.GetCount();
 //}
@@ -19,7 +19,7 @@ PJ_LoginManager::PJ_LoginManager(Ice::ObjectAdapterPtr xAdapter, ::std::string n
     xAdapter->add(this, Ice::stringToIdentity(name));
     //for (int32_t i = 0; i < 100; i++)
     //{
-    //    m_readDictData.push_back(new DBDictionary<pj_db>(xFreezeConnection, "LoginDB"));
+    //    m_readDictData.push_back(NEW DBDictionary<pj_db>(xFreezeConnection, "LoginDB"));
     //}
     //m_count = m_writeDictData.GetCount();
 }

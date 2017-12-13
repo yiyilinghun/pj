@@ -3,6 +3,8 @@
 
 int main(int argc, char *argv[])
 {
+    BEGIN_INIT;
+
     Ice::InitializationData xInitData;
     xInitData.properties = Ice::createProperties();
     xInitData.properties->load("../../server.cfg");

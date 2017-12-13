@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_label.h"
 #include "pj_labelplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_labelPlugin::isInitialized() const
 
 QWidget *pj_labelPlugin::createWidget(QWidget *parent)
 {
-    return new pj_label(parent);
+    return NEW pj_label(parent);
 }
 
 QString pj_labelPlugin::name() const

@@ -3,10 +3,10 @@
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
-    <QTDIR>D:\Qt\Qt5.9.3\5.9.3\msvc2017_64</QTDIR>
+    <QTDIR>F:\Qt\Qt5.9.3\5.9.3\msvc2017_64</QTDIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
-    <QTDIR>D:\Qt\Qt5.9.3\5.9.3\msvc2017_64</QTDIR>
+    <QTDIR>F:\Qt\Qt5.9.3\5.9.3\msvc2017_64</QTDIR>
   </PropertyGroup>
 </Project>

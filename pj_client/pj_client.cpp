@@ -59,12 +59,12 @@ ice_client_app::init_client()
         //
         //            xAdapter->activate();
         //
-        //            ThreadTest* xThread = new ThreadTest(m_LoginManager, 0);
+        //            ThreadTest* xThread = NEW ThreadTest(m_LoginManager, 0);
         //            xThread->start(QThread::HighestPriority);
         //
         //            for (int32_t i = 1; i < 7; i++)
         //            {
-        //                ThreadTest* xThread = new ThreadTest(m_LoginManager, i);
+        //                ThreadTest* xThread = NEW ThreadTest(m_LoginManager, i);
         //                xThread->start(QThread::NormalPriority);
         //            }
         //        }

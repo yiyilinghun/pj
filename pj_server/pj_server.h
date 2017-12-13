@@ -188,10 +188,10 @@ public:
     ice_server_app();
     ~ice_server_app()
     {
-        if (m_MainWnd)
-        {
-            delete m_MainWnd;
-        }
+        //if (m_MainWnd)
+        //{
+        //    delete m_MainWnd;
+        //}
     }
 
     virtual int run(int, char *[]);

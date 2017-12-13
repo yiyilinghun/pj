@@ -44,8 +44,8 @@ struct xyUnit
 struct xyTextureInfo
 {
     IntPtr textureHandle = nullptr;
-    uint64_t resKey;
-    uint64_t wasKey;
+    uint64_t resKey = 0;
+    uint64_t wasKey = 0;
     int32_t width;
     int32_t height;
     int32_t hotX;
@@ -79,7 +79,7 @@ public:
     //Boolean pjGetWasTextures(xyTextureInfo* ptrTextureInfo, int32_t& textureSum);
 
     // 加载动画
-    Boolean pjGetWasTextures(xyTextureInfo& textureInfo, std::vector<QBuffer*>& xListTexStream);
+    Boolean pjGetWasTextures(uint64_t unitKey, xyTextureInfo& textureInfo, std::vector<QBuffer*>& xListTexStream);
 
     // 资源map
     std::map<uint64_t, xyUnit> m_mapReses;

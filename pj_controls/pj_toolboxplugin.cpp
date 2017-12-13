@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_toolbox.h"
 #include "pj_toolboxplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_toolboxPlugin::isInitialized() const
 
 QWidget *pj_toolboxPlugin::createWidget(QWidget *parent)
 {
-    return new pj_toolbox(parent);
+    return NEW pj_toolbox(parent);
 }
 
 QString pj_toolboxPlugin::name() const

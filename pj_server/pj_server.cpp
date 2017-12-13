@@ -155,7 +155,7 @@ int
 ice_server_app::run(int argc, char* argv[])
 {
     QApplication a(argc, argv);
-    m_MainWnd = new qt_server_wnd();
+    m_MainWnd = NEW qt_server_wnd();
     m_MainWnd->show();
     return a.exec();
 }
@@ -296,7 +296,7 @@ qt_server_wnd::test1() {
 void
 qt_server_wnd::test2() {
 
-    g_ice_server_app.m_LoginPrx1.reset(new MsNetLogin(0));
+    g_ice_server_app.m_LoginPrx1.reset(NEW MsNetLogin(0));
     g_ice_server_app.m_LoginPrx1->m_Prx
         = MsNet::ILoginPrx::checkedCast(g_ice_server_app.communicator()->stringToProxy("PJ1:tcp -h 127.0.0.1 -p 10000"));
 

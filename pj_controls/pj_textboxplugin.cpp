@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_textbox.h"
 #include "pj_textboxplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_textboxPlugin::isInitialized() const
 
 QWidget *pj_textboxPlugin::createWidget(QWidget *parent)
 {
-    return new pj_textbox(parent);
+    return NEW pj_textbox(parent);
 }
 
 QString pj_textboxPlugin::name() const

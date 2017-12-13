@@ -321,9 +321,9 @@ Boolean pjResManager::pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint
 //}
 
 // 加载动画
-Boolean pjResManager::pjGetWasTextures(xyTextureInfo& textureInfo, std::vector<QBuffer*>& xListTexStream)
+Boolean pjResManager::pjGetWasTextures(uint64_t unitKey, xyTextureInfo& textureInfo, std::vector<QBuffer*>& xListTexStream)
 {
-    uint64_t unitKey = textureInfo.resKey;
+    //uint64_t unitKey = textureInfo.resKey;
 
     // 资源不存在
     if (m_mapReses.find(unitKey) == m_mapReses.end()) { return False; }

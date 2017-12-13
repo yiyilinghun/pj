@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_groupbox.h"
 #include "pj_groupboxplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_groupboxPlugin::isInitialized() const
 
 QWidget *pj_groupboxPlugin::createWidget(QWidget *parent)
 {
-    return new pj_groupbox(parent);
+    return NEW pj_groupbox(parent);
 }
 
 QString pj_groupboxPlugin::name() const

@@ -1,3 +1,4 @@
+#include "MsBase.h"
 #include "pj_checkbox.h"
 #include "pj_checkboxplugin.h"
 
@@ -24,7 +25,7 @@ bool pj_checkboxPlugin::isInitialized() const
 
 QWidget *pj_checkboxPlugin::createWidget(QWidget *parent)
 {
-    return new pj_checkbox(parent);
+    return NEW pj_checkbox(parent);
 }
 
 QString pj_checkboxPlugin::name() const

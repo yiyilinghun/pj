@@ -24,7 +24,7 @@ bool pj_buttuonPlugin::isInitialized() const
 
 QWidget *pj_buttuonPlugin::createWidget(QWidget *parent)
 {
-    return new pj_widget(parent);
+    return NEW pj_widget(parent);
 }
 
 QString pj_buttuonPlugin::name() const
