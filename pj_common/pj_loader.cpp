@@ -1,10 +1,14 @@
 #include "Precompiled.h"
 #include "pj_loader.h"
 
-pjResManager g_pjResManager;
+pjResManager& pj_GetResManager()
+{
+    static pjResManager ms_pjResManager;
+    return ms_pjResManager;
+}
 
 inline Boolean
-xyReadFile(QString filename, uint32_t filekey, std::map<uint64_t, xyUnit>& mapReses)
+xyReadFile(QString filename, quint32 filekey, QHash<quint64, xyUnit>& hashReses)
 {
     try
     {
@@ -18,8 +22,9 @@ xyReadFile(QString filename, uint32_t filekey, std::map<uint64_t, xyUnit>& mapRe
 
         QDataStream xStream(&xFile);
         xStream.setByteOrder(QDataStream::LittleEndian);
+        xFile.seek(0);
 
-        uint32_t xFileHeadFlag = 0;
+        quint32 xFileHeadFlag = 0;
         xStream >> xFileHeadFlag;
         qDebug(QString(u8"读取文件头标记:%1").arg(filename).toStdString().c_str());
         if (xFileHeadFlag != 0x57444650)
@@ -28,8 +33,8 @@ xyReadFile(QString filename, uint32_t filekey, std::map<uint64_t, xyUnit>& mapRe
             return False;
         }
 
-        uint32_t xUnitCount;
-        uint32_t xCatalogListAddr;
+        quint32 xUnitCount;
+        quint32 xCatalogListAddr;
 
         xStream >> xUnitCount;
         qDebug(QString(u8"读取单元数量:%1").arg(filename).toStdString().c_str());
@@ -39,15 +44,15 @@ xyReadFile(QString filename, uint32_t filekey, std::map<uint64_t, xyUnit>& mapRe
 
         xFile.seek(xCatalogListAddr);
 
-        for (uint32_t i = 0; i < xUnitCount; i++)
+        for (quint32 i = 0; i < xUnitCount; i++)
         {
             xyUnit tempUnit;
             xStream >> tempUnit.m_UnitFileInfo;
             qDebug(QString(u8"读取单元信息:%1(%2)").arg(filename).arg(xUnitCount).toStdString().c_str());
-            uint64_t xKey = filekey;
+            quint64 xKey = filekey;
             xKey <<= 32;
             xKey += tempUnit.m_UnitFileInfo.m_Key;
-            mapReses[xKey] = tempUnit;
+            hashReses[xKey] = tempUnit;
         }
 
         xFile.close();
@@ -58,23 +63,23 @@ xyReadFile(QString filename, uint32_t filekey, std::map<uint64_t, xyUnit>& mapRe
 }
 
 inline void
-xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth,
-    WPixels& xPalette, int32_t xFrameOffset, int32_t* xLineOffsets,
-    uint32_t xFrameWidth, uint32_t xFrameHeight, uint16_t imageHeaderSize, Boolean& IsInterlacedgh)
+xyParseSome(QDataStream& xStream, quint32* lpTextureData, qint32 xTextureWidth,
+    WPixels& xPalette, qint32 xFrameOffset, qint32* xLineOffsets,
+    quint32 xFrameWidth, quint32 xFrameHeight, quint16 imageHeaderSize, Boolean& IsInterlacedgh)
 {
     //QDataStream xStream(&xBuffer);
-    uint32_t xLimitWidth = xFrameWidth;
-    uint32_t xLimitHeight = xFrameHeight;
+    quint32 xLimitWidth = xFrameWidth;
+    quint32 xLimitHeight = xFrameHeight;
 
     IsInterlacedgh = True;
-    for (uint32_t xIndexY = 0; xIndexY < xFrameHeight; xIndexY++)
+    for (quint32 xIndexY = 0; xIndexY < xFrameHeight; xIndexY++)
     {
         xStream.device()->seek(xLineOffsets[xIndexY] + xFrameOffset + imageHeaderSize + 4);
-        for (uint32_t xIndexX = 0; xIndexX < xFrameWidth;)
+        for (quint32 xIndexX = 0; xIndexX < xFrameWidth;)
         {
             uint8_t xTemp;
             xStream >> xTemp;
-            uint32_t xPixelTemp = (uint32_t)xTemp;
+            quint32 xPixelTemp = (quint32)xTemp;
 
             // 象素行结束
             if (xPixelTemp == 0) { break; }
@@ -87,10 +92,10 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
 
                     if (xPixelTemp & 0x20)
                     {
-                        uint32_t i = (uint32_t)(xStream >> xTemp, xTemp);
-                        uint32_t x = xIndexX;
-                        uint32_t y = xIndexY;
-                        uint32_t a = (xPixelTemp & 0x1F);
+                        quint32 i = (quint32)(xStream >> xTemp, xTemp);
+                        quint32 x = xIndexX;
+                        quint32 y = xIndexY;
+                        quint32 a = (xPixelTemp & 0x1F);
                         if (x >= 0 && x < xLimitWidth && y >= 0 && y < xLimitHeight)
                         {
                             if (a) { a = (a << 3) - 7; lpTextureData[xTextureWidth * y + x] = WAS_MAKE_ARGB(xPalette.m_Palette[i].m_Color, a); }
@@ -99,14 +104,14 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
                     }
                     else if (xPixelTemp)
                     {
-                        uint32_t c = xPixelTemp & 0x1F;
-                        uint32_t a = (uint32_t)(xStream >> xTemp, xTemp);
-                        uint32_t i = (uint32_t)(xStream >> xTemp, xTemp);
+                        quint32 c = xPixelTemp & 0x1F;
+                        quint32 a = (quint32)(xStream >> xTemp, xTemp);
+                        quint32 i = (quint32)(xStream >> xTemp, xTemp);
                         if (a) { a = (a << 3) - 7; }
-                        for (uint32_t xIndex = 0; xIndex < c; xIndex++)
+                        for (quint32 xIndex = 0; xIndex < c; xIndex++)
                         {
-                            uint32_t x = xIndexX;
-                            uint32_t y = xIndexY;
+                            quint32 x = xIndexX;
+                            quint32 y = xIndexY;
                             if (x >= 0 && x < xLimitWidth && y >= 0 && y < xLimitHeight)
                             {
                                 lpTextureData[xTextureWidth * y + x] = WAS_MAKE_ARGB(xPalette.m_Palette[i].m_Color, a);
@@ -124,12 +129,12 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
                 {
                     if (xIndexY % 2) { IsInterlacedgh = False; }
 
-                    uint32_t c = xPixelTemp & 0x3F;
-                    for (uint32_t xIndex = 0; xIndex < c; xIndex++)
+                    quint32 c = xPixelTemp & 0x3F;
+                    for (quint32 xIndex = 0; xIndex < c; xIndex++)
                     {
-                        uint32_t i = (uint32_t)(xStream >> xTemp, xTemp);
-                        uint32_t x = xIndexX;
-                        uint32_t y = xIndexY;
+                        quint32 i = (quint32)(xStream >> xTemp, xTemp);
+                        quint32 x = xIndexX;
+                        quint32 y = xIndexY;
                         if (x >= 0 && x < xLimitWidth && y >= 0 && y < xLimitHeight)
                         {
                             lpTextureData[xTextureWidth * y + x] = WAS_MAKE_ARGB(xPalette.m_Palette[i].m_Color, 0xFF);
@@ -142,12 +147,12 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
                 {
                     if (xIndexY % 2) { IsInterlacedgh = False; }
 
-                    uint32_t c = xPixelTemp & 0x3F;
-                    uint32_t i = (uint32_t)(xStream >> xTemp, xTemp);
-                    for (uint32_t xIndex = 0; xIndex < c; xIndex++)
+                    quint32 c = xPixelTemp & 0x3F;
+                    quint32 i = (quint32)(xStream >> xTemp, xTemp);
+                    for (quint32 xIndex = 0; xIndex < c; xIndex++)
                     {
-                        uint32_t x = xIndexX;
-                        uint32_t y = xIndexY;
+                        quint32 x = xIndexX;
+                        quint32 y = xIndexY;
                         if (x >= 0 && x < xLimitWidth && y >= 0 && y < xLimitHeight)
                         {
                             lpTextureData[xTextureWidth * y + x] = WAS_MAKE_ARGB(xPalette.m_Palette[i].m_Color, 0xFF);
@@ -162,19 +167,19 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
 }
 
 //inline Boolean
-//xySetTexturePixels(LPVOID hTextureHandle, uint32_t* lpPixels, int32_t xWidth, int32_t xHeight)
+//xySetTexturePixels(LPVOID hTextureHandle, quint32* lpPixels, qint32 xWidth, qint32 xHeight)
 //{
-//    int32_t xTextureRowPitch;
+//    qint32 xTextureRowPitch;
 //    LPBYTE xTextureDataPtr = (LPBYTE)g_CurrentAPI->BeginModifyTexture(hTextureHandle, xWidth, xHeight, &xTextureRowPitch);
 //    if (!xTextureDataPtr) { return False; }
 //
 //    LPBYTE xDst = xTextureDataPtr;
 //    if (g_Graphics->GetRenderer() == kUnityGfxRendererD3D9)
 //    {
-//        for (int32_t y = 0; y < xHeight; y++)
+//        for (qint32 y = 0; y < xHeight; y++)
 //        {
 //            LPBYTE xPtr = xDst;
-//            for (int32_t x = 0; x < xWidth; x++)
+//            for (qint32 x = 0; x < xWidth; x++)
 //            {
 //                // Write the texture pixel
 //                LPBYTE xPixel = (LPBYTE)&(lpPixels[(xHeight - y)*xWidth + x]);
@@ -191,10 +196,10 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
 //    }
 //    else
 //    {
-//        for (int32_t y = 0; y < xHeight; y++)
+//        for (qint32 y = 0; y < xHeight; y++)
 //        {
 //            LPBYTE xPtr = xDst;
-//            for (int32_t x = 0; x < xWidth; x++)
+//            for (qint32 x = 0; x < xWidth; x++)
 //            {
 //                // Write the texture pixel
 //                LPBYTE xPixel = (LPBYTE)&(lpPixels[(xHeight - y)*xWidth + x]);
@@ -218,45 +223,45 @@ xyParseSome(QDataStream& xStream, uint32_t* lpTextureData, int32_t xTextureWidth
 
 
 // 资源文件容器
-Boolean pjResManager::pjLoadFile(QString filename, uint32_t filekey)
+Boolean pjResManager::pjLoadFile(QString filename, quint32 filekey)
 {
-    if (m_mapLoadedRes.find(filekey) != m_mapLoadedRes.end())
+    if (m_hashLoadedRes.find(filekey) != m_hashLoadedRes.end())
     {
         return True;
     }
     else
     {
-        auto xRet = xyReadFile(filename, filekey, m_mapReses);
-        m_mapLoadedRes[filekey] = xRet;
-        if (xRet) { m_mapReskey_ResFilename[filekey] = filename; }
+        auto xRet = xyReadFile(filename, filekey, m_hashReses);
+        m_hashLoadedRes[filekey] = xRet;
+        if (xRet) { m_hashReskeyResFilename[filekey] = filename; }
         return xRet;
     }
 }
 
 // 获取资源总数
-uint32_t pjResManager::pjGetUnitSum() { return (uint32_t)m_mapReses.size(); }
+quint32 pjResManager::pjGetUnitSum() { return (quint32)m_hashReses.size(); }
 
 
 // 获取动画纹理数量(64位前32位代表朝向数量,后32位代表帧数)
-Boolean pjResManager::pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint64_t texSize)
+Boolean pjResManager::pjGetWasTextureSum(quint64 unitKey, quint64 texSum, quint64 texSize)
 {
     // 资源不存在
-    if (m_mapReses.find(unitKey) == m_mapReses.end()) { return 0; }
+    if (m_hashReses.find(unitKey) == m_hashReses.end()) { return 0; }
 
     // 资源文件对应表不存在
-    if (m_mapReskey_ResFilename.find((uint32_t)(unitKey >> 32)) == m_mapReskey_ResFilename.end()) { return 0; }
+    if (m_hashReskeyResFilename.find((quint32)(unitKey >> 32)) == m_hashReskeyResFilename.end()) { return 0; }
 
     // 读取动画数据
-    xyUnit& xWdfUnit = m_mapReses[unitKey];
-    uint32_t& xLen = xWdfUnit.m_UnitFileInfo.m_Len;
+    xyUnit& xWdfUnit = m_hashReses[unitKey];
+    quint32& xLen = xWdfUnit.m_UnitFileInfo.m_Len;
     try
     {
-        QFile xFile(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]);
+        QFile xFile(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]);
         //std::shared_ptr<FILE> xFile(
-        //    fopen(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)].c_str(), "rb"), FAST_LAMBDA_CALL(fclose));
+        //    fopen(m_hashReskeyResFilename[(quint32)(unitKey >> 32)].c_str(), "rb"), FAST_LAMBDA_CALL(fclose));
         if (!xFile.open(QIODevice::ReadOnly))
         {
-            qCritical(QString(u8"打开资源文件失败:%1").arg(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]).toStdString().c_str());
+            qCritical(QString(u8"打开资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
             return False;
         }
         QDataStream xFileStream(&xFile);
@@ -267,13 +272,13 @@ Boolean pjResManager::pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint
         xFile.seek(xWdfUnit.m_UnitFileInfo.m_Addr);
         //fseek(xFile.get(), xWdfUnit.m_UnitFileInfo.m_Addr, SEEK_SET);
 
-        std::shared_ptr<char> xTempdata(NEW char[xLen], FAST_LAMBDA_DELETE_ARRAY);
+        std::shared_ptr<char> xTempdata(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xLen));
         if (xLen != xFileStream.readRawData(xTempdata.get(), xLen))
         {
-            qCritical(QString(u8"读取资源文件失败:%1").arg(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]).toStdString().c_str());
+            qCritical(QString(u8"读取资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
             return False;
         }
-        //if (xLen != (uint32_t)fread(xTempdata.get(), sizeof(uint8_t), xLen, xFile.get())) { return False; }
+        //if (xLen != (quint32)fread(xTempdata.get(), sizeof(uint8_t), xLen, xFile.get())) { return False; }
         //MemoryStream xStream(xTempdata.get(), xLen);
         //xStream.OutSeek(0);
         QBuffer xBuffer;
@@ -282,24 +287,24 @@ Boolean pjResManager::pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint
         xUnitStream.setByteOrder(QDataStream::LittleEndian);
 
         // 检查文件头标记
-        uint16_t xFileHeadFlag;
+        quint16 xFileHeadFlag;
         xUnitStream >> xFileHeadFlag;
         if (xFileHeadFlag != 0x5053)
         {
-            qCritical(QString(u8"读取资源文件失败:%1").arg(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]).toStdString().c_str());
+            qCritical(QString(u8"读取资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
             return False;
         }
 
-        uint16_t imageHeaderSize;
-        uint16_t directionCount;
-        uint16_t frameCount;
-        uint16_t width;
-        uint16_t height;
+        quint16 imageHeaderSize;
+        quint16 directionCount;
+        quint16 frameCount;
+        quint16 width;
+        quint16 height;
 
         xUnitStream >> imageHeaderSize >> directionCount >> frameCount >> width >> height;
 
-        texSum = (((uint64_t)directionCount) << 32) + frameCount;
-        texSize = (((uint64_t)width) << 32) + height;
+        texSum = (((quint64)directionCount) << 32) + frameCount;
+        texSize = (((quint64)width) << 32) + height;
         return True;
     }
     catch (...) {}
@@ -307,9 +312,9 @@ Boolean pjResManager::pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint
 }
 
 //// 加载动画列表
-//Boolean pjResManager::pjGetWasTextures(xyTextureInfo* ptrTextureInfo, int32_t& textureSum)
+//Boolean pjResManager::pjGetWasTextures(xyTextureInfo* ptrTextureInfo, qint32& textureSum)
 //{
-//    for (int32_t i = 0; i < textureSum; i++)
+//    for (qint32 i = 0; i < textureSum; i++)
 //    {
 //        if (!pjGetWasTexture(ptrTextureInfo[i]))
 //        {
@@ -321,159 +326,156 @@ Boolean pjResManager::pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint
 //}
 
 // 加载动画
-Boolean pjResManager::pjGetWasTextures(uint64_t unitKey, xyTextureInfo& textureInfo, std::vector<QBuffer*>& xListTexStream)
+Boolean
+pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVector<QImage*>& imageVector)
 {
-    //uint64_t unitKey = textureInfo.resKey;
-
     // 资源不存在
-    if (m_mapReses.find(unitKey) == m_mapReses.end()) { return False; }
+    if (m_hashReses.find(unitKey) == m_hashReses.end()) { return False; }
 
     // 资源文件对应表不存在
-    if (m_mapReskey_ResFilename.find((uint32_t)(unitKey >> 32)) == m_mapReskey_ResFilename.end()) { return False; }
+    if (m_hashReskeyResFilename.find((quint32)(unitKey >> 32)) == m_hashReskeyResFilename.end()) { return False; }
 
     // 读取动画数据
-    xyUnit& xWdfUnit = m_mapReses[unitKey];
-    uint32_t& xLen = xWdfUnit.m_UnitFileInfo.m_Len;
+    xyUnit& xWdfUnit = m_hashReses[unitKey];
+    quint32& xLen = xWdfUnit.m_UnitFileInfo.m_Len;
 
     try
     {
-        QFile xFile(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]);
-        if (!xFile.open(QIODevice::ReadOnly))
+        if (!xWdfUnit.m_resOriginalData)
         {
-            qCritical(QString(u8"打开资源文件失败:%1").arg(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]).toStdString().c_str());
-            return False;
-        }
-        //std::shared_ptr<FILE> xFile(
-        //    fopen(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)].c_str(), "rb"), FAST_LAMBDA_CALL(fclose));
-        //if (xFile == nullptr) { return False; }
-
-        xFile.seek(xWdfUnit.m_UnitFileInfo.m_Addr);
-        //fseek(xFile.get(), xWdfUnit.m_UnitFileInfo.m_Addr, SEEK_SET);
-
-        QDataStream xFileStream(&xFile);
-        xFileStream.setByteOrder(QDataStream::LittleEndian);
-
-        std::shared_ptr<char> xTempdata(NEW char[xLen], FAST_LAMBDA_DELETE_ARRAY);
-        if (xLen != xFileStream.readRawData(xTempdata.get(), xLen))
-        {
-            qCritical(QString(u8"读取资源文件失败:%1").arg(m_mapReskey_ResFilename[(uint32_t)(unitKey >> 32)]).toStdString().c_str());
-            return False;
-        }
-
-        QByteArray xByteArray(xTempdata.get(), xLen);
-        QDataStream xUnitStream(&xByteArray, QIODevice::ReadOnly);
-        xUnitStream.setByteOrder(QDataStream::LittleEndian);
-        xUnitStream.device()->seek(0);
-
-        if (xUnitStream.atEnd())
-        {        // 检查文件头标记
-            uint16_t xFileHeadFlag;
-            xUnitStream >> xFileHeadFlag;
-            if (xFileHeadFlag != 0x5053) { return 0; }
-        }
-        else
-        {
-            // 检查文件头标记
-            uint16_t xFileHeadFlag;
-            xUnitStream >> xFileHeadFlag;
-            if (xFileHeadFlag != 0x5053) { return 0; }
-        }
-
-        //// 检查文件头标记
-        //uint16_t xFileHeadFlag;
-        //xUnitStream >> xFileHeadFlag;
-        //if (xFileHeadFlag != 0x5053) { return 0; }
-
-        uint16_t imageHeaderSize;
-        uint16_t directionCount;
-        uint16_t frameCount;
-        uint16_t width;
-        uint16_t height;
-        short hotX;
-        short hotY;
-        xUnitStream >> imageHeaderSize >> directionCount >> frameCount >> width >> height >> hotX >> hotY;
-
-        // 读取帧延迟信息(暂时不需要,先丢弃)
-        int16_t xLen = (int16_t)(imageHeaderSize - 12);
-        if (xLen > 0)
-        {
-            for (int32_t i = 0; i < xLen; i++)
+            QFile xFile(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]);
+            if (!xFile.open(QIODevice::ReadOnly))
             {
-                uint8_t xDelays = 0;
-                xUnitStream >> xDelays;
+                qCritical(QString(u8"打开资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
+                return False;
             }
-        }
+            xFile.seek(xWdfUnit.m_UnitFileInfo.m_Addr);
+            QDataStream xFileStream(&xFile);
+            xFileStream.setByteOrder(QDataStream::LittleEndian);
 
-        // 读取调色板
-        WPixels xPalette = { 0 };
-        xUnitStream.device()->seek(imageHeaderSize + 4);
-        //xStream.OutSeek(imageHeaderSize + 4);
-        xUnitStream >> xPalette;
-
-        // 读取帧偏移
-        std::shared_ptr<int32_t> xFrameOffsets(NEW int32_t[directionCount * frameCount], FAST_LAMBDA_DELETE_ARRAY);
-        xUnitStream.device()->seek(imageHeaderSize + 4 + 512);
-        //xStream.OutSeek(imageHeaderSize + 4 + 512);
-        int32_t* ptr = xFrameOffsets.get();
-        for (int32_t i = 0; i < directionCount; i++)
-        {
-            for (int32_t n = 0; n < frameCount; n++)
+            std::shared_ptr<char> xTempdata(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xLen));
+            if (xLen != xFileStream.readRawData(xTempdata.get(), xLen))
             {
-                xUnitStream >> ptr[(i * frameCount + n)];
+                qCritical(QString(u8"读取资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
+                return False;
             }
-        }
 
-        // 根据朝向,帧数读取纹理
-        for (int32_t xDirectionIndex = 0; xDirectionIndex < directionCount; xDirectionIndex++)
-        {
-            for (int32_t xFrameIndex = 0; xFrameIndex < frameCount; xFrameIndex++)
+            QByteArray xByteArray(xTempdata.get(), xLen);
+            QDataStream xUnitStream(&xByteArray, QIODevice::ReadOnly);
+            xUnitStream.setByteOrder(QDataStream::LittleEndian);
+            xUnitStream.device()->seek(0);
+
+            if (xUnitStream.atEnd())
+            {        // 检查文件头标记
+                quint16 xFileHeadFlag;
+                xUnitStream >> xFileHeadFlag;
+                if (xFileHeadFlag != 0x5053) { return 0; }
+            }
+            else
             {
-                uint32_t* xImageData = NEW uint32_t[width * height];
-                Boolean IsInterlacedgh = False;
+                // 检查文件头标记
+                quint16 xFileHeadFlag;
+                xUnitStream >> xFileHeadFlag;
+                if (xFileHeadFlag != 0x5053) { return 0; }
+            }
 
-                int32_t xOffset = ptr[xDirectionIndex * frameCount + xFrameIndex];
-                if (xOffset != 0)
+            //quint16 imageHeaderSize;
+            //quint16 directionCount;
+            //quint16 frameCount;
+            //quint16 width;
+            //quint16 height;
+            //short hotX;
+            //short hotY;
+            xUnitStream >> xWdfUnit.m_imageHeaderSize >> xWdfUnit.m_directionCount >> xWdfUnit.m_frameCount >> xWdfUnit.m_width >> xWdfUnit.m_height >> xWdfUnit.m_hotX >> xWdfUnit.m_hotY;
+
+            // 读取帧延迟信息(暂时不需要,先丢弃)
+            int16_t xLen = (int16_t)(xWdfUnit.m_imageHeaderSize - 12);
+            if (xLen > 0)
+            {
+                for (qint32 i = 0; i < xLen; i++)
                 {
-                    xUnitStream.device()->seek(xOffset + imageHeaderSize + 4);
-                    //xStream.OutSeek(xOffset + imageHeaderSize + 4);
-                    //int32_t xFrameWidth;
-                    //int32_t xFrameHeight;
-
-                    xUnitStream >> textureInfo.hotX >> textureInfo.hotY >> textureInfo.width >> textureInfo.height;
-
-                    std::shared_ptr<int32_t> xLineOffsets(NEW int32_t[textureInfo.height], FAST_LAMBDA_DELETE_ARRAY);
-                    int32_t* lineptr = xLineOffsets.get();
-                    for (int32_t l = 0; l < textureInfo.height; l++) { xUnitStream >> lineptr[l]; }
-
-                    if (textureInfo.width > 0 || textureInfo.height > 0)
-                    {
-                        xyParseSome(xUnitStream, xImageData, textureInfo.width, xPalette, xOffset, lineptr, textureInfo.width, textureInfo.height, imageHeaderSize, IsInterlacedgh);
-                    }
+                    uint8_t xDelays = 0;
+                    xUnitStream >> xDelays;
                 }
+            }
 
-                if (IsInterlacedgh)
+            // 读取调色板
+            WPixels xPalette = { 0 };
+            xUnitStream.device()->seek(xWdfUnit.m_imageHeaderSize + 4);
+            //xStream.OutSeek(imageHeaderSize + 4);
+            xUnitStream >> xPalette;
+
+            // 读取帧偏移
+            std::shared_ptr<qint32> xFrameOffsets(LAMBDA_AUTO_NEW_DELETE_ARRAY(qint32, xWdfUnit.m_directionCount * xWdfUnit.m_frameCount));
+            xUnitStream.device()->seek(xWdfUnit.m_imageHeaderSize + 4 + 512);
+            //xStream.OutSeek(imageHeaderSize + 4 + 512);
+            qint32* ptr = xFrameOffsets.get();
+            for (qint32 i = 0; i < xWdfUnit.m_directionCount; i++)
+            {
+                for (qint32 n = 0; n < xWdfUnit.m_frameCount; n++)
                 {
-                    for (int y = 0; y < height; y++)
+                    xUnitStream >> ptr[(i * xWdfUnit.m_frameCount + n)];
+                }
+            }
+
+
+            // 根据朝向,帧数读取纹理
+            for (qint32 xDirectionIndex = 0; xDirectionIndex < xWdfUnit.m_directionCount; xDirectionIndex++)
+            {
+                for (qint32 xFrameIndex = 0; xFrameIndex < xWdfUnit.m_frameCount; xFrameIndex++)
+                {
+                    std::shared_ptr<quint32> xImageData(LAMBDA_AUTO_NEW_DELETE_ARRAY(quint32, xWdfUnit.m_width * xWdfUnit.m_height));
+                    xWdfUnit.m_resProductDatas.append(xImageData);
+                    quint32* lpImageData = xImageData.get();
+
+                    Boolean IsInterlacedgh = False;
+
+                    qint32 xOffset = ptr[xDirectionIndex * xWdfUnit.m_frameCount + xFrameIndex];
+                    if (xOffset != 0)
                     {
-                        if (((y % 2) == 0) && y < (height - 1))
+                        xUnitStream.device()->seek(xOffset + xWdfUnit.m_imageHeaderSize + 4);
+
+                        xUnitStream >> textureInfo.hotX >> textureInfo.hotY >> textureInfo.width >> textureInfo.height;
+
+                        std::shared_ptr<qint32> xLineOffsets(LAMBDA_AUTO_NEW_DELETE_ARRAY(qint32, textureInfo.height));
+                        qint32* lineptr = xLineOffsets.get();
+                        for (qint32 l = 0; l < textureInfo.height; l++) { xUnitStream >> lineptr[l]; }
+
+                        if (textureInfo.width > 0 || textureInfo.height > 0)
                         {
-                            void* lpDst = &(xImageData[(y + 1) * width]);
-                            void* lpSrc = &(xImageData[(y)* width]);
-                            memcpy(lpDst, lpSrc, width * sizeof(uint32_t));
+                            xyParseSome(xUnitStream, lpImageData, textureInfo.width, xPalette, xOffset, lineptr, textureInfo.width, textureInfo.height, xWdfUnit.m_imageHeaderSize, IsInterlacedgh);
                         }
                     }
-                }
-                //xStream.OutSeek(0);
-                xUnitStream.device()->seek(0);
 
-                //MemoryStream xTempStream((LPBYTE)xImageData, width* height * sizeof(DWORD));
-                QBuffer* xTarBuffer = NEW QBuffer();
-                xTarBuffer->setData((const char*)xImageData, width* height * sizeof(uint32_t));
-                xListTexStream.push_back(xTarBuffer);
-                //xySetTexturePixels(textureInfo.textureHandle, xImageData, width, height);
+                    if (IsInterlacedgh)
+                    {
+                        for (int y = 0; y < xWdfUnit.m_height; y++)
+                        {
+                            if (((y % 2) == 0) && y < (xWdfUnit.m_height - 1))
+                            {
+                                void* lpDst = &(lpImageData[(y + 1) * xWdfUnit.m_width]);
+                                void* lpSrc = &(lpImageData[(y)* xWdfUnit.m_width]);
+                                memcpy(lpDst, lpSrc, xWdfUnit.m_width * sizeof(quint32));
+                            }
+                        }
+                    }
+                    xUnitStream.device()->seek(0);
+
+                    std::shared_ptr<QImage> xImage(LAMBDA_AUTO_NEW_DELETE_P4(QImage,
+                        (uchar*)lpImageData, xWdfUnit.m_width, xWdfUnit.m_height, QImage::Format::Format_ARGB32)
+                    );
+                    xWdfUnit.m_ProductImages.append(xImage);
+                }
             }
         }
 
+        imageVector.clear();
+
+        QVectorIterator<std::shared_ptr<QImage>> it(xWdfUnit.m_ProductImages);
+        while (it.hasNext())
+        {
+            imageVector.append(it.next().get());
+        }
         return True;
     }
     catch (...) {}
@@ -481,28 +483,26 @@ Boolean pjResManager::pjGetWasTextures(uint64_t unitKey, xyTextureInfo& textureI
 }
 
 
-
-
 // 加载资源文件
-Boolean LoadFile(const char* filename, uint32_t filekey)
+Boolean LoadFile(const char* filename, quint32 filekey)
 {
-    return g_pjResManager.pjLoadFile(filename, filekey);
+    return pj_GetResManager().pjLoadFile(filename, filekey);
 }
 
 // 获取资源总数
-uint32_t GetUnitSum()
+quint32 GetUnitSum()
 {
-    return g_pjResManager.pjGetUnitSum();
+    return pj_GetResManager().pjGetUnitSum();
 }
 
 // 获取动画纹理数量(64位前32位代表朝向数量,后32位代表帧数)
-Boolean GetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint64_t texSize)
+Boolean GetWasTextureSum(quint64 unitKey, quint64 texSum, quint64 texSize)
 {
-    return g_pjResManager.pjGetWasTextureSum(unitKey, texSum, texSize);
+    return pj_GetResManager().pjGetWasTextureSum(unitKey, texSum, texSize);
 }
 
 //// 加载动画列表
-//Boolean GetWasTextures(xyTextureInfo* ptrTextureInfo, int32_t& textureSum)
+//Boolean GetWasTextures(xyTextureInfo* ptrTextureInfo, qint32& textureSum)
 //{
 //    return g_pjResManager.pjGetWasTextures(ptrTextureInfo, textureSum);
 //}

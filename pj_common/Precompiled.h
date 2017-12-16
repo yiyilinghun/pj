@@ -13,6 +13,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 
+#include <QtCore/QList>
 #include <QtCore/QHash>
 #include <QtCore/QMap>
 

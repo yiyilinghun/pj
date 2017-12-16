@@ -14,7 +14,7 @@
     <ProjectGuid>{B5D52A3C-08E5-4F17-94B8-3DC0F229DE5A}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
     <ProjectName>05.pj_tools</ProjectName>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">

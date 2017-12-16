@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 // C
 #include <stdio.h>
 #include <tchar.h>
 
 //Qt
-#include <QtWidgets>
+#include <QtWidgets/QtWidgets>
 
 // Ice
 #include "Ice/Ice.h"
@@ -18,7 +18,7 @@
 #include "pj_common.h"
 #include "pj_Login.h"
 
-// ×Ô¶¨Òå
+// è‡ªå®šä¹‰
 #include "MsBase.h"
 #include "DBDictionary.hpp"
 

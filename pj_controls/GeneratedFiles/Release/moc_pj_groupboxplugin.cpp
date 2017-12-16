@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pj_groupboxplugin.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.10.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,7 +13,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'pj_groupboxplugin.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.9.3. It"
+#error "This file was generated using the moc from 5.10.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -114,7 +114,7 @@ static const unsigned char qt_pluginMetaData[] = {
     'a',  'm',  'e',  0x00, 0x11, 0x00, 'p',  'j', 
     '_',  'g',  'r',  'o',  'u',  'p',  'b',  'o', 
     'x',  'P',  'l',  'u',  'g',  'i',  'n',  0x00,
-    'z',  ' ',  0xa1, 0x00, 0x07, 0x00, 'v',  'e', 
+    0x1a, '@',  0xa1, 0x00, 0x07, 0x00, 'v',  'e', 
     'r',  's',  'i',  'o',  'n',  0x00, 0x00, 0x00,
     0x11, 0x00, 0x00, 0x00, 0x05, 0x00, 'd',  'e', 
     'b',  'u',  'g',  0x00, 0x95, 0x13, 0x00, 0x00,
@@ -151,7 +151,7 @@ static const unsigned char qt_pluginMetaData[] = {
     'u',  'p',  'b',  'o',  'x',  'P',  'l',  'u', 
     'g',  'i',  'n',  0x00, '1',  0x00, 0x00, 0x00,
     0x05, 0x00, 'd',  'e',  'b',  'u',  'g',  0x00,
-    'z',  ' ',  0xa1, 0x00, 0x07, 0x00, 'v',  'e', 
+    0x1a, '@',  0xa1, 0x00, 0x07, 0x00, 'v',  'e', 
     'r',  's',  'i',  'o',  'n',  0x00, 0x00, 0x00,
     0x0c, 0x00, 0x00, 0x00, 'L',  0x00, 0x00, 0x00,
     'h',  0x00, 0x00, 0x00, 0x8c, 0x00, 0x00, 0x00,

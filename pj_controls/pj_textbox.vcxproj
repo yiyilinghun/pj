@@ -57,7 +57,7 @@
     <ProjectGuid>{6F49096A-250C-4559-8123-B24E72A67FF8}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
     <ProjectName>pj_textbox</ProjectName>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">

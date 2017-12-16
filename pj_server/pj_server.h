@@ -171,12 +171,13 @@ public:
     int a = 100;
 public:
     qt_server_wnd(QWidget *parent = Q_NULLPTR);
+    virtual ~qt_server_wnd() { qDebug("~qt_server_wnd"); }
 
-//private:
+    //private:
 
-    //QTimer m_QTimer;
-    //QMap<::Ice::AsyncResultPtr, std::function<bool(const ::Ice::AsyncResultPtr&)>> m_setAsyncResult;
-    //QMap<::Ice::AsyncResultPtr, fun_end_c2sLogin> m_setAsyncResult;
+        //QTimer m_QTimer;
+        //QMap<::Ice::AsyncResultPtr, std::function<bool(const ::Ice::AsyncResultPtr&)>> m_setAsyncResult;
+        //QMap<::Ice::AsyncResultPtr, fun_end_c2sLogin> m_setAsyncResult;
     Ui::ui_qt_server_wnd ui;
 };
 
@@ -186,13 +187,7 @@ class ice_server_app : virtual public Ice::Application
 {
 public:
     ice_server_app();
-    ~ice_server_app()
-    {
-        //if (m_MainWnd)
-        //{
-        //    delete m_MainWnd;
-        //}
-    }
+    ~ice_server_app() { qDebug("~ice_server_app"); }
 
     virtual int run(int, char *[]);
 
@@ -211,8 +206,6 @@ public:
 
     std::shared_ptr<MsNetLogin> m_LoginPrx1;
     qt_server_wnd* m_MainWnd = nullptr;
-
-    //MsNetLogin m_LoginPrx2;
 
 };
 extern ice_server_app g_ice_server_app;

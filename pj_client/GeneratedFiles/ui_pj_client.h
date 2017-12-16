@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'pj_client.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.3
+** Created by: Qt User Interface Compiler version 5.10.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -55,7 +55,7 @@ public:
 
     void retranslateUi(QMainWindow *pj_clientClass)
     {
-        pj_clientClass->setWindowTitle(QApplication::translate("pj_clientClass", "pj_client", Q_NULLPTR));
+        pj_clientClass->setWindowTitle(QApplication::translate("pj_clientClass", "pj_client", nullptr));
     } // retranslateUi
 
 };

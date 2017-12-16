@@ -14,7 +14,7 @@
     <ProjectGuid>{7FACCF76-B5F3-4ADE-95B7-CA330F9F6C13}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
     <ProjectName>04.pj_robot</ProjectName>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">

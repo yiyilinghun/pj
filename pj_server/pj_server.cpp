@@ -155,7 +155,8 @@ int
 ice_server_app::run(int argc, char* argv[])
 {
     QApplication a(argc, argv);
-    m_MainWnd = NEW qt_server_wnd();
+    std::shared_ptr<qt_server_wnd> mainWnd(LAMBDA_AUTO_NEW_DELETE(qt_server_wnd));
+    m_MainWnd = mainWnd.get();
     m_MainWnd->show();
     return a.exec();
 }
@@ -166,6 +167,8 @@ qt_server_wnd::qt_server_wnd(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+    //QImage xImage(NEW uchar[100 * 100 * 4], 100, 100, QImage::Format::Format_ARGB32);
 
     //m_QTimer.setInterval(10);
     //QObject::connect(&m_QTimer, SIGNAL(timeout()), this, SLOT(timeout()));
@@ -181,6 +184,7 @@ qt_server_wnd::qt_server_wnd(QWidget *parent)
 
 void qt_server_wnd::closeEvent(QCloseEvent *event)
 {
+    return;
     switch (QMessageBox::information(this, u8"提示", u8"你确定退出该软件?", u8"确定", u8"取消", 0, 1))
     {
         case 0:
@@ -346,7 +350,6 @@ MsNetLogin::ms_exec2sRegister(bool _ice_result,
 )
 {
     g_ice_server_app.m_MainWnd->ui.testButton2->setText(QString(u8"%1").arg(r0));
-
     this->msc2sRegister(p1);
     qDebug(u8"dsjlkfjadslk;jf32u43823");
     return _ice_result;

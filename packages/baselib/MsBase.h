@@ -55,6 +55,23 @@ typedef void*   IntPtr;
 #define AutoLeaveRunThis(p1)    SafePtr<void> xTemp##__LINE__(nullptr, [this](void*) { p1 })
 #define AutoBuff(buff, size)    SafePtr<uint8_t> xTemp##__LINE__(NEW uint8_t[size], [](LPBYTE x) { SAFE_DELETE_ARRAY(x); }); LPBYTE buff = xTemp##__LINE__.get()
 
+#define LAMBDA_NOTHING(type)        [](type*) { ; }
+#define LAMBDA_DELETE(type)         [](type* x) { delete x; }
+#define LAMBDA_DELETE_ARRAY(type)   [](type* x) { delete[] x; }
+#define LAMBDA_RELEASE(type)        [](type* x) { x->release(); }
+#define LAMBDA_CLOSE(type)          [](type* x) { x->close(); }
+
+#define LAMBDA_AUTO_NEW_NOTHING(type)           NEW type(), LAMBDA_NOTHING(type)
+#define LAMBDA_AUTO_NEW_DELETE(type)            NEW type(), LAMBDA_DELETE(type)
+#define LAMBDA_AUTO_NEW_DELETE_P1(type,P1)      NEW type(P1), LAMBDA_DELETE(type)
+#define LAMBDA_AUTO_NEW_DELETE_P2(type,P1,P2)      NEW type(P1,P2), LAMBDA_DELETE(type)
+#define LAMBDA_AUTO_NEW_DELETE_P3(type,P1,P2,P3)      NEW type(P1,P2,P3), LAMBDA_DELETE(type)
+#define LAMBDA_AUTO_NEW_DELETE_P4(type,P1,P2,P3,P4)      NEW type(P1,P2,P3,P4), LAMBDA_DELETE(type)
+#define LAMBDA_AUTO_NEW_DELETE_P5(type,P1,P2,P3,P4,P5)      NEW type(P1,P2,P3,P4,P5), LAMBDA_DELETE(type)
+#define LAMBDA_AUTO_NEW_DELETE_ARRAY(type,len)  NEW type[len], LAMBDA_DELETE_ARRAY(type)
+#define LAMBDA_AUTO_NEW_RELEASE(type)           NEW type(), LAMBDA_RELEASE(type)
+#define LAMBDA_AUTO_NEW_CLOSE(type)             NEW type(), LAMBDA_CLOSE(type)
+
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p)          ((p) ? (delete (p), (p)=nullptr) : ((p) = (p)))
 #endif

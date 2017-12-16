@@ -2,9 +2,9 @@
 #include <QtCore/QDataStream>
 
 //QDataStream
-#define FAST_LAMBDA_DELETE          [](void* d) { SAFE_DELETE(d); }
-#define FAST_LAMBDA_DELETE_ARRAY    [](void* d) { SAFE_DELETE_ARRAY(d); }
-#define FAST_LAMBDA_CALL(fun)       [](auto d) { fun(d); }
+//#define FAST_LAMBDA_DELETE          [](void* d) { SAFE_DELETE(d); }
+//#define FAST_LAMBDA_DELETE_ARRAY    [](void* d) { SAFE_DELETE_ARRAY(d); }
+//#define FAST_LAMBDA_CALL(fun)       [](auto d) { fun(d); }
 
 #define WAS_MAKE_ARGB(c, a) (a << 24) + (c << 8 & 0xf80000) + (c << 5 & 0x7fc00) + (((c << 3 | (c & 7)) & 0x3ff))
 
@@ -39,13 +39,24 @@ struct xyUnit
 
     UnitFileInfo m_UnitFileInfo;
     E_UNIT_TYPE m_resType = E_UNIT_TYPE::EUT_UNKNOW;
+
+    quint16 m_imageHeaderSize;
+    quint16 m_directionCount;
+    quint16 m_frameCount;
+    quint16 m_width;
+    quint16 m_height;
+    qint16 m_hotX;
+    qint16 m_hotY;
+    std::shared_ptr<QChar> m_resOriginalData;
+    QVector<std::shared_ptr<uint32_t>> m_resProductDatas;
+    QVector<std::shared_ptr<QImage>> m_ProductImages;
 };
 
 struct xyTextureInfo
 {
     IntPtr textureHandle = nullptr;
-    uint64_t resKey = 0;
-    uint64_t wasKey = 0;
+    quint64 resKey = 0;
+    quint64 wasKey = 0;
     int32_t width;
     int32_t height;
     int32_t hotX;
@@ -73,25 +84,27 @@ public:
     uint32_t pjGetUnitSum();
 
     // 获取动画纹理数量(64位前32位代表朝向数量,后32位代表帧数)
-    Boolean pjGetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint64_t texSize);
+    Boolean pjGetWasTextureSum(quint64 unitKey, quint64 texSum, quint64 texSize);
 
     //// 加载动画列表
     //Boolean pjGetWasTextures(xyTextureInfo* ptrTextureInfo, int32_t& textureSum);
 
     // 加载动画
-    Boolean pjGetWasTextures(uint64_t unitKey, xyTextureInfo& textureInfo, std::vector<QBuffer*>& xListTexStream);
+    Boolean pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVector<QImage*>& imageVector);
 
     // 资源map
-    std::map<uint64_t, xyUnit> m_mapReses;
+    QHash<quint64, xyUnit> m_hashReses;
 
     // 资源文件key,文件路径名对应map
-    std::map<uint32_t, QString> m_mapReskey_ResFilename;
+    QHash<uint32_t, QString> m_hashReskeyResFilename;
 
     // 资源是否已加载(map存在说明尝试加载过,否则未加载, value=true 加载成功, value=false 加载失败)
-    std::map<uint32_t, Boolean> m_mapLoadedRes;
+    QHash<uint32_t, Boolean> m_hashLoadedRes;
+
+    //QHash<quint64, std::shared_ptr<QChar>> m_hashResData;
 };
 
-extern pjResManager g_pjResManager;
+pjResManager& pj_GetResManager();
 
 
 // 加载资源文件
@@ -101,7 +114,7 @@ Boolean LoadFile(const char* filename, uint32_t filekey);
 uint32_t GetUnitSum();
 
 // 获取动画纹理数量(64位前32位代表朝向数量,后32位代表帧数)
-Boolean GetWasTextureSum(uint64_t unitKey, uint64_t texSum, uint64_t texSize);
+Boolean GetWasTextureSum(quint64 unitKey, quint64 texSum, quint64 texSize);
 
 //// 加载动画列表
 //Boolean GetWasTextures(xyTextureInfo* ptrTextureInfo, int32_t& textureSum);
