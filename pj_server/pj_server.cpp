@@ -381,8 +381,8 @@ qt_server_wnd::test5() {
 
 bool
 MsNetLogin::ice_default_exec2sLogin(bool _ice_result,
-    const ::MsNet::Login p1,
-    const int32_t r0) {
+    const ::MsNet::Login& p1,
+    const qint32& r0) {
     g_ice_server_app.m_MainWnd->ui.testButton1->setText(QString(u8"%1").arg(r0));
     this->msc2sLogin(p1);
     qDebug(u8"dsjlkfjadslk;jf32u43823");
@@ -393,9 +393,9 @@ MsNetLogin::ice_default_exec2sLogin(bool _ice_result,
 
 bool
 MsNetLogin::ice_default_exec2sRegister(bool _ice_result,
-    const MsNet::Login p1,
-    const int32_t r0,
-    const MsNet::Login r1) {
+    const MsNet::Login& p1,
+    const qint32& r0,
+    const MsNet::Login& r1) {
     g_ice_server_app.m_MainWnd->ui.testButton2->setText(QString(u8"%1").arg(r0));
     this->msc2sRegister(p1);
     qDebug(u8"dsjlkfjadslk;jf32u43823");
@@ -406,8 +406,8 @@ MsNetLogin::ice_default_exec2sRegister(bool _ice_result,
 
 bool
 MsNetLogin::ice_default_exec2sxqCall(bool _ice_result,
-    const std::string p1,
-    const qint32 r1) {
+    const std::string& p1,
+    const qint32& r1) {
     qDebug(QString(u8"name:%1,age:%2").arg(p1.c_str()).arg(r1).toStdString().c_str());
     return true;
 }

@@ -12,7 +12,7 @@
 #pragma region ICE_PRC远程调用1参,0返
 #define ICE_CALL1_RET0(rpc_call,pt1)  bool rpc_call(const pt1&, const ::Ice::Context& context = Ice::noExplicitContext);\
 typedef pt1 rpc_call##p1;\
-bool ice_default_exe##rpc_call(bool _ice_result, const pt1 p1);\
+bool ice_default_exe##rpc_call(bool, const pt1&);\
 void ms##rpc_call(const pt1 p1)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1), \
@@ -20,21 +20,23 @@ void ms##rpc_call(const pt1 p1)\
     bool _ice_result = m_Prx->end_##rpc_call(xAsynResult);\
     return ice_default_exe##rpc_call(_ice_result, p1);});\
 }\
-void ms##rpc_call(const pt1 p1, std::function<bool(bool, const pt1)> lambdac_all)\
+void ms##rpc_call(const pt1 p1, std::function<bool(bool, const pt1&)> lambdac_all)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1), \
     [=](const ::Ice::AsyncResultPtr& xAsynResult){\
     bool _ice_result = m_Prx->end_##rpc_call(xAsynResult);\
     return lambdac_all(_ice_result, p1);});\
 }
-#define ICE_DIY_CALL1_RET0(_prx, rpc_call, _p1) _prx.ms##rpc_call(_p1, [=](bool ice_ret, decltype(_prx)::rpc_call##p1 p1)
+#define ICE_DIY_CALL1_RET0(_prx, rpc_call, _p1) _prx.ms##rpc_call(_p1, [=](bool ice_ret, \
+const decltype(_prx)::rpc_call##p1& p1)
 #pragma endregion
+
 
 #pragma region ICE_PRC远程调用1参,1返
 #define ICE_CALL1_RET1(rpc_call,pt1,rt1)  bool rpc_call(const pt1&, const ::Ice::Context& context = Ice::noExplicitContext);\
 typedef pt1 rpc_call##p1;\
 typedef rt1 rpc_call##r1;\
-bool ice_default_exe##rpc_call(bool _ice_result, const pt1 p1, const rt1 r1);\
+bool ice_default_exe##rpc_call(bool, const pt1&, const rt1&);\
 void ms##rpc_call(const pt1 p1)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1), \
@@ -43,7 +45,7 @@ void ms##rpc_call(const pt1 p1)\
     bool _ice_result = m_Prx->end_##rpc_call(r1, xAsynResult);\
     return ice_default_exe##rpc_call(_ice_result, p1, r1);});\
 }\
-void ms##rpc_call(const pt1 p1, std::function<bool(bool, const pt1, const rt1)> lambdac_all)\
+void ms##rpc_call(const pt1 p1, std::function<bool(bool, const pt1&, const rt1&)> lambdac_all)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1), \
     [=](const ::Ice::AsyncResultPtr& xAsynResult){\
@@ -51,15 +53,18 @@ void ms##rpc_call(const pt1 p1, std::function<bool(bool, const pt1, const rt1)> 
     bool _ice_result = m_Prx->end_##rpc_call(r1, xAsynResult);\
     return lambdac_all(_ice_result, p1, r1);});\
 }
-#define ICE_DIY_CALL1_RET1(_prx, rpc_call, _p1) _prx.ms##rpc_call(_p1, [=](bool ice_ret, decltype(_prx)::rpc_call##p1 p1, decltype(_prx)::rpc_call##r1 r1)
+#define ICE_DIY_CALL1_RET1(_prx, rpc_call, _p1) _prx.ms##rpc_call(_p1, [=](bool ice_ret, \
+const decltype(_prx)::rpc_call##p1& p1, \
+const decltype(_prx)::rpc_call##r1& r1)
 #pragma endregion
+
 
 #pragma region ICE_PRC远程调用1参,2返
 #define ICE_CALL1_RET2(rpc_call,pt1,rt1,rt2)  bool rpc_call(const pt1&, const ::Ice::Context& context = Ice::noExplicitContext);\
 typedef pt1 rpc_call##p1;\
 typedef rt1 rpc_call##r1;\
 typedef rt2 rpc_call##r2;\
-bool ice_default_exe##rpc_call(bool _ice_result, const pt1 p1, const rt1 r1, const rt2 r2);\
+bool ice_default_exe##rpc_call(bool, const pt1&, const rt1&, const rt2&);\
 void ms##rpc_call(const pt1 p1)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1), \
@@ -68,27 +73,50 @@ void ms##rpc_call(const pt1 p1)\
     rt2 r2;\
     bool _ice_result = m_Prx->end_##rpc_call(r1, r2, xAsynResult);\
     return ice_default_exe##rpc_call(_ice_result, p1, r1, r2);});\
+}\
+void ms##rpc_call(const pt1 p1, std::function<bool(bool, const pt1&, const rt1&, const rt2&)> lambdac_all)\
+{\
+    m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1), \
+    [=](const ::Ice::AsyncResultPtr& xAsynResult){\
+    rt1 r1;\
+    rt2 r2;\
+    bool _ice_result = m_Prx->end_##rpc_call(r1, r2, xAsynResult);\
+    return lambdac_all(_ice_result, p1, r1, r2);});\
 }
-#define ICE_DIY_CALL1_RET2(_prx, rpc_call, _p1) _prx.ms##rpc_call(_p1, [=](bool ice_ret, decltype(_prx)::rpc_call##p1 p1, decltype(_prx)::rpc_call##r1 r1, decltype(_prx)::rpc_call##r2 r2)
+#define ICE_DIY_CALL1_RET2(_prx, rpc_call, _p1) _prx.ms##rpc_call(_p1, [=](bool ice_ret, \
+const decltype(_prx)::rpc_call##p1& p1, \
+const decltype(_prx)::rpc_call##r1& r1, \
+const decltype(_prx)::rpc_call##r2& r2)
 #pragma endregion
 
 
 
 #pragma region ICE_PRC远程调用2参,0返
 #define ICE_CALL2_RET0(rpc_call,pt1,pt2)  bool rpc_call(const pt1&, const pt2&, const ::Ice::Context& context = Ice::noExplicitContext);\
-bool ms_exe##rpc_call(bool _ice_result, const pt1 p1, const pt2 p2);\
+bool ms_exe##rpc_call(bool, const pt1&, const pt2&);\
 void ms##rpc_call(const pt1 p1, const pt2 p2)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1, p2), \
     [=](const ::Ice::AsyncResultPtr& xAsynResult){\
     bool _ice_result = m_Prx->end_##rpc_call(xAsynResult);\
     return ms_exe##rpc_call(_ice_result, p1, p2);});\
+}\
+void ms##rpc_call(const pt1 p1, const pt2 p2, std::function<bool(bool, const pt1&)> lambdac_all)\
+{\
+    m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1, p2), \
+    [=](const ::Ice::AsyncResultPtr& xAsynResult){\
+    bool _ice_result = m_Prx->end_##rpc_call(xAsynResult);\
+    return lambdac_all(_ice_result, p1, p2);});\
 }
+#define ICE_DIY_CALL2_RET0(_prx, rpc_call, _p1, _p2) _prx.ms##rpc_call(_p1, [=](bool ice_ret, \
+const decltype(_prx)::rpc_call##p1& p1, \
+const decltype(_prx)::rpc_call##p2& p2)
 #pragma endregion
+
 
 #pragma region ICE_PRC远程调用2参,1返
 #define ICE_CALL2_RET1(rpc_call,pt1,pt2,rt1)  bool rpc_call(const pt1&, const pt2&, const ::Ice::Context& context = Ice::noExplicitContext);\
-bool ms_exe##rpc_call(bool _ice_result, const pt1 p1,const pt2 p2, const rt1 r1);\
+bool ms_exe##rpc_call(bool, const pt1&,const pt2&, const rt1&);\
 void ms##rpc_call(const pt1 p1, const pt2 p2)\
 {\
     m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1, p2), \
@@ -96,7 +124,19 @@ void ms##rpc_call(const pt1 p1, const pt2 p2)\
     rt1 r1;\
     bool _ice_result = m_Prx->end_##rpc_call(r1, xAsynResult);\
     return ms_exe##rpc_call(_ice_result, p1, p2, r1);});\
+}\
+void ms##rpc_call(const pt1 p1, const pt2 p2, std::function<bool(bool, const pt1&, const rt1&)> lambdac_all)\
+{\
+    m_setAsyncResult.insert(m_Prx->begin_##rpc_call(p1, p2), \
+    [=](const ::Ice::AsyncResultPtr& xAsynResult){\
+    rt1 r1;\
+    bool _ice_result = m_Prx->end_##rpc_call(r1, xAsynResult);\
+    return lambdac_all(_ice_result, p1, p2, r1);});\
 }
+#define ICE_DIY_CALL2_RET1(_prx, rpc_call, _p1, _p2) _prx.ms##rpc_call(_p1, _p2, [=](bool ice_ret, \
+const decltype(_prx)::rpc_call##p1& p1, \
+const decltype(_prx)::rpc_call##p1& p2, \
+const decltype(_prx)::rpc_call##r1& r1)
 #pragma endregion
 
 template<class ICE_T>
@@ -167,12 +207,12 @@ public:
 
     ICE_CALL1_RET1(c2sLogin,
         MsNet::Login,
-        int32_t
+        qint32
     );
 
     ICE_CALL1_RET2(c2sRegister,
         MsNet::Login,
-        int32_t,
+        qint32,
         MsNet::Login
     );
 
