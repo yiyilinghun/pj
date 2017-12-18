@@ -8,11 +8,11 @@
 
 #define WAS_MAKE_ARGB(c, a) (a << 24) + (c << 8 & 0xf80000) + (c << 5 & 0x7fc00) + (((c << 3 | (c & 7)) & 0x3ff))
 
-#ifdef PJ_EXPORTS
-#define PJ_COMMON_LIB_API __declspec(dllexport)
-#else
-#define PJ_COMMON_LIB_API __declspec(dllimport)
-#endif
+//#ifdef PJ_EXPORTS
+//#define PJ_COMMON_LIB_API __declspec(dllexport)
+//#else
+//#define PJ_COMMON_LIB_API __declspec(dllimport)
+//#endif
 
 #pragma pack(push)
 #pragma pack(1)
@@ -47,7 +47,7 @@ struct xyUnit
     quint16 m_height;
     qint16 m_hotX;
     qint16 m_hotY;
-    std::shared_ptr<QChar> m_resOriginalData;
+    std::shared_ptr<char> m_resOriginalData;
     QVector<std::shared_ptr<uint32_t>> m_resProductDatas;
     QVector<std::shared_ptr<QImage>> m_ProductImages;
 };
@@ -74,7 +74,7 @@ struct WPixels
 };
 #pragma pack(pop)
 
-class PJ_COMMON_LIB_API pjResManager
+class pjResManager
 {
 public:
     // 加载资源文件
@@ -104,7 +104,8 @@ public:
     //QHash<quint64, std::shared_ptr<QChar>> m_hashResData;
 };
 
-pjResManager& pj_GetResManager();
+extern std::shared_ptr<pjResManager> g_ms_pjResManager;
+extern pjResManager& pj_GetResManager();
 
 
 // 加载资源文件

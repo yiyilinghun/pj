@@ -6,43 +6,47 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>565</width>
-    <height>454</height>
+    <width>484</width>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>pj_server</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="testButton2">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>18</y>
-      <width>150</width>
-      <height>46</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>测试二</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="testButton1">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>20</y>
-      <width>150</width>
-      <height>46</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>测试一</string>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="testButton2">
+      <property name="text">
+       <string>测试二</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="pj_widget" name="pj_widget_">
+      <property name="resFileName">
+       <string>哈哈</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="testButton1">
+      <property name="text">
+       <string>测试一</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>pj_widget</class>
+   <extends>QWidget</extends>
+   <header>pj_widget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="pj_server.qrc"/>
  </resources>

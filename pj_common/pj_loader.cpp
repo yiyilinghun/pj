@@ -1,10 +1,14 @@
 #include "Precompiled.h"
 #include "pj_loader.h"
 
+std::shared_ptr<pjResManager> g_ms_pjResManager = nullptr;
 pjResManager& pj_GetResManager()
 {
-    static pjResManager ms_pjResManager;
-    return ms_pjResManager;
+    if (!g_ms_pjResManager)
+    {
+        g_ms_pjResManager.reset(LAMBDA_AUTO_NEW_DELETE(pjResManager));
+    }
+    return *g_ms_pjResManager.get();
 }
 
 inline Boolean
@@ -353,14 +357,14 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
             QDataStream xFileStream(&xFile);
             xFileStream.setByteOrder(QDataStream::LittleEndian);
 
-            std::shared_ptr<char> xTempdata(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xLen));
-            if (xLen != xFileStream.readRawData(xTempdata.get(), xLen))
+            xWdfUnit.m_resOriginalData.reset(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xLen));
+            if (xLen != xFileStream.readRawData(xWdfUnit.m_resOriginalData.get(), xLen))
             {
                 qCritical(QString(u8"读取资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
                 return False;
             }
 
-            QByteArray xByteArray(xTempdata.get(), xLen);
+            QByteArray xByteArray(xWdfUnit.m_resOriginalData.get(), xLen);
             QDataStream xUnitStream(&xByteArray, QIODevice::ReadOnly);
             xUnitStream.setByteOrder(QDataStream::LittleEndian);
             xUnitStream.device()->seek(0);

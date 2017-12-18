@@ -35,7 +35,7 @@ QString pj_listviewPlugin::name() const
 
 QString pj_listviewPlugin::group() const
 {
-    return "My Plugins";
+    return "pj_plugins";
 }
 
 QIcon pj_listviewPlugin::icon() const

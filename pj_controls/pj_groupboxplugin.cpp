@@ -35,7 +35,7 @@ QString pj_groupboxPlugin::name() const
 
 QString pj_groupboxPlugin::group() const
 {
-    return "My Plugins";
+    return "pj_plugins";
 }
 
 QIcon pj_groupboxPlugin::icon() const

@@ -35,7 +35,7 @@ QString pj_textboxPlugin::name() const
 
 QString pj_textboxPlugin::group() const
 {
-    return "My Plugins";
+    return "pj_plugins";
 }
 
 QIcon pj_textboxPlugin::icon() const

@@ -35,7 +35,7 @@ QString pj_buttonPlugin::name() const
 
 QString pj_buttonPlugin::group() const
 {
-    return "My Plugins";
+    return "pj_plugins";
 }
 
 QIcon pj_buttonPlugin::icon() const

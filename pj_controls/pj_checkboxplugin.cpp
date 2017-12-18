@@ -35,7 +35,7 @@ QString pj_checkboxPlugin::name() const
 
 QString pj_checkboxPlugin::group() const
 {
-    return "My Plugins";
+    return "pj_plugins";
 }
 
 QIcon pj_checkboxPlugin::icon() const

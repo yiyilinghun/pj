@@ -2,6 +2,7 @@
 #include <QTimer>
 #include <QThread>
 #include <IceGrid/Registry.h>
+#include "pj_loader.h"
 
 class ThreadTest : public QThread
 {
@@ -156,8 +157,9 @@ ice_server_app::run(int argc, char* argv[])
 {
     QApplication a(argc, argv);
     std::shared_ptr<qt_server_wnd> mainWnd(LAMBDA_AUTO_NEW_DELETE(qt_server_wnd));
+    //std::shared_ptr<pj_widget> mainWnd(LAMBDA_AUTO_NEW_DELETE(pj_widget));
     m_MainWnd = mainWnd.get();
-    m_MainWnd->show();
+    mainWnd->show();
     return a.exec();
 }
 
@@ -168,17 +170,28 @@ qt_server_wnd::qt_server_wnd(QWidget *parent)
 {
     ui.setupUi(this);
 
-    //QImage xImage(NEW uchar[100 * 100 * 4], 100, 100, QImage::Format::Format_ARGB32);
+    //xyTextureInfo m_backTextureInfo;
+    //if (!pj_GetResManager().pjLoadFile(u8R"(A:\git\pj\res\gires3.wdf)", 100))
+    //{
+    //    return;
+    //}
 
-    //m_QTimer.setInterval(10);
-    //QObject::connect(&m_QTimer, SIGNAL(timeout()), this, SLOT(timeout()));
-    //connect(m_QTimer, SIGNAL(timeout()), this, SLOT(timeout()));
-    //m_QTimer.start();
-
-    //this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint);
-    //this->setMinimumSize(QSize(g_textureInfo.width, g_textureInfo.height));
-    //this->setMaximumSize(QSize(g_textureInfo.width, g_textureInfo.height));
-
+    //quint64 tempKey = (((quint64)100) << 32) + 578293861;
+    //QVector<QImage*> imageVector;
+    //if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
+    //{
+    //    return;
+    //}
+    //if (imageVector.size() == 1)
+    //{
+    //    QImage* xImage = imageVector[0];
+    //    QPainter xQPainter(xImage);
+    //    xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"àÃÆ¨ÁË");
+    //    QPalette palette;
+    //    palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
+    //    ui.groupBox->setAutoFillBackground(true);
+    //    ui.groupBox->setPalette(palette);
+    //}
     g_ice_server_app.init_server();
 }
 

@@ -35,7 +35,7 @@ QString pj_labelPlugin::name() const
 
 QString pj_labelPlugin::group() const
 {
-    return "My Plugins";
+    return "pj_plugins";
 }
 
 QIcon pj_labelPlugin::icon() const

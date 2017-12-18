@@ -31,11 +31,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing pj_listview.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -D_DEBUG -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -D_DEBUG -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing pj_listview.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQT_NO_DEBUG -DNDEBUG -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQT_NO_DEBUG -DNDEBUG -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -43,11 +43,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing pj_listviewplugin.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -D_DEBUG -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -D_DEBUG -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing pj_listviewplugin.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQT_NO_DEBUG -DNDEBUG -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQT_NO_DEBUG -DNDEBUG -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -83,7 +83,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>WIN;_DEBUG;UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_PLUGIN;QDESIGNER_EXPORT_WIDGETS;QT_DESIGNER_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(QTDIR)\include\QtCore\;$(QTDIR)\include\QtCore\5.10.0\;$(QTDIR)\include\QtCore\5.10.0\QtCore\;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWidgets\5.10.0\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\;$(QTDIR)\include\QtGui\;$(QTDIR)\include\QtGui\5.10.0\;$(QTDIR)\include\QtGui\5.10.0\QtGui\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -100,7 +100,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>WIN;UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_PLUGIN;QT_NO_DEBUG;NDEBUG;QDESIGNER_EXPORT_WIDGETS;QT_DESIGNER_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(QTDIR)\include\QtCore\;$(QTDIR)\include\QtCore\5.10.0\;$(QTDIR)\include\QtCore\5.10.0\QtCore\;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWidgets\5.10.0\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\;$(QTDIR)\include\QtGui\;$(QTDIR)\include\QtGui\5.10.0\;$(QTDIR)\include\QtGui\5.10.0\QtGui\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -109,7 +109,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>01.pj_common.lib;qtmain.lib;Qt5Designer.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

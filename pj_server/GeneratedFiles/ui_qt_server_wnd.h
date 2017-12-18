@@ -16,7 +16,9 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "pj_widget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -24,22 +26,37 @@ class Ui_ui_qt_server_wnd
 {
 public:
     QWidget *centralWidget;
+    QVBoxLayout *verticalLayout;
     QPushButton *testButton2;
+    pj_widget *pj_widget_;
     QPushButton *testButton1;
 
     void setupUi(QMainWindow *ui_qt_server_wnd)
     {
         if (ui_qt_server_wnd->objectName().isEmpty())
             ui_qt_server_wnd->setObjectName(QStringLiteral("ui_qt_server_wnd"));
-        ui_qt_server_wnd->resize(565, 454);
+        ui_qt_server_wnd->resize(484, 529);
         centralWidget = new QWidget(ui_qt_server_wnd);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        verticalLayout = new QVBoxLayout(centralWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         testButton2 = new QPushButton(centralWidget);
         testButton2->setObjectName(QStringLiteral("testButton2"));
-        testButton2->setGeometry(QRect(0, 18, 150, 46));
+
+        verticalLayout->addWidget(testButton2);
+
+        pj_widget_ = new pj_widget(centralWidget);
+        pj_widget_->setObjectName(QStringLiteral("pj_widget_"));
+
+        verticalLayout->addWidget(pj_widget_);
+
         testButton1 = new QPushButton(centralWidget);
         testButton1->setObjectName(QStringLiteral("testButton1"));
-        testButton1->setGeometry(QRect(170, 20, 150, 46));
+
+        verticalLayout->addWidget(testButton1);
+
         ui_qt_server_wnd->setCentralWidget(centralWidget);
 
         retranslateUi(ui_qt_server_wnd);
@@ -53,6 +70,7 @@ public:
     {
         ui_qt_server_wnd->setWindowTitle(QApplication::translate("ui_qt_server_wnd", "pj_server", nullptr));
         testButton2->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\272\214", nullptr));
+        pj_widget_->setResFileName(QApplication::translate("ui_qt_server_wnd", "\345\223\210\345\223\210", nullptr));
         testButton1->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\270\200", nullptr));
     } // retranslateUi
 
