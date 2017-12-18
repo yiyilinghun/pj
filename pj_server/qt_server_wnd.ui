@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>529</height>
+    <width>558</width>
+    <height>575</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,6 +33,13 @@
      <widget class="QPushButton" name="testButton1">
       <property name="text">
        <string>测试一</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="xq_Button">
+      <property name="text">
+       <string>小琦button</string>
       </property>
      </widget>
     </item>
@@ -83,9 +90,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>xq_Button</sender>
+   <signal>clicked()</signal>
+   <receiver>ui_qt_server_wnd</receiver>
+   <slot>test3()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>278</x>
+     <y>554</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>278</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>test1()</slot>
   <slot>test2()</slot>
+  <slot>test3()</slot>
  </slots>
 </ui>

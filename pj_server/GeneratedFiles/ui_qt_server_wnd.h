@@ -30,12 +30,13 @@ public:
     QPushButton *testButton2;
     pj_widget *pj_widget_;
     QPushButton *testButton1;
+    QPushButton *xq_Button;
 
     void setupUi(QMainWindow *ui_qt_server_wnd)
     {
         if (ui_qt_server_wnd->objectName().isEmpty())
             ui_qt_server_wnd->setObjectName(QStringLiteral("ui_qt_server_wnd"));
-        ui_qt_server_wnd->resize(484, 529);
+        ui_qt_server_wnd->resize(558, 575);
         centralWidget = new QWidget(ui_qt_server_wnd);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -57,11 +58,17 @@ public:
 
         verticalLayout->addWidget(testButton1);
 
+        xq_Button = new QPushButton(centralWidget);
+        xq_Button->setObjectName(QStringLiteral("xq_Button"));
+
+        verticalLayout->addWidget(xq_Button);
+
         ui_qt_server_wnd->setCentralWidget(centralWidget);
 
         retranslateUi(ui_qt_server_wnd);
         QObject::connect(testButton2, SIGNAL(clicked()), ui_qt_server_wnd, SLOT(test2()));
         QObject::connect(testButton1, SIGNAL(clicked()), ui_qt_server_wnd, SLOT(test1()));
+        QObject::connect(xq_Button, SIGNAL(clicked()), ui_qt_server_wnd, SLOT(test3()));
 
         QMetaObject::connectSlotsByName(ui_qt_server_wnd);
     } // setupUi
@@ -72,6 +79,7 @@ public:
         testButton2->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\272\214", nullptr));
         pj_widget_->setResFileName(QApplication::translate("ui_qt_server_wnd", "\345\223\210\345\223\210", nullptr));
         testButton1->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\270\200", nullptr));
+        xq_Button->setText(QApplication::translate("ui_qt_server_wnd", "\345\260\217\347\220\246button", nullptr));
     } // retranslateUi
 
 };

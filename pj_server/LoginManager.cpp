@@ -30,6 +30,29 @@ static int64_t last_time = 0;
 
 
 bool
+PJ_LoginManager::p1r0(const ::std::string&, const ::Ice::Current&)
+{
+
+    return true;
+}
+
+
+bool
+PJ_LoginManager::p1r1(const ::std::string&, ::Ice::Int&, const ::Ice::Current&)
+{
+
+    return true;
+}
+
+
+bool
+PJ_LoginManager::p1r2(const ::std::string&, ::Ice::Int&, ::Ice::Int&, const ::Ice::Current&)
+{
+    return true;
+}
+
+
+bool
 PJ_LoginManager::c2sRegister(const ::MsNet::Login& xParam, ::Ice::Int& r0, ::MsNet::Login& ret, const ::Ice::Current& xCurrent)
 {
     c2sRegister_num++;
@@ -119,6 +142,29 @@ PJ_LoginManager::c2sLogin(const ::MsNet::Login& xParam, ::Ice::Int& r0, const ::
     {
         return false;
     }
+    return true;
+}
+
+bool
+PJ_LoginManager::c2sxqCall(const ::std::string& name, ::Ice::Int& age, const ::Ice::Current&)
+{
+    if (name == u8"Ð¡çù")
+    {
+        age = 100;
+    }
+    else if (name == u8"Ì«Ò»")
+    {
+        age = 200;
+    }
+    else if (name == u8"dongdong")
+    {
+        age = 17;
+    }
+    else
+    {
+        age = -1;
+    }
+
     return true;
 }
 

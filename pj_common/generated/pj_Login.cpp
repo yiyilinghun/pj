@@ -61,13 +61,21 @@ const ::std::string iceC_MsNet_ILogin_ops[] =
 {
     "c2sLogin",
     "c2sRegister",
+    "c2sxqCall",
     "ice_id",
     "ice_ids",
     "ice_isA",
-    "ice_ping"
+    "ice_ping",
+    "p1r0",
+    "p1r1",
+    "p1r2"
 };
+const ::std::string iceC_MsNet_ILogin_p1r0_name = "p1r0";
+const ::std::string iceC_MsNet_ILogin_p1r1_name = "p1r1";
+const ::std::string iceC_MsNet_ILogin_p1r2_name = "p1r2";
 const ::std::string iceC_MsNet_ILogin_c2sRegister_name = "c2sRegister";
 const ::std::string iceC_MsNet_ILogin_c2sLogin_name = "c2sLogin";
+const ::std::string iceC_MsNet_ILogin_c2sxqCall_name = "c2sxqCall";
 
 }
 
@@ -94,6 +102,54 @@ MsNet::ILogin::ice_staticId()
 {
     static const ::std::string typeId = "::MsNet::ILogin";
     return typeId;
+}
+
+bool
+MsNet::ILogin::_iceD_p1r0(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::OperationMode::Normal, current.mode);
+    auto istr = inS.startReadParams();
+    ::std::string iceP_p1;
+    istr->readAll(iceP_p1);
+    inS.endReadParams();
+    bool ret = this->p1r0(::std::move(iceP_p1), current);
+    auto ostr = inS.startWriteParams();
+    ostr->writeAll(ret);
+    inS.endWriteParams();
+    return true;
+}
+
+bool
+MsNet::ILogin::_iceD_p1r1(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::OperationMode::Normal, current.mode);
+    auto istr = inS.startReadParams();
+    ::std::string iceP_p1;
+    istr->readAll(iceP_p1);
+    inS.endReadParams();
+    int iceP_r1;
+    bool ret = this->p1r1(::std::move(iceP_p1), iceP_r1, current);
+    auto ostr = inS.startWriteParams();
+    ostr->writeAll(iceP_r1, ret);
+    inS.endWriteParams();
+    return true;
+}
+
+bool
+MsNet::ILogin::_iceD_p1r2(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::OperationMode::Normal, current.mode);
+    auto istr = inS.startReadParams();
+    ::std::string iceP_p1;
+    istr->readAll(iceP_p1);
+    inS.endReadParams();
+    int iceP_r1;
+    int iceP_r2;
+    bool ret = this->p1r2(::std::move(iceP_p1), iceP_r1, iceP_r2, current);
+    auto ostr = inS.startWriteParams();
+    ostr->writeAll(iceP_r1, iceP_r2, ret);
+    inS.endWriteParams();
+    return true;
 }
 
 bool
@@ -130,9 +186,25 @@ MsNet::ILogin::_iceD_c2sLogin(::IceInternal::Incoming& inS, const ::Ice::Current
 }
 
 bool
+MsNet::ILogin::_iceD_c2sxqCall(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::OperationMode::Normal, current.mode);
+    auto istr = inS.startReadParams();
+    ::std::string iceP_name;
+    istr->readAll(iceP_name);
+    inS.endReadParams();
+    int iceP_age;
+    bool ret = this->c2sxqCall(::std::move(iceP_name), iceP_age, current);
+    auto ostr = inS.startWriteParams();
+    ostr->writeAll(iceP_age, ret);
+    inS.endWriteParams();
+    return true;
+}
+
+bool
 MsNet::ILogin::_iceDispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair<const ::std::string*, const ::std::string*> r = ::std::equal_range(iceC_MsNet_ILogin_ops, iceC_MsNet_ILogin_ops + 6, current.operation);
+    ::std::pair<const ::std::string*, const ::std::string*> r = ::std::equal_range(iceC_MsNet_ILogin_ops, iceC_MsNet_ILogin_ops + 10, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -150,19 +222,35 @@ MsNet::ILogin::_iceDispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
         }
         case 2:
         {
-            return _iceD_ice_id(in, current);
+            return _iceD_c2sxqCall(in, current);
         }
         case 3:
         {
-            return _iceD_ice_ids(in, current);
+            return _iceD_ice_id(in, current);
         }
         case 4:
         {
-            return _iceD_ice_isA(in, current);
+            return _iceD_ice_ids(in, current);
         }
         case 5:
         {
+            return _iceD_ice_isA(in, current);
+        }
+        case 6:
+        {
             return _iceD_ice_ping(in, current);
+        }
+        case 7:
+        {
+            return _iceD_p1r0(in, current);
+        }
+        case 8:
+        {
+            return _iceD_p1r1(in, current);
+        }
+        case 9:
+        {
+            return _iceD_p1r2(in, current);
         }
         default:
         {
@@ -170,6 +258,54 @@ MsNet::ILogin::_iceDispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
             throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
         }
     }
+}
+
+void
+MsNet::ILoginPrx::_iceI_p1r0(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<bool>>& outAsync, const ::std::string& iceP_p1, const ::Ice::Context& context)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_p1r0_name);
+    outAsync->invoke(iceC_MsNet_ILogin_p1r0_name, ::Ice::OperationMode::Normal, ::Ice::FormatType::DefaultFormat, context,
+        [&](::Ice::OutputStream* ostr)
+        {
+            ostr->writeAll(iceP_p1);
+        },
+        nullptr);
+}
+
+void
+MsNet::ILoginPrx::_iceI_p1r1(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::P1r1Result>>& outAsync, const ::std::string& iceP_p1, const ::Ice::Context& context)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_p1r1_name);
+    outAsync->invoke(iceC_MsNet_ILogin_p1r1_name, ::Ice::OperationMode::Normal, ::Ice::FormatType::DefaultFormat, context,
+        [&](::Ice::OutputStream* ostr)
+        {
+            ostr->writeAll(iceP_p1);
+        },
+        nullptr,
+        [](::Ice::InputStream* istr)
+        {
+            ::MsNet::ILogin::P1r1Result v;
+            istr->readAll(v.r1, v.returnValue);
+            return v;
+        });
+}
+
+void
+MsNet::ILoginPrx::_iceI_p1r2(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::P1r2Result>>& outAsync, const ::std::string& iceP_p1, const ::Ice::Context& context)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_p1r2_name);
+    outAsync->invoke(iceC_MsNet_ILogin_p1r2_name, ::Ice::OperationMode::Normal, ::Ice::FormatType::DefaultFormat, context,
+        [&](::Ice::OutputStream* ostr)
+        {
+            ostr->writeAll(iceP_p1);
+        },
+        nullptr,
+        [](::Ice::InputStream* istr)
+        {
+            ::MsNet::ILogin::P1r2Result v;
+            istr->readAll(v.r1, v.r2, v.returnValue);
+            return v;
+        });
 }
 
 void
@@ -208,6 +344,24 @@ MsNet::ILoginPrx::_iceI_c2sLogin(const ::std::shared_ptr<::IceInternal::Outgoing
         });
 }
 
+void
+MsNet::ILoginPrx::_iceI_c2sxqCall(const ::std::shared_ptr<::IceInternal::OutgoingAsyncT<::MsNet::ILogin::C2sxqCallResult>>& outAsync, const ::std::string& iceP_name, const ::Ice::Context& context)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_c2sxqCall_name);
+    outAsync->invoke(iceC_MsNet_ILogin_c2sxqCall_name, ::Ice::OperationMode::Normal, ::Ice::FormatType::DefaultFormat, context,
+        [&](::Ice::OutputStream* ostr)
+        {
+            ostr->writeAll(iceP_name);
+        },
+        nullptr,
+        [](::Ice::InputStream* istr)
+        {
+            ::MsNet::ILogin::C2sxqCallResult v;
+            istr->readAll(v.age, v.returnValue);
+            return v;
+        });
+}
+
 ::std::shared_ptr<::Ice::ObjectPrx>
 MsNet::ILoginPrx::_newInstance() const
 {
@@ -229,9 +383,17 @@ namespace Ice
 namespace
 {
 
+const ::std::string iceC_MsNet_ILogin_p1r0_name = "p1r0";
+
+const ::std::string iceC_MsNet_ILogin_p1r1_name = "p1r1";
+
+const ::std::string iceC_MsNet_ILogin_p1r2_name = "p1r2";
+
 const ::std::string iceC_MsNet_ILogin_c2sRegister_name = "c2sRegister";
 
 const ::std::string iceC_MsNet_ILogin_c2sLogin_name = "c2sLogin";
+
+const ::std::string iceC_MsNet_ILogin_c2sxqCall_name = "c2sxqCall";
 
 }
 ::IceProxy::Ice::Object* ::IceProxy::MsNet::upCast(::IceProxy::MsNet::ILogin* p) { return p; }
@@ -250,6 +412,135 @@ void
         v = new ::IceProxy::MsNet::ILogin;
         v->_copyFrom(proxy);
     }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MsNet::ILogin::_iceI_begin_p1r0(const ::std::string& iceP_p1, const ::Ice::Context& context, const ::IceInternal::CallbackBasePtr& del, const ::Ice::LocalObjectPtr& cookie, bool sync)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_p1r0_name, sync);
+    ::IceInternal::OutgoingAsyncPtr result = new ::IceInternal::CallbackOutgoing(this, iceC_MsNet_ILogin_p1r0_name, del, cookie, sync);
+    try
+    {
+        result->prepare(iceC_MsNet_ILogin_p1r0_name, ::Ice::Normal, context);
+        ::Ice::OutputStream* ostr = result->startWriteParams(::Ice::DefaultFormat);
+        ostr->write(iceP_p1);
+        result->endWriteParams();
+        result->invoke(iceC_MsNet_ILogin_p1r0_name);
+    }
+    catch(const ::Ice::Exception& ex)
+    {
+        result->abort(ex);
+    }
+    return result;
+}
+
+bool
+IceProxy::MsNet::ILogin::end_p1r0(const ::Ice::AsyncResultPtr& result)
+{
+    ::Ice::AsyncResult::_check(result, this, iceC_MsNet_ILogin_p1r0_name);
+    bool ret;
+    if(!result->_waitForResponse())
+    {
+        try
+        {
+            result->_throwUserException();
+        }
+        catch(const ::Ice::UserException& ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, ex.ice_id());
+        }
+    }
+    ::Ice::InputStream* istr = result->_startReadParams();
+    istr->read(ret);
+    result->_endReadParams();
+    return ret;
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MsNet::ILogin::_iceI_begin_p1r1(const ::std::string& iceP_p1, const ::Ice::Context& context, const ::IceInternal::CallbackBasePtr& del, const ::Ice::LocalObjectPtr& cookie, bool sync)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_p1r1_name, sync);
+    ::IceInternal::OutgoingAsyncPtr result = new ::IceInternal::CallbackOutgoing(this, iceC_MsNet_ILogin_p1r1_name, del, cookie, sync);
+    try
+    {
+        result->prepare(iceC_MsNet_ILogin_p1r1_name, ::Ice::Normal, context);
+        ::Ice::OutputStream* ostr = result->startWriteParams(::Ice::DefaultFormat);
+        ostr->write(iceP_p1);
+        result->endWriteParams();
+        result->invoke(iceC_MsNet_ILogin_p1r1_name);
+    }
+    catch(const ::Ice::Exception& ex)
+    {
+        result->abort(ex);
+    }
+    return result;
+}
+
+bool
+IceProxy::MsNet::ILogin::end_p1r1(::Ice::Int& iceP_r1, const ::Ice::AsyncResultPtr& result)
+{
+    ::Ice::AsyncResult::_check(result, this, iceC_MsNet_ILogin_p1r1_name);
+    bool ret;
+    if(!result->_waitForResponse())
+    {
+        try
+        {
+            result->_throwUserException();
+        }
+        catch(const ::Ice::UserException& ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, ex.ice_id());
+        }
+    }
+    ::Ice::InputStream* istr = result->_startReadParams();
+    istr->read(iceP_r1);
+    istr->read(ret);
+    result->_endReadParams();
+    return ret;
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MsNet::ILogin::_iceI_begin_p1r2(const ::std::string& iceP_p1, const ::Ice::Context& context, const ::IceInternal::CallbackBasePtr& del, const ::Ice::LocalObjectPtr& cookie, bool sync)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_p1r2_name, sync);
+    ::IceInternal::OutgoingAsyncPtr result = new ::IceInternal::CallbackOutgoing(this, iceC_MsNet_ILogin_p1r2_name, del, cookie, sync);
+    try
+    {
+        result->prepare(iceC_MsNet_ILogin_p1r2_name, ::Ice::Normal, context);
+        ::Ice::OutputStream* ostr = result->startWriteParams(::Ice::DefaultFormat);
+        ostr->write(iceP_p1);
+        result->endWriteParams();
+        result->invoke(iceC_MsNet_ILogin_p1r2_name);
+    }
+    catch(const ::Ice::Exception& ex)
+    {
+        result->abort(ex);
+    }
+    return result;
+}
+
+bool
+IceProxy::MsNet::ILogin::end_p1r2(::Ice::Int& iceP_r1, ::Ice::Int& iceP_r2, const ::Ice::AsyncResultPtr& result)
+{
+    ::Ice::AsyncResult::_check(result, this, iceC_MsNet_ILogin_p1r2_name);
+    bool ret;
+    if(!result->_waitForResponse())
+    {
+        try
+        {
+            result->_throwUserException();
+        }
+        catch(const ::Ice::UserException& ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, ex.ice_id());
+        }
+    }
+    ::Ice::InputStream* istr = result->_startReadParams();
+    istr->read(iceP_r1);
+    istr->read(iceP_r2);
+    istr->read(ret);
+    result->_endReadParams();
+    return ret;
 }
 
 ::Ice::AsyncResultPtr
@@ -339,6 +630,49 @@ IceProxy::MsNet::ILogin::end_c2sLogin(::Ice::Int& iceP_count, const ::Ice::Async
     return ret;
 }
 
+::Ice::AsyncResultPtr
+IceProxy::MsNet::ILogin::_iceI_begin_c2sxqCall(const ::std::string& iceP_name, const ::Ice::Context& context, const ::IceInternal::CallbackBasePtr& del, const ::Ice::LocalObjectPtr& cookie, bool sync)
+{
+    _checkTwowayOnly(iceC_MsNet_ILogin_c2sxqCall_name, sync);
+    ::IceInternal::OutgoingAsyncPtr result = new ::IceInternal::CallbackOutgoing(this, iceC_MsNet_ILogin_c2sxqCall_name, del, cookie, sync);
+    try
+    {
+        result->prepare(iceC_MsNet_ILogin_c2sxqCall_name, ::Ice::Normal, context);
+        ::Ice::OutputStream* ostr = result->startWriteParams(::Ice::DefaultFormat);
+        ostr->write(iceP_name);
+        result->endWriteParams();
+        result->invoke(iceC_MsNet_ILogin_c2sxqCall_name);
+    }
+    catch(const ::Ice::Exception& ex)
+    {
+        result->abort(ex);
+    }
+    return result;
+}
+
+bool
+IceProxy::MsNet::ILogin::end_c2sxqCall(::Ice::Int& iceP_age, const ::Ice::AsyncResultPtr& result)
+{
+    ::Ice::AsyncResult::_check(result, this, iceC_MsNet_ILogin_c2sxqCall_name);
+    bool ret;
+    if(!result->_waitForResponse())
+    {
+        try
+        {
+            result->_throwUserException();
+        }
+        catch(const ::Ice::UserException& ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, ex.ice_id());
+        }
+    }
+    ::Ice::InputStream* istr = result->_startReadParams();
+    istr->read(iceP_age);
+    istr->read(ret);
+    result->_endReadParams();
+    return ret;
+}
+
 ::IceProxy::Ice::Object*
 IceProxy::MsNet::ILogin::_newInstance() const
 {
@@ -398,6 +732,57 @@ MsNet::ILogin::ice_staticId()
 }
 
 bool
+MsNet::ILogin::_iceD_p1r0(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::Normal, current.mode);
+    ::Ice::InputStream* istr = inS.startReadParams();
+    ::std::string iceP_p1;
+    istr->read(iceP_p1);
+    inS.endReadParams();
+    bool ret = this->p1r0(iceP_p1, current);
+    ::Ice::OutputStream* ostr = inS.startWriteParams();
+    ostr->write(ret);
+    inS.endWriteParams();
+    return true;
+}
+
+bool
+MsNet::ILogin::_iceD_p1r1(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::Normal, current.mode);
+    ::Ice::InputStream* istr = inS.startReadParams();
+    ::std::string iceP_p1;
+    istr->read(iceP_p1);
+    inS.endReadParams();
+    ::Ice::Int iceP_r1;
+    bool ret = this->p1r1(iceP_p1, iceP_r1, current);
+    ::Ice::OutputStream* ostr = inS.startWriteParams();
+    ostr->write(iceP_r1);
+    ostr->write(ret);
+    inS.endWriteParams();
+    return true;
+}
+
+bool
+MsNet::ILogin::_iceD_p1r2(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::Normal, current.mode);
+    ::Ice::InputStream* istr = inS.startReadParams();
+    ::std::string iceP_p1;
+    istr->read(iceP_p1);
+    inS.endReadParams();
+    ::Ice::Int iceP_r1;
+    ::Ice::Int iceP_r2;
+    bool ret = this->p1r2(iceP_p1, iceP_r1, iceP_r2, current);
+    ::Ice::OutputStream* ostr = inS.startWriteParams();
+    ostr->write(iceP_r1);
+    ostr->write(iceP_r2);
+    ostr->write(ret);
+    inS.endWriteParams();
+    return true;
+}
+
+bool
 MsNet::ILogin::_iceD_c2sRegister(::IceInternal::Incoming& inS, const ::Ice::Current& current)
 {
     _iceCheckMode(::Ice::Normal, current.mode);
@@ -433,16 +818,37 @@ MsNet::ILogin::_iceD_c2sLogin(::IceInternal::Incoming& inS, const ::Ice::Current
     return true;
 }
 
+bool
+MsNet::ILogin::_iceD_c2sxqCall(::IceInternal::Incoming& inS, const ::Ice::Current& current)
+{
+    _iceCheckMode(::Ice::Normal, current.mode);
+    ::Ice::InputStream* istr = inS.startReadParams();
+    ::std::string iceP_name;
+    istr->read(iceP_name);
+    inS.endReadParams();
+    ::Ice::Int iceP_age;
+    bool ret = this->c2sxqCall(iceP_name, iceP_age, current);
+    ::Ice::OutputStream* ostr = inS.startWriteParams();
+    ostr->write(iceP_age);
+    ostr->write(ret);
+    inS.endWriteParams();
+    return true;
+}
+
 namespace
 {
 const ::std::string iceC_MsNet_ILogin_all[] =
 {
     "c2sLogin",
     "c2sRegister",
+    "c2sxqCall",
     "ice_id",
     "ice_ids",
     "ice_isA",
-    "ice_ping"
+    "ice_ping",
+    "p1r0",
+    "p1r1",
+    "p1r2"
 };
 
 }
@@ -450,7 +856,7 @@ const ::std::string iceC_MsNet_ILogin_all[] =
 bool
 MsNet::ILogin::_iceDispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair<const ::std::string*, const ::std::string*> r = ::std::equal_range(iceC_MsNet_ILogin_all, iceC_MsNet_ILogin_all + 6, current.operation);
+    ::std::pair<const ::std::string*, const ::std::string*> r = ::std::equal_range(iceC_MsNet_ILogin_all, iceC_MsNet_ILogin_all + 10, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -468,19 +874,35 @@ MsNet::ILogin::_iceDispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
         }
         case 2:
         {
-            return _iceD_ice_id(in, current);
+            return _iceD_c2sxqCall(in, current);
         }
         case 3:
         {
-            return _iceD_ice_ids(in, current);
+            return _iceD_ice_id(in, current);
         }
         case 4:
         {
-            return _iceD_ice_isA(in, current);
+            return _iceD_ice_ids(in, current);
         }
         case 5:
         {
+            return _iceD_ice_isA(in, current);
+        }
+        case 6:
+        {
             return _iceD_ice_ping(in, current);
+        }
+        case 7:
+        {
+            return _iceD_p1r0(in, current);
+        }
+        case 8:
+        {
+            return _iceD_p1r1(in, current);
+        }
+        case 9:
+        {
+            return _iceD_p1r2(in, current);
         }
         default:
         {
