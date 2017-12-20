@@ -337,7 +337,6 @@ qt_server_wnd::test3() {
 
     ICE_DIY_CALL1_RET0(g_ice_server_app.m_LoginPrx1, p1r0, u8"p1")
     {
-
         return true;
     });
     //g_ice_server_app.m_LoginPrx1.msc2sxqCall(u8"̫һ", 
@@ -366,6 +365,7 @@ qt_server_wnd::test3() {
 }
 
 
+
 void
 qt_server_wnd::test4() {
     qDebug(u8"test4");
@@ -377,6 +377,7 @@ void
 qt_server_wnd::test5() {
     qDebug(u8"test5");
 }
+
 
 
 bool

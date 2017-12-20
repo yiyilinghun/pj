@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01.pj_common", "pj_common\pj_common.vcxproj", "{45DD726B-572C-47BF-8E8A-EC9CE2A1F36E}"
 EndProject
@@ -99,6 +99,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pj_label", "pj_controls\pj_
 		{45DD726B-572C-47BF-8E8A-EC9CE2A1F36E} = {45DD726B-572C-47BF-8E8A-EC9CE2A1F36E}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11.tools", "11.tools", "{57F9316B-E5C5-40D4-B431-1D193A26992E}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "pj_assist", "pj_tools\pj_assist.pyproj", "{FBF2528A-AF31-4300-A621-8DBF58EB6B18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -187,6 +191,10 @@ Global
 		{375004E5-DEB3-40FC-97BD-B7B0047AE009}.Release|x64.ActiveCfg = Release|x64
 		{375004E5-DEB3-40FC-97BD-B7B0047AE009}.Release|x64.Build.0 = Release|x64
 		{375004E5-DEB3-40FC-97BD-B7B0047AE009}.Release|x86.ActiveCfg = Release|x64
+		{FBF2528A-AF31-4300-A621-8DBF58EB6B18}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FBF2528A-AF31-4300-A621-8DBF58EB6B18}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBF2528A-AF31-4300-A621-8DBF58EB6B18}.Release|x64.ActiveCfg = Release|Any CPU
+		{FBF2528A-AF31-4300-A621-8DBF58EB6B18}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +208,7 @@ Global
 		{DFF2308E-5F46-40CB-AAAE-9649F34CABDE} = {2F12455C-5DF5-4DAB-8328-04D05CF1B33B}
 		{8EFBC6DA-34C6-4C32-A4E9-5B141DB6C14F} = {2F12455C-5DF5-4DAB-8328-04D05CF1B33B}
 		{375004E5-DEB3-40FC-97BD-B7B0047AE009} = {2F12455C-5DF5-4DAB-8328-04D05CF1B33B}
+		{FBF2528A-AF31-4300-A621-8DBF58EB6B18} = {57F9316B-E5C5-40D4-B431-1D193A26992E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D5DFEAD-539C-4E93-8CAE-BC239F25FDD6}

@@ -91,6 +91,7 @@ const decltype(_prx)::rpc_call##r2& r2)
 
 
 
+
 #pragma region ICE_PRC远程调用2参,0返
 #define ICE_CALL2_RET0(rpc_call,pt1,pt2)  bool rpc_call(const pt1&, const pt2&, const ::Ice::Context& context = Ice::noExplicitContext);\
 bool ms_exe##rpc_call(bool, const pt1&, const pt2&);\
@@ -200,27 +201,7 @@ public:
 #pragma endregion
 
 public:
-
-    ICE_CALL1_RET0(p1r0,
-        std::string
-    );
-
-    ICE_CALL1_RET1(c2sLogin,
-        MsNet::Login,
-        qint32
-    );
-
-    ICE_CALL1_RET2(c2sRegister,
-        MsNet::Login,
-        qint32,
-        MsNet::Login
-    );
-
-    ICE_CALL1_RET1(c2sxqCall,
-        std::string,
-        qint32
-    );
-    //c2sxqCallp1
+#include "ILogin"
 };
 
 
@@ -282,7 +263,7 @@ public:
 
     MsNetLogin m_LoginPrx1;
     qt_server_wnd* m_MainWnd = nullptr;
-
 };
 extern ice_server_app g_ice_server_app;
 extern bool aa;
+
