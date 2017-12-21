@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{fbf2528a-af31-4300-a621-8dbf58eb6b18}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>publish_pj_controls.py</StartupFile>
+    <StartupFile>test.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -25,6 +25,8 @@
     <Compile Include="auto_compile_ice_assist.py" />
     <Compile Include="make_macro_assist.py" />
     <Compile Include="publish_pj_controls.py" />
+    <Compile Include="test.py" />
+    <Compile Include="web.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
