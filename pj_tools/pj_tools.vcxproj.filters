@@ -21,6 +21,9 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="11.接口文件">
+      <UniqueIdentifier>{fc698035-d217-4cca-9e13-8122c7c16ecb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_pj_tools.cpp">
@@ -41,6 +44,24 @@
     <ClCompile Include="pj_tools_main.cpp">
       <Filter>03.入口文件</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MsIScene.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MsIScene.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MsILogin2.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MsILogin2.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MsILogin.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MsILogin.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_pj_tools.h">
@@ -59,6 +80,15 @@
     </CustomBuild>
     <CustomBuild Include="pj_tools.h">
       <Filter>03.入口文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\pj_common\MsIScene.h">
+      <Filter>11.接口文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\pj_common\MsILogin2.h">
+      <Filter>11.接口文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\pj_common\MsILogin.h">
+      <Filter>11.接口文件</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

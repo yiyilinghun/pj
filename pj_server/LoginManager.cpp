@@ -212,4 +212,3 @@ int32_t PJ_LoginManager::update_count()
     //m_count = m_writeDictData.GetCount();
     return m_count;
 }
-

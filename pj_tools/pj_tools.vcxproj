@@ -33,12 +33,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\include\;$(SolutionDir)packages\baselib\;$(SolutionDir)packages\datastruct\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\include\;$(SolutionDir)packages\zeroc.ice.v141.3.7.0\build\native\include\;$(SolutionDir)packages\baselib\;$(SolutionDir)packages\datastruct\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\include\;$(SolutionDir)packages\baselib\;$(SolutionDir)packages\datastruct\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\include\;$(SolutionDir)packages\zeroc.ice.v141.3.7.0\build\native\include\;$(SolutionDir)packages\baselib\;$(SolutionDir)packages\datastruct\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -91,6 +91,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MsILogin.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MsILogin2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MsIScene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_pj_tools.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -99,6 +108,15 @@
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MsILogin.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MsILogin2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MsIScene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_pj_tools.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -111,6 +129,36 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="..\pj_common\MsIScene.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing MsIScene.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fPrecompiled.h" "-f../../../pj_common/MsIScene.h"  -DWIN -D_DEBUG -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_XML_LIB "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(SolutionDir)pj_controls" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWinExtras" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)pj_common"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing MsIScene.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fPrecompiled.h" "-f../../../pj_common/MsIScene.h"  -DWIN -D_DEBUG -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_XML_LIB "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(SolutionDir)pj_controls" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWinExtras" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)pj_common"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\pj_common\MsILogin2.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing MsILogin2.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fPrecompiled.h" "-f../../../pj_common/MsILogin2.h"  -DWIN -D_DEBUG -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_XML_LIB "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(SolutionDir)pj_controls" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWinExtras" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)pj_common"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing MsILogin2.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fPrecompiled.h" "-f../../../pj_common/MsILogin2.h"  -DWIN -D_DEBUG -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_XML_LIB "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(SolutionDir)pj_controls" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWinExtras" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)pj_common"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\pj_common\MsILogin.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing MsILogin.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fPrecompiled.h" "-f../../../pj_common/MsILogin.h"  -DWIN -D_DEBUG -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_XML_LIB "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(SolutionDir)pj_controls" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWinExtras" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)pj_common"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing MsILogin.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fPrecompiled.h" "-f../../../pj_common/MsILogin.h"  -DWIN -D_DEBUG -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_XML_LIB "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(SolutionDir)pj_controls" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWinExtras" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)pj_common"</Command>
+    </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_pj_tools.h" />
     <CustomBuild Include="pj_tools.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

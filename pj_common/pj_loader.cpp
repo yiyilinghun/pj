@@ -1,6 +1,8 @@
 #include "Precompiled.h"
 #include "pj_loader.h"
 
+#define WAS_MAKE_ARGB(c, a) (a << 24) + (c << 8 & 0xf80000) + (c << 5 & 0x7fc00) + (((c << 3 | (c & 7)) & 0x3ff))
+
 std::shared_ptr<pjResManager> g_ms_pjResManager = nullptr;
 pjResManager& pj_GetResManager()
 {

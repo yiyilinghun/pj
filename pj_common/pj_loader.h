@@ -1,19 +1,6 @@
 #pragma once
 #include <QtCore/QDataStream>
 
-//QDataStream
-//#define FAST_LAMBDA_DELETE          [](void* d) { SAFE_DELETE(d); }
-//#define FAST_LAMBDA_DELETE_ARRAY    [](void* d) { SAFE_DELETE_ARRAY(d); }
-//#define FAST_LAMBDA_CALL(fun)       [](auto d) { fun(d); }
-
-#define WAS_MAKE_ARGB(c, a) (a << 24) + (c << 8 & 0xf80000) + (c << 5 & 0x7fc00) + (((c << 3 | (c & 7)) & 0x3ff))
-
-//#ifdef PJ_EXPORTS
-//#define PJ_COMMON_LIB_API __declspec(dllexport)
-//#else
-//#define PJ_COMMON_LIB_API __declspec(dllimport)
-//#endif
-
 #pragma pack(push)
 #pragma pack(1)
 struct xyUnit

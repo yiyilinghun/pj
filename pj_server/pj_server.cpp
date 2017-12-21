@@ -232,7 +232,7 @@ void qt_server_wnd::closeEvent(QCloseEvent *event)
 //        if (xKey->isCompleted())
 //        {
 //            xTempList.push_back(xKey);
-//            IceProxy::MsNet::ILogin& xTemp = *(g_ice_server_app.m_LoginPrx1.m_Prx.get());
+//            IceProxy::MsNet::ILogin& xTemp = *(g_ice_server_app.m_LoginPrx.m_Prx.get());
 //            if (xValue(xKey))
 //            {
 //                qDebug(u8"成功");
@@ -267,54 +267,54 @@ qt_server_wnd::test1() {
     MsNet::Login xxParam;
     xxParam.account = "1";
     xxParam.password = "1";
-    //g_ice_server_app.m_LoginPrx1->c2sLogin(xxParam);
+    //g_ice_server_app.m_LoginPrx->c2sLogin(xxParam);
 
-    //g_ice_server_app.m_LoginPrx1->msc2sLogin(xxParam);
+    //g_ice_server_app.m_LoginPrx->msc2sLogin(xxParam);
 
-    g_ice_server_app.m_LoginPrx1.msc2sRegister(xxParam);
+    g_ice_server_app.m_LoginPrx.msc2sRegister(xxParam);
 
 
-    //ICE_CALL_0(g_ice_server_app.m_LoginPrx1, c2sLogin, xxParam);
+    //ICE_CALL_0(g_ice_server_app.m_LoginPrx, c2sLogin, xxParam);
     //qDebug(u8"我来了");
     //END_ICE_CALL;
 
 
     //MsNet::Login ret;
-    //ICE_CALL_1(g_ice_server_app.m_LoginPrx1, c2sRegister, xxParam, ret);
+    //ICE_CALL_1(g_ice_server_app.m_LoginPrx, c2sRegister, xxParam, ret);
     //qDebug(u8"我来了");
     //END_ICE_CALL;
 
 
-    //DEF_ICE_CALL(g_ice_server_app.m_LoginPrx1->begin_c2sRegister(xxParam));
-    //EXE_ICE_CALL(g_ice_server_app.m_LoginPrx1->end_c2sRegister(aa, xAsynResult));
+    //DEF_ICE_CALL(g_ice_server_app.m_LoginPrx->begin_c2sRegister(xxParam));
+    //EXE_ICE_CALL(g_ice_server_app.m_LoginPrx->end_c2sRegister(aa, xAsynResult));
     //qDebug(u8"我来了");
     //END_ICE_CALL(aa);
 
-    //DEF_ICE_CALL(g_ice_server_app.m_LoginPrx1->begin_c2sRegister(xxParam))
+    //DEF_ICE_CALL(g_ice_server_app.m_LoginPrx->begin_c2sRegister(xxParam))
 
     //    qDebug(u8"我来了");
     //END_ICE_CALL;
 
-    //m_setAsyncResult.insert(g_ice_server_app.m_LoginPrx1->begin_c2sLogin(xxParam),
+    //m_setAsyncResult.insert(g_ice_server_app.m_LoginPrx->begin_c2sLogin(xxParam),
     //    [&](const ::Ice::AsyncResultPtr& xAsynResult)
     //{
-    //    return g_ice_server_app.m_LoginPrx1->end_c2sLogin(xAsynResult);
+    //    return g_ice_server_app.m_LoginPrx->end_c2sLogin(xAsynResult);
     //});
 
     //while (!xRet->isCompleted())
     //{
     //    continue;
     //}
-    //g_ice_server_app.m_LoginPrx1->end_c2sLogin(xRet);
+    //g_ice_server_app.m_LoginPrx->end_c2sLogin(xRet);
 }
 
 
 void
 qt_server_wnd::test2() {
 
-    g_ice_server_app.m_LoginPrx1.begin();
-    //g_ice_server_app.m_LoginPrx1 = NEW MsNetLogin(0);
-    g_ice_server_app.m_LoginPrx1.m_Prx
+    g_ice_server_app.m_LoginPrx.begin();
+    //g_ice_server_app.m_LoginPrx = NEW MsNetLogin(0);
+    g_ice_server_app.m_LoginPrx.m_Prx
         = MsNet::ILoginPrx::checkedCast(g_ice_server_app.communicator()->stringToProxy("PJ1:tcp -h 127.0.0.1 -p 10000"));
 
     //g_ice_server_app.m_LoginPrx2
@@ -330,23 +330,28 @@ qt_server_wnd::test3() {
 
     std::string temp = u8"放大啊的说法是的地方";
 
-    g_ice_server_app.m_LoginPrx1.msc2sxqCall(u8"太一", [=](bool ice_ret, const std::string p1, const qint32 r1)
+    g_ice_server_app.m_LoginPrx.msc2sxqCall(u8"太一", [=](bool ice_ret, const std::string p1, const qint32 r1)
     {
         return true;
     });
 
-    ICE_DIY_CALL1_RET0(g_ice_server_app.m_LoginPrx1, p1r0, u8"p1")
+    ICE_DIY_CALL1_RET0(g_ice_server_app.m_LoginPrx, p1r0, u8"p1")
+    {
+        return false;
+    });
+
+    ICE_DIY_CALL1_RET0(g_ice_server_app.m_LoginPrx, p1r0, u8"p1")
     {
         return true;
     });
-    //g_ice_server_app.m_LoginPrx1.msc2sxqCall(u8"太一", 
-    //    [=](bool ice_ret, decltype(g_ice_server_app.m_LoginPrx1)::c2sxqCallp1 p1, decltype(g_ice_server_app.m_LoginPrx1)::c2sxqCallr1 r1)
-    ICE_DIY_CALL1_RET1(g_ice_server_app.m_LoginPrx1, c2sxqCall, u8"太一")
+    //g_ice_server_app.m_LoginPrx.msc2sxqCall(u8"太一", 
+    //    [=](bool ice_ret, decltype(g_ice_server_app.m_LoginPrx)::c2sxqCallp1 p1, decltype(g_ice_server_app.m_LoginPrx)::c2sxqCallr1 r1)
+    ICE_DIY_CALL1_RET1(g_ice_server_app.m_LoginPrx, c2sxqCall, u8"太一")
     {
         return true;
     });
 
-    g_ice_server_app.m_LoginPrx1.msc2sxqCall(u8"太一", [=](bool ice_ret, const std::string p1, const qint32 r1)
+    g_ice_server_app.m_LoginPrx.msc2sxqCall(u8"太一", [=](bool ice_ret, const std::string p1, const qint32 r1)
     {
         if (temp == u8"放大啊的说法是的地方")
         {
@@ -356,9 +361,9 @@ qt_server_wnd::test3() {
         return false;
     });
 
-    g_ice_server_app.m_LoginPrx1.msc2sxqCall(u8"小琦");
+    g_ice_server_app.m_LoginPrx.msc2sxqCall(u8"小琦");
 
-    //g_ice_server_app.m_LoginPrx1->msc2sxqCall(u8"小琦"){
+    //g_ice_server_app.m_LoginPrx->msc2sxqCall(u8"小琦"){
     //    qDebug(QString(u8"name:%1,age:%2").arg(p1.c_str()).arg(r1).toStdString().c_str());
     //    return true;
     //}
@@ -368,6 +373,7 @@ qt_server_wnd::test3() {
 
 void
 qt_server_wnd::test4() {
+
     qDebug(u8"test4");
 }
 
@@ -375,15 +381,17 @@ qt_server_wnd::test4() {
 
 void
 qt_server_wnd::test5() {
+
     qDebug(u8"test5");
 }
 
 
 
 bool
-MsNetLogin::ice_default_exec2sLogin(bool _ice_result,
+MsILogin::ice_default_cbc2sLogin(bool _ice_result,
     const ::MsNet::Login& p1,
     const qint32& r0) {
+
     g_ice_server_app.m_MainWnd->ui.testButton1->setText(QString(u8"%1").arg(r0));
     this->msc2sLogin(p1);
     qDebug(u8"dsjlkfjadslk;jf32u43823");
@@ -391,14 +399,32 @@ MsNetLogin::ice_default_exec2sLogin(bool _ice_result,
 }
 
 
+bool
+MsILogin::ice_default_cbc2sRegister(bool _ice_result,
+    const MsNet::Login& p1,
+    const qint32& r1,
+    const MsNet::Login& r2) {
+
+    return _ice_result;
+}
+
 
 bool
-MsNetLogin::ice_default_exec2sRegister(bool _ice_result,
+MsILogin::ice_default_cbc2sxqCall(bool _ice_result,
+    const std::string& p1,
+    const qint32& r1) {
+
+    return _ice_result;
+}
+
+bool
+MsILogin2::ice_default_cba2c2sRegister(bool _ice_result,
     const MsNet::Login& p1,
     const qint32& r0,
     const MsNet::Login& r1) {
+
     g_ice_server_app.m_MainWnd->ui.testButton2->setText(QString(u8"%1").arg(r0));
-    this->msc2sRegister(p1);
+    this->msa2c2sRegister(p1);
     qDebug(u8"dsjlkfjadslk;jf32u43823");
     return _ice_result;
 }
@@ -406,9 +432,10 @@ MsNetLogin::ice_default_exec2sRegister(bool _ice_result,
 
 
 bool
-MsNetLogin::ice_default_exec2sxqCall(bool _ice_result,
+MsIScene::ice_default_cba2c2sxqCall(bool _ice_result,
     const std::string& p1,
     const qint32& r1) {
+
     qDebug(QString(u8"name:%1,age:%2").arg(p1.c_str()).arg(r1).toStdString().c_str());
     return true;
 }
