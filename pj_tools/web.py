@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #--coding:utf-8--
+# import ptvsd
 import threading
 from multiprocessing.dummy import Pool as ThreadPool
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -7,9 +8,20 @@ from os import path
 from urllib.parse import urlparse
 import MySQLdb
 import time
+import sys
 
+if len(sys.argv) != 2:
+    print('参数个数不符')
+    quit()
 
-use_outside_addr = True
+if sys.argv[1] == 'out':
+    use_outside_addr = True
+elif sys.argv[1] == 'in':
+    use_outside_addr = False
+else:
+    quit()
+
+#use_outside_addr = True
 #use_outside_addr = False
 
 g_server_outside_addr_list = {
@@ -272,24 +284,25 @@ g_bytesinfo = None
 lock = threading.Lock()
 def thread_tar():
     while True:
-        print('开始拉取')
-        lock.acquire()
         try:
+            print('开始拉取')
+            lock.acquire()
             global g_bytesinfo
             server_info, total_info = get_info()
             temp = ''
             for x in server_info:
                 temp += x
-            g_bytesinfo = bytes(total_info + temp + '''<script language="JavaScript">
-    function myrefresh(){window.location.reload();}
-    setTimeout('myrefresh()',5000);</script>''' + '''
+            g_bytesinfo = bytes(total_info + temp + 
+'''<script language="JavaScript">
+function myrefresh(){window.location.reload();}
+setTimeout('myrefresh()',5000);</script>''' + '''
 <style>
 td {
-    white-space: nowrap;
-    font-size :2.5rem;
+white-space: nowrap;
+font-size :2.0rem;
 }
 th{
-    font-size :2.5rem;
+    font-size :2.0rem;
 }
 </style>
     ''', encoding = "gbk")
