@@ -133,9 +133,28 @@ def db_get_num_info(name, dbaddr):
     rs_cs_money_sum = cursor.fetchone()
     rs_cs_money_sum = (rs_cs_money_sum[0] is not None and int(rs_cs_money_sum[0])) or 0
 
+    cursor.execute("SELECT count(*) FROM player WHERE MobilePhoneBindInfo_PhoneNumber != '';")
+    rs_has_phone_sum = cursor.fetchone()
+    rs_has_phone_sum = (rs_has_phone_sum[0] is not None and int(rs_has_phone_sum[0])) or 0
+
     cursor.close()
     conn.close()
-    return rs_device_sum, rs_money_sum, rs_cs_money_sum, name
+    return rs_device_sum, rs_money_sum, rs_cs_money_sum, db_get_online_info(dbaddr), rs_has_phone_sum, name
+
+
+##################################################################
+def db_get_online_info(dbaddr):
+    conn = MySQLdb.connect(host=dbaddr,port=3306,user='read',passwd='Haymaker@88',db='count',charset='utf8')
+    cursor = conn.cursor()
+
+    #cursor.execute("select count(*) from player;")
+    cursor.execute("select number from online where port = 52113 ;")
+    rs_online_in_cell_sum = cursor.fetchone()
+    rs_online_in_cell_sum = (rs_online_in_cell_sum[0] is not None and int(rs_online_in_cell_sum[0])) or 0
+
+    cursor.close()
+    conn.close()
+    return rs_online_in_cell_sum
 
 
 ##################################################################
@@ -145,13 +164,17 @@ def _parallel_get_channel_info(*servers):
     <tr>
         <th>%s</th>
         <th>设备数量</th>
+        <th>在线数量</th>
         <th>充值金额</th>
         <th>客服充值</th>
+        <th>手机绑定</th>
     </tr><br/>''' % (servers[0])
     
     subtotal_devicesum = 0
+    subtotal_online_cell_sum = 0
     subtotal_moneysum = 0
     subtotal_csmoneysum = 0
+    subtotal_phone_sum= 0
     result = []
     tPool = ThreadPool(100)
     for name,addr in servers[1].items():
@@ -160,41 +183,51 @@ def _parallel_get_channel_info(*servers):
     tPool.close()
     tPool.join()
     for res in result:
-        num, money, cs_money, name = res.get()
+        num, money, cs_money, online_in_cell_sum, rs_has_phone_sum, name = res.get()
         strdict += '''<tr align="center" border="8" width="1000">
         <td>%s</td>
         <td>%s</td>
         <td>%d</td>
         <td>%d</td>
-        </tr>''' % (name, num, money / 100, cs_money / 100)
+        <td>%d</td>
+        <td>%d</td>
+        </tr>''' % (name, num, online_in_cell_sum, money / 100, cs_money / 100, rs_has_phone_sum)
         subtotal_devicesum += num
+        subtotal_online_cell_sum += online_in_cell_sum
         subtotal_moneysum += money / 100
         subtotal_csmoneysum += cs_money / 100
+        subtotal_phone_sum += rs_has_phone_sum
 
     subtotal_strdict += '''<tr align="center" border="8" width="1000">
     <td>%s</td>
     <td>%s</td>
     <td>%d</td>
     <td>%d</td>
-    </tr>''' % (servers[0], subtotal_devicesum, subtotal_moneysum, subtotal_csmoneysum)
+    <td>%d</td>
+    <td>%d</td>
+    </tr>''' % (servers[0], subtotal_devicesum, subtotal_online_cell_sum, subtotal_moneysum, subtotal_csmoneysum, subtotal_phone_sum)
 
     strdict += '''</table>'''
 
-    return strdict, subtotal_strdict, subtotal_devicesum, subtotal_moneysum, subtotal_csmoneysum
+    return strdict, subtotal_strdict, subtotal_devicesum, subtotal_online_cell_sum, subtotal_moneysum, subtotal_csmoneysum, subtotal_phone_sum
 ##################################################################
 
 
 def get_info():
     total_devicesum = 0
+    total_online_cell_sum = 0
     total_moneysum = 0
     total_csmoneysum = 0
+    total_phone_sum = 0
 
     subtotal_strdict = '''<table border="1" align="center" border="8" width="1000">
         <tr>
             <th>渠道小计</th>
             <th>设备数量</th>
+            <th>在线数量</th>
             <th>充值金额</th>
             <th>客服充值</th>
+            <th>手机绑定</th>
         </tr><br/>
     '''
     server_list = None
@@ -213,11 +246,13 @@ def get_info():
     tPool.join()
 
     for res in result:
-        strdict, _subtotal_strdict, subtotal_devicesum, subtotal_moneysum, subtotal_csmoneysum = res.get()
+        strdict, _subtotal_strdict, subtotal_devicesum, subtotal_online_cell_sum, subtotal_moneysum, subtotal_csmoneysum, subtotal_phone_sum = res.get()
         strlist.append(strdict)
         total_devicesum += subtotal_devicesum
+        total_online_cell_sum += subtotal_online_cell_sum
         total_moneysum += subtotal_moneysum
         total_csmoneysum += subtotal_csmoneysum
+        total_phone_sum += subtotal_phone_sum
         subtotal_strdict += _subtotal_strdict
 
     subtotal_strdict += '''<tr align="center" border="8" width="1000">
@@ -225,7 +260,9 @@ def get_info():
     <td>%s</td>
     <td>%d</td>
     <td>%d</td>
-    </tr>''' % ('总计', total_devicesum, total_moneysum, total_csmoneysum)
+    <td>%d</td>
+    <td>%d</td>
+    </tr>''' % ('总计', total_devicesum, total_online_cell_sum, total_moneysum, total_csmoneysum, total_phone_sum)
     return strlist, subtotal_strdict
 
 g_bytes_hunfu_info = None
