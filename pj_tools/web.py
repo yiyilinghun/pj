@@ -1,137 +1,270 @@
 #!/usr/bin/env python
 #--coding:utf-8--
+import threading
+from multiprocessing.dummy import Pool as ThreadPool
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from os import path
 from urllib.parse import urlparse
-
-
-
-
-
-
-
-
-
 import MySQLdb
 import time
 
-g_server_list = {
-    '斗罗-安卓1服':'111.231.86.238',
-    '斗罗-安卓2服':'111.231.54.113',
-    '斗罗-安卓3服':'111.231.62.240',
-    '斗罗-安卓4服':'122.152.204.111',
-    '斗罗-工会1服':'111.231.91.142',
-    '斗罗-应用宝1服':'111.231.91.194',
-    }
 
+use_outside_addr = True
+#use_outside_addr = False
 
-#g_server_list = {
-#    '斗罗-安卓1服':'10.154.151.226',
-#    '斗罗-安卓2服':'10.105.85.208',
-#    '斗罗-安卓3服':'10.105.224.166',
-#    '斗罗-安卓4服':'10.105.0.212',
-#    '斗罗-工会1服':'10.154.10.131',
-#    '斗罗-应用宝1服':'10.154.134.161',
-#    }
+g_server_outside_addr_list = {
+    '超燃混服':{
+        '超燃-混服1服':'111.231.86.238',
+        '超燃-混服2服':'111.231.54.113',
+        '超燃-混服3服':'111.231.62.240',
+        '超燃-混服4服':'122.152.204.111',
+        '超燃-混服5服':'111.231.107.13',
+        '超燃-混服6服':'111.231.87.237',
+        '超燃-混服7服':'111.231.104.28',
+        '超燃-混服8服':'111.231.85.61',
+        '超燃-混服9服':'122.152.192.228',
+        '超燃-混服10服':'111.231.135.225',
+        '超燃-混服11服':'111.231.54.33',
+        '超燃-混服12服':'111.231.99.28',
+        '超燃-混服13服':'122.152.209.167',
+        '超燃-混服14服':'111.231.93.135',
+        '超燃-混服15服':'111.231.90.141',
+        '超燃-混服16服':'111.231.66.25',
+        '超燃-混服17服':'111.231.76.75',
+        '超燃-混服18服':'111.231.75.181',
+        '超燃-混服19服':'111.231.94.188',
+        '超燃-混服20服':'111.231.94.223',
+        '超燃-混服21服':'111.231.91.40',
+    },
+    
+    '超燃工会':{
+        '超燃-工会1服':'111.231.91.142',
+        '超燃-工会2服':'122.152.217.185',
+        '超燃-工会3服':'111.231.89.88',
+        '超燃-工会4服':'111.231.88.75',
+        '超燃-工会5服':'111.231.112.13',
+        '超燃-工会6服':'111.231.86.159',
+        '超燃-工会7服':'111.231.105.206',
+        '超燃-工会8服':'122.152.212.43',
+        '超燃-工会9服':'211.159.216.48',
+        '超燃-工会10服':'111.231.63.144',
+    },
+    
+    '超燃应用宝':{
+        '超燃-应用宝1服':'111.231.91.194',
+        '超燃-应用宝2服':'111.231.89.41',
+        '超燃-应用宝3服':'111.231.88.82',
+        '超燃-应用宝4服':'111.231.89.118',
+        '超燃-应用宝5服':'111.231.89.45',
+        '超燃-应用宝6服':'111.231.90.171',
+        '超燃-应用宝7服':'111.231.50.85',
+        '超燃-应用宝8服':'111.231.87.23',
+        '超燃-应用宝9服':'111.231.142.248',
+        '超燃-应用宝10服':'122.152.210.139',
+    },
+}
 
-def db_get_player_num(dbaddr):
-    conn = MySQLdb.connect(host=dbaddr,port=3306,user='rydbadmin',passwd='q3NF6hMx5jV0',db='projectdl',charset='utf8')
+g_server_inside_addr_list = {
+    '超燃混服':{
+        '超燃-混服1服':'10.154.151.226',
+        '超燃-混服2服':'10.105.85.208',
+        '超燃-混服3服':'10.105.224.166',
+        '超燃-混服4服':'10.105.0.212',
+        '超燃-混服5服':'10.105.122.219',
+        '超燃-混服6服':'10.105.115.188',
+        '超燃-混服7服':'10.105.2.198',
+        '超燃-混服8服':'10.105.13.185',
+        '超燃-混服9服':'10.105.120.23',
+        '超燃-混服10服':'10.105.11.213',
+        '超燃-混服11服':'10.105.23.174',
+        '超燃-混服12服':'10.105.41.250',
+        '超燃-混服13服':'10.105.102.231',
+        '超燃-混服14服':'10.105.64.184',
+        '超燃-混服15服':'10.105.251.226',
+        '超燃-混服16服':'10.105.56.210',
+        '超燃-混服17服':'10.105.99.252',
+        '超燃-混服18服':'10.105.111.34',
+        '超燃-混服19服':'10.105.203.73',
+        '超燃-混服20服':'10.105.104.92',
+        '超燃-混服21服':'10.105.16.161',
+    },
+
+    '超燃工会':{
+        '超燃-工会1服':'10.154.10.131',
+        '超燃-工会2服':'10.133.192.157',
+        '超燃-工会3服':'10.105.213.47',
+        '超燃-工会4服':'10.105.193.118',
+        '超燃-工会5服':'10.105.221.111',
+        '超燃-工会6服':'10.105.18.48',
+        '超燃-工会7服':'10.105.206.235',
+        '超燃-工会8服':'10.105.31.160',
+        '超燃-工会9服':'10.105.29.210',
+        '超燃-工会10服':'10.105.193.178',
+    },
+
+    '超燃应用宝':{
+        '超燃-应用宝1服':'10.154.134.161',
+        '超燃-应用宝2服':'10.105.116.149',
+        '超燃-应用宝3服':'10.105.73.43',
+        '超燃-应用宝4服':'10.105.122.78',
+        '超燃-应用宝5服':'10.105.16.108',
+        '超燃-应用宝6服':'10.105.89.74',
+        '超燃-应用宝7服':'10.105.243.29',
+        '超燃-应用宝8服':'10.105.127.179',
+        '超燃-应用宝9服':'10.105.210.66',
+        '超燃-应用宝10服':'10.105.223.248',
+    },}
+
+# 统计信息
+def db_get_num_info(name, dbaddr):
+    conn = MySQLdb.connect(host=dbaddr,port=3306,user='read',passwd='Haymaker@88',db='projectdl',charset='utf8')
     cursor = conn.cursor()
 
-    cursor.execute("select count(*) from player;")
+    #cursor.execute("select count(*) from player;")
+    cursor.execute("select count(distinct DeviceID) from account ;")
+    rs_device_sum = cursor.fetchone()
+    rs_device_sum = (rs_device_sum[0] is not None and int(rs_device_sum[0])) or 0
 
-    rs = cursor.fetchone()
+    cursor.execute("SELECT SUM(param2) FROM participationlog WHERE TYPE = 54 and Param3 != 2 ;")
+    rs_money_sum = cursor.fetchone()
+    rs_money_sum = (rs_money_sum[0] is not None and int(rs_money_sum[0])) or 0
+
+    cursor.execute("SELECT SUM(param2) FROM participationlog WHERE TYPE = 54 and Param3 = 2 ;")
+    rs_cs_money_sum = cursor.fetchone()
+    rs_cs_money_sum = (rs_cs_money_sum[0] is not None and int(rs_cs_money_sum[0])) or 0
 
     cursor.close()
     conn.close()
-    return int(rs[0])
+    return rs_device_sum, rs_money_sum, rs_cs_money_sum, name
 
 
-
-def db_get_charge_money(dbaddr):
-    conn = MySQLdb.connect(host=dbaddr,port=3306,user='rydbadmin',passwd='q3NF6hMx5jV0',db='projectdl',charset='utf8')
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT SUM(param2) as 'aaa' FROM participationlog WHERE TYPE = 54 and Param3 != 2 ;")
-
-    
-    rs = cursor.fetchone()
-    
-    
-    cursor.close()
-    conn.close()
-    if rs[0] != None:
-        return int(rs[0])
-    else:
-        return 0
-
-
-
-def db_get_cs_money(dbaddr):
-    conn = MySQLdb.connect(host=dbaddr,port=3306,user='rydbadmin',passwd='q3NF6hMx5jV0',db='projectdl',charset='utf8')
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT SUM(param2) as 'aaa' FROM participationlog WHERE TYPE = 54 and Param3 = 2 ;")
-
-    
-    rs = cursor.fetchone()
-    
-    
-    cursor.close()
-    conn.close()
-    if rs[0] != None:
-        return int(rs[0])
-    else:
-        return 0
-
-
-
-def get_info():
-    strdict = '''<table border="1">
+##################################################################
+def _parallel_get_channel_info(*servers):
+    subtotal_strdict = ''
+    strdict = '''<table border="1" align="center" border="8" width="1000">
     <tr>
-        <th>服务器</th>
-        <th>注册人数</th>
+        <th>%s</th>
+        <th>设备数量</th>
         <th>充值金额</th>
         <th>客服充值</th>
-    </tr>'''
+    </tr><br/>''' % (servers[0])
     
-    allpeople,allmoney,cs_money_sum = 0,0,0
-    for name,addr in g_server_list.items():
-        num = db_get_player_num(addr)
-        money = db_get_charge_money(addr)
-        cs_money = db_get_cs_money(addr)
+    subtotal_devicesum = 0
+    subtotal_moneysum = 0
+    subtotal_csmoneysum = 0
+    result = []
+    tPool = ThreadPool(100)
+    for name,addr in servers[1].items():
+        result.append(tPool.apply_async(db_get_num_info, [name, addr]))
 
-        strdict += '''<tr>
+    tPool.close()
+    tPool.join()
+    for res in result:
+        num, money, cs_money, name = res.get()
+        strdict += '''<tr align="center" border="8" width="1000">
         <td>%s</td>
         <td>%s</td>
         <td>%d</td>
         <td>%d</td>
         </tr>''' % (name, num, money / 100, cs_money / 100)
+        subtotal_devicesum += num
+        subtotal_moneysum += money / 100
+        subtotal_csmoneysum += cs_money / 100
 
-
-        #dict.update({name + '注册人数': num, '充值金额' : money / 100})
-        #print(name ,'playernums:', num,'money:',money/100)
-        allpeople += num
-        allmoney += money / 100
-        cs_money_sum += cs_money / 100
-
-    strdict += '''<tr>
+    subtotal_strdict += '''<tr align="center" border="8" width="1000">
     <td>%s</td>
     <td>%s</td>
     <td>%d</td>
     <td>%d</td>
-    </tr>''' % ('总计', allpeople, allmoney, cs_money_sum)
-    #dict.update({'注册总数': allpeople, '充值总额' : allmoney})
+    </tr>''' % (servers[0], subtotal_devicesum, subtotal_moneysum, subtotal_csmoneysum)
 
     strdict += '''</table>'''
-    return strdict
-    #print('allpeople:',allpeople,'allmoney:',allmoney)
-    #print('\n')
-    #time.sleep(5)
+
+    return strdict, subtotal_strdict, subtotal_devicesum, subtotal_moneysum, subtotal_csmoneysum
+##################################################################
 
 
+def get_info():
+    total_devicesum = 0
+    total_moneysum = 0
+    total_csmoneysum = 0
+
+    subtotal_strdict = '''<table border="1" align="center" border="8" width="1000">
+        <tr>
+            <th>渠道小计</th>
+            <th>设备数量</th>
+            <th>充值金额</th>
+            <th>客服充值</th>
+        </tr><br/>
+    '''
+    server_list = None
+    if use_outside_addr:
+        server_list = g_server_outside_addr_list
+    else:
+        server_list = g_server_inside_addr_list
+    strlist = []
 
 
+    result = []
+    tPool = ThreadPool(10)
+    for servers in server_list.items():
+        result.append(tPool.apply_async(_parallel_get_channel_info, servers))
+    tPool.close()
+    tPool.join()
+
+    for res in result:
+        strdict, _subtotal_strdict, subtotal_devicesum, subtotal_moneysum, subtotal_csmoneysum = res.get()
+        strlist.append(strdict)
+        total_devicesum += subtotal_devicesum
+        total_moneysum += subtotal_moneysum
+        total_csmoneysum += subtotal_csmoneysum
+        subtotal_strdict += _subtotal_strdict
+
+    subtotal_strdict += '''<tr align="center" border="8" width="1000">
+    <td>%s</td>
+    <td>%s</td>
+    <td>%d</td>
+    <td>%d</td>
+    </tr>''' % ('总计', total_devicesum, total_moneysum, total_csmoneysum)
+    return strlist, subtotal_strdict
+
+g_bytes_hunfu_info = None
+g_bytes_gonghui_info = None
+g_bytes_yyb_info = None
+g_bytesinfo = None
+lock = threading.Lock()
+def thread_tar():
+    while True:
+        print('开始拉取')
+        lock.acquire()
+        try:
+            global g_bytesinfo
+            server_info, total_info = get_info()
+            temp = ''
+            for x in server_info:
+                temp += x
+            g_bytesinfo = bytes(total_info + temp + '''<script language="JavaScript">
+    function myrefresh(){window.location.reload();}
+    setTimeout('myrefresh()',5000);</script>''' + '''
+<style>
+td {
+    white-space: nowrap;
+    font-size :2.5rem;
+}
+th{
+    font-size :2.5rem;
+}
+</style>
+    ''', encoding = "gbk")
+        finally:
+            print('拉取完毕')
+            lock.release()
+            time.sleep(5)
+
+
+# main
+t = threading.Thread(target=thread_tar)
+t.start()
 
 curdir = path.dirname(path.realpath(__file__))
 sep = '/'
@@ -159,22 +292,18 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         if filepath.endswith('/'):
             filepath += 'index.html'
         if filepath.endswith('/show'):
+            lock.acquire()
             try:
-                content = bytes(get_info() + '''
-<script language="JavaScript">
-function myrefresh()
-{
-window.location.reload();
-}
-setTimeout('myrefresh()',10000);
-</script>''', encoding = "gbk")
-
+                global g_bytesinfo
+                content = g_bytesinfo
                 self.send_response(200)
                 self.send_header('Content-type','text/html')
                 self.end_headers()
                 self.wfile.write(content)
             except IOError:
                 self.send_error(404,'File Not Found: %s' % self.path)
+            finally:
+                lock.release()
             return
 
         filename, fileext = path.splitext(filepath)
@@ -206,3 +335,4 @@ def run():
 
 if __name__ == '__main__':
     run()
+
