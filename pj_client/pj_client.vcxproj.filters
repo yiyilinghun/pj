@@ -70,6 +70,9 @@
     <ClInclude Include="Precompiled.h">
       <Filter>00.预编译头</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_pj_login.h">
+      <Filter>04.生成文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="pj_client.ui">
@@ -89,6 +92,9 @@
     </CustomBuild>
     <CustomBuild Include="..\pj_common\MsILogin.h">
       <Filter>11.接口文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="pj_login.ui">
+      <Filter>02.窗体文件</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

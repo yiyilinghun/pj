@@ -65,7 +65,7 @@ class pjResManager
 {
 public:
     // 加载资源文件
-    Boolean pjLoadFile(QString filename, uint32_t filekey);
+    Boolean pjLoadFile(QString&& filename, quint32& filekey);
 
     // 获取资源总数
     uint32_t pjGetUnitSum();
@@ -96,7 +96,7 @@ extern pjResManager& pj_GetResManager();
 
 
 // 加载资源文件
-Boolean LoadFile(const char* filename, uint32_t filekey);
+Boolean LoadFile(QString&& filename, quint32& filekey);
 
 // 获取资源总数
 uint32_t GetUnitSum();

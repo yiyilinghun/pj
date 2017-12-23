@@ -229,18 +229,25 @@ xyParseSome(QDataStream& xStream, quint32* lpTextureData, qint32 xTextureWidth,
 
 
 // 资源文件容器
-Boolean pjResManager::pjLoadFile(QString filename, quint32 filekey)
+Boolean pjResManager::pjLoadFile(QString&& filename, quint32& filekey)
 {
-    if (m_hashLoadedRes.find(filekey) != m_hashLoadedRes.end())
+    QString md5FileName;
+    md5FileName.append(QCryptographicHash::hash(filename.toUtf8(), QCryptographicHash::Md5).toHex());
+    md5FileName = md5FileName.mid(0, 8);
+    filekey = md5FileName.toULong(nullptr, 16);
+
+    if (m_hashReskeyResFilename.find(filekey) != m_hashReskeyResFilename.end())
     {
         return True;
     }
     else
     {
-        auto xRet = xyReadFile(filename, filekey, m_hashReses);
-        m_hashLoadedRes[filekey] = xRet;
-        if (xRet) { m_hashReskeyResFilename[filekey] = filename; }
-        return xRet;
+        if (xyReadFile(filename, filekey, m_hashReses))
+        {
+            m_hashReskeyResFilename[filekey] = filename;
+            return True;
+        }
+        return False;
     }
 }
 
@@ -490,9 +497,9 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
 
 
 // 加载资源文件
-Boolean LoadFile(const char* filename, quint32 filekey)
+Boolean LoadFile(QString&& filename, quint32& filekey)
 {
-    return pj_GetResManager().pjLoadFile(filename, filekey);
+    return pj_GetResManager().pjLoadFile(std::forward<QString>(filename), filekey);
 }
 
 // 获取资源总数

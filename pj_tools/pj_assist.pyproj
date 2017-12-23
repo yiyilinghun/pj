@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{fbf2528a-af31-4300-a621-8dbf58eb6b18}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>test.py</StartupFile>
+    <StartupFile>publish_pj_controls.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -13,7 +13,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>
     </InterpreterId>
-    <CommandLineArguments>A:\git\pj_pro\pj_common\ pj_Login.ice</CommandLineArguments>
+    <CommandLineArguments>out</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />

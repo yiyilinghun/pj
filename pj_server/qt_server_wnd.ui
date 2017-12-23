@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>558</width>
-    <height>575</height>
+    <width>647</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,10 @@
     <item>
      <widget class="pj_widget" name="pj_widget_">
       <property name="resFileName">
-       <string>哈哈</string>
+       <string>d:\gires3.wdf</string>
+      </property>
+      <property name="resKey">
+       <UInt>2904516639</UInt>
       </property>
      </widget>
     </item>

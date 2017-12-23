@@ -151,12 +151,24 @@ ice_server_app::init_server()
     return False;
 }
 
+void
+setHighDpiEnvironmentVariable()
+{
+    static const char ENV_VAR_QT_DEVICE_PIXEL_RATIO[] = "QT_DEVICE_PIXEL_RATIO";
+    if (!qEnvironmentVariableIsSet(ENV_VAR_QT_DEVICE_PIXEL_RATIO) // legacy in 5.6, but still functional
+        && !qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR")
+        && !qEnvironmentVariableIsSet("QT_SCALE_FACTOR")
+        && !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) {
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    }
+}
+
 int
 ice_server_app::run(int argc, char* argv[])
 {
+    setHighDpiEnvironmentVariable();
     QApplication a(argc, argv);
     std::shared_ptr<qt_server_wnd> mainWnd(LAMBDA_AUTO_NEW_DELETE(qt_server_wnd));
-    //std::shared_ptr<pj_widget> mainWnd(LAMBDA_AUTO_NEW_DELETE(pj_widget));
     m_MainWnd = mainWnd.get();
     mainWnd->show();
     return a.exec();

@@ -8,6 +8,7 @@ from os import path
 from urllib.parse import urlparse
 import MySQLdb
 import time
+import os
 import sys
 
 if len(sys.argv) != 2:
@@ -20,9 +21,6 @@ elif sys.argv[1] == 'in':
     use_outside_addr = False
 else:
     quit()
-
-#use_outside_addr = True
-#use_outside_addr = False
 
 g_server_outside_addr_list = {
     '超燃混服':{
@@ -178,6 +176,7 @@ def _parallel_get_channel_info(*servers):
         <th>设备数量</th>
         <th>在线数量</th>
         <th>充值金额</th>
+        <th>A R P U</th>
         <th>客服充值</th>
         <th>手机绑定</th>
     </tr><br/>''' % (servers[0])
@@ -186,7 +185,7 @@ def _parallel_get_channel_info(*servers):
     subtotal_online_cell_sum = 0
     subtotal_moneysum = 0
     subtotal_csmoneysum = 0
-    subtotal_phone_sum= 0
+    subtotal_phone_sum = 0
     result = []
     tPool = ThreadPool(100)
     for name,addr in servers[1].items():
@@ -201,9 +200,10 @@ def _parallel_get_channel_info(*servers):
         <td>%s</td>
         <td>%d</td>
         <td>%d</td>
+        <td>%0.2f</td>
         <td>%d</td>
         <td>%d</td>
-        </tr>''' % (name, num, online_in_cell_sum, money / 100, cs_money / 100, rs_has_phone_sum)
+        </tr>''' % (name, num, online_in_cell_sum, money / 100, float(money / 100) / float(num), cs_money / 100, rs_has_phone_sum)
         subtotal_devicesum += num
         subtotal_online_cell_sum += online_in_cell_sum
         subtotal_moneysum += money / 100
@@ -215,16 +215,15 @@ def _parallel_get_channel_info(*servers):
     <td>%s</td>
     <td>%d</td>
     <td>%d</td>
+    <td>%0.2f</td>
     <td>%d</td>
     <td>%d</td>
-    </tr>''' % (servers[0], subtotal_devicesum, subtotal_online_cell_sum, subtotal_moneysum, subtotal_csmoneysum, subtotal_phone_sum)
+    </tr>''' % (servers[0], subtotal_devicesum, subtotal_online_cell_sum, subtotal_moneysum, float(subtotal_moneysum) / float(subtotal_devicesum), subtotal_csmoneysum, subtotal_phone_sum)
 
     strdict += '''</table>'''
 
     return strdict, subtotal_strdict, subtotal_devicesum, subtotal_online_cell_sum, subtotal_moneysum, subtotal_csmoneysum, subtotal_phone_sum
 ##################################################################
-
-
 def get_info():
     total_devicesum = 0
     total_online_cell_sum = 0
@@ -238,6 +237,7 @@ def get_info():
             <th>设备数量</th>
             <th>在线数量</th>
             <th>充值金额</th>
+            <th>A R P U</th>
             <th>客服充值</th>
             <th>手机绑定</th>
         </tr><br/>
@@ -272,9 +272,10 @@ def get_info():
     <td>%s</td>
     <td>%d</td>
     <td>%d</td>
+    <td>%0.2f</td>
     <td>%d</td>
     <td>%d</td>
-    </tr>''' % ('总计', total_devicesum, total_online_cell_sum, total_moneysum, total_csmoneysum, total_phone_sum)
+    </tr>''' % ('总计', total_devicesum, total_online_cell_sum, total_moneysum, float(total_moneysum) / float(total_devicesum), total_csmoneysum, total_phone_sum)
     return strlist, subtotal_strdict
 
 g_bytes_hunfu_info = None
@@ -283,7 +284,7 @@ g_bytes_yyb_info = None
 g_bytesinfo = None
 lock = threading.Lock()
 def thread_tar():
-    while True:
+    for x in range(2):
         try:
             print('开始拉取')
             lock.acquire()
@@ -292,17 +293,16 @@ def thread_tar():
             temp = ''
             for x in server_info:
                 temp += x
-            g_bytesinfo = bytes(total_info + temp + 
-'''<script language="JavaScript">
+            g_bytesinfo = bytes(total_info + temp + '''<script language="JavaScript">
 function myrefresh(){window.location.reload();}
 setTimeout('myrefresh()',5000);</script>''' + '''
 <style>
 td {
 white-space: nowrap;
-font-size :2.0rem;
+font-size :1.8rem;
 }
 th{
-    font-size :2.0rem;
+    font-size :1.8rem;
 }
 </style>
     ''', encoding = "gbk")
@@ -310,7 +310,7 @@ th{
             print('拉取完毕')
             lock.release()
             time.sleep(5)
-
+    os.popen('taskkill.exe /F /pid:' + str(os.getpid()))
 
 # main
 t = threading.Thread(target=thread_tar)

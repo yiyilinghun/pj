@@ -39,6 +39,7 @@ protected:
 private:
     Q_DISABLE_COPY(pj_widget);
     Q_DECLARE_PRIVATE(pj_widget);
+    void update_backres();
 
 public:
     bool isNeedLoadRes() const;

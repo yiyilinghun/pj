@@ -18,6 +18,7 @@
 #include <QtCore/QMap>
 
 #include <QtCore/QFile>
+#include <QtCore/QCryptographicHash>
 
 // Slice
 #include "pj_db.h"

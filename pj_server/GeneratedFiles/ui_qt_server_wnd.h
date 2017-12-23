@@ -36,7 +36,7 @@ public:
     {
         if (ui_qt_server_wnd->objectName().isEmpty())
             ui_qt_server_wnd->setObjectName(QStringLiteral("ui_qt_server_wnd"));
-        ui_qt_server_wnd->resize(558, 575);
+        ui_qt_server_wnd->resize(606, 597);
         centralWidget = new QWidget(ui_qt_server_wnd);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -50,6 +50,7 @@ public:
 
         pj_widget_ = new pj_widget(centralWidget);
         pj_widget_->setObjectName(QStringLiteral("pj_widget_"));
+        pj_widget_->setResKey(2904516639u);
 
         verticalLayout->addWidget(pj_widget_);
 
@@ -77,7 +78,7 @@ public:
     {
         ui_qt_server_wnd->setWindowTitle(QApplication::translate("ui_qt_server_wnd", "pj_server", nullptr));
         testButton2->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\272\214", nullptr));
-        pj_widget_->setResFileName(QApplication::translate("ui_qt_server_wnd", "\345\223\210\345\223\210", nullptr));
+        pj_widget_->setResFileName(QApplication::translate("ui_qt_server_wnd", "d:\\gires3.wdf", nullptr));
         testButton1->setText(QApplication::translate("ui_qt_server_wnd", "\346\265\213\350\257\225\344\270\200", nullptr));
         xq_Button->setText(QApplication::translate("ui_qt_server_wnd", "\345\260\217\347\220\246button", nullptr));
     } // retranslateUi
