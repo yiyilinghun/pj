@@ -101,7 +101,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WIN;UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_PLUGIN;QT_NO_DEBUG;NDEBUG;QDESIGNER_EXPORT_WIDGETS;QT_DESIGNER_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(QTDIR)\include\QtCore\;$(QTDIR)\include\QtCore\5.10.0\;$(QTDIR)\include\QtCore\5.10.0\QtCore\;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWidgets\5.10.0\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\;$(QTDIR)\include\QtGui\;$(QTDIR)\include\QtGui\5.10.0\;$(QTDIR)\include\QtGui\5.10.0\QtGui\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat />
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>

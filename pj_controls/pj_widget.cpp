@@ -26,17 +26,17 @@ pj_widget::pj_widget(QWidget *parent)
     d->init();
 
     this->update_backres();
-}   
+}
 
-bool pj_widget::isNeedLoadRes() const
+bool pj_widget::auto_back_size() const
 {
     Q_D(const pj_widget);
-    return d->_needLoadRes;
+    return d->_auto_back_size;
 }
-void pj_widget::setNeedLoadRes(const bool &v)
+void pj_widget::setAuto_back_size(const bool &v)
 {
     Q_D(pj_widget);
-    d->_needLoadRes = v;
+    d->_auto_back_size = v;
 }
 
 QString pj_widget::resFileName() const
@@ -79,7 +79,7 @@ void pj_widget::update_backres()
         return;
     }
 
-    if (imageVector.size() == 1)
+    if (imageVector.size() > 0)
     {
         QImage* xImage = imageVector[0];
         QPainter xQPainter(xImage);
@@ -88,5 +88,10 @@ void pj_widget::update_backres()
         palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
         this->setAutoFillBackground(true);
         this->setPalette(palette);
+
+        if (this->auto_back_size())
+        {
+            this->setFixedSize(xImage->size());
+        }
     }
 }

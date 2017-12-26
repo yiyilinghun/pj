@@ -181,6 +181,12 @@ qt_server_wnd::qt_server_wnd(QWidget *parent)
 {
     ui.setupUi(this);
 
+    QRect clientRect = this->geometry();
+    clientRect.setWidth(640);
+    clientRect.setHeight(480);
+    this->setGeometry(clientRect);
+    this->move((QApplication::desktop()->width() - this->width()) / 2, (QApplication::desktop()->height() - this->height()) / 2);
+
     //xyTextureInfo m_backTextureInfo;
     //if (!pj_GetResManager().pjLoadFile(u8R"(A:\git\pj\res\gires3.wdf)", 100))
     //{

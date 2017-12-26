@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_pj_widget_t {
     QByteArrayData data[4];
-    char stringdata0[41];
+    char stringdata0[44];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,12 +32,12 @@ struct qt_meta_stringdata_pj_widget_t {
 static const qt_meta_stringdata_pj_widget_t qt_meta_stringdata_pj_widget = {
     {
 QT_MOC_LITERAL(0, 0, 9), // "pj_widget"
-QT_MOC_LITERAL(1, 10, 11), // "needLoadRes"
-QT_MOC_LITERAL(2, 22, 11), // "resFileName"
-QT_MOC_LITERAL(3, 34, 6) // "resKey"
+QT_MOC_LITERAL(1, 10, 14), // "auto_back_size"
+QT_MOC_LITERAL(2, 25, 11), // "resFileName"
+QT_MOC_LITERAL(3, 37, 6) // "resKey"
 
     },
-    "pj_widget\0needLoadRes\0resFileName\0"
+    "pj_widget\0auto_back_size\0resFileName\0"
     "resKey"
 };
 #undef QT_MOC_LITERAL
@@ -72,7 +72,7 @@ void pj_widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< bool*>(_v) = _t->isNeedLoadRes(); break;
+        case 0: *reinterpret_cast< bool*>(_v) = _t->auto_back_size(); break;
         case 1: *reinterpret_cast< QString*>(_v) = _t->resFileName(); break;
         case 2: *reinterpret_cast< quint32*>(_v) = _t->resKey(); break;
         default: break;
@@ -82,7 +82,7 @@ void pj_widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
-        case 0: _t->setNeedLoadRes(*reinterpret_cast< bool*>(_v)); break;
+        case 0: _t->setAuto_back_size(*reinterpret_cast< bool*>(_v)); break;
         case 1: _t->setResFileName(*reinterpret_cast< QString*>(_v)); break;
         case 2: _t->setResKey(*reinterpret_cast< quint32*>(_v)); break;
         default: break;

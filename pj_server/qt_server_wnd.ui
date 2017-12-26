@@ -6,44 +6,77 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
-    <height>560</height>
+    <width>796</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>pj_server</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QPushButton" name="testButton2">
-      <property name="text">
-       <string>测试二</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="pj_widget" name="pj_widget_">
-      <property name="resFileName">
-       <string>d:\gires3.wdf</string>
-      </property>
-      <property name="resKey">
-       <UInt>2904516639</UInt>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="testButton1">
-      <property name="text">
-       <string>测试一</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="xq_Button">
-      <property name="text">
-       <string>小琦button</string>
-      </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="pj_widget" name="pj_widget_1">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="testButton2">
+         <property name="text">
+          <string>测试二</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="pj_widget" name="pj_widget_">
+         <property name="resFileName">
+          <string>d:\gires3.wdf</string>
+         </property>
+         <widget class="pj_toolbox" name="pj_toolbox_">
+          <property name="geometry">
+           <rect>
+            <x>208</x>
+            <y>183</y>
+            <width>276</width>
+            <height>28</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="pj_toolbox" name="pj_toolbox_1">
+          <property name="geometry">
+           <rect>
+            <x>208</x>
+            <y>209</y>
+            <width>276</width>
+            <height>28</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>220</y>
+            <width>251</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="xq_Button">
+         <property name="text">
+          <string>小琦button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="testButton1">
+         <property name="text">
+          <string>幽灵也来了</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -52,9 +85,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>pj_toolbox</class>
+   <extends>QToolBox</extends>
+   <header>pj_toolbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>pj_widget</class>
    <extends>QWidget</extends>
    <header>pj_widget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
@@ -62,18 +101,18 @@
  </resources>
  <connections>
   <connection>
-   <sender>testButton2</sender>
+   <sender>xq_Button</sender>
    <signal>clicked()</signal>
    <receiver>ui_qt_server_wnd</receiver>
-   <slot>test2()</slot>
+   <slot>test3()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>339</x>
-     <y>370</y>
+     <x>278</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
-     <x>209</x>
-     <y>215</y>
+     <x>278</x>
+     <y>287</y>
     </hint>
    </hints>
   </connection>
@@ -94,18 +133,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>xq_Button</sender>
+   <sender>testButton2</sender>
    <signal>clicked()</signal>
    <receiver>ui_qt_server_wnd</receiver>
-   <slot>test3()</slot>
+   <slot>test2()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>278</x>
-     <y>554</y>
+     <x>339</x>
+     <y>370</y>
     </hint>
     <hint type="destinationlabel">
-     <x>278</x>
-     <y>287</y>
+     <x>209</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>

@@ -14,58 +14,98 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
+#include "pj_linebox.h"
 #include "pj_widget.h"
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindow
+class Ui_ui_login
 {
 public:
-    QWidget *centralwidget;
-    pj_widget *pj_widget_;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
+    pj_linebox *pjtb_account;
+    pj_linebox *pjtb_password;
 
-    void setupUi(QMainWindow *MainWindow)
+    void setupUi(pj_widget *ui_login)
     {
-        if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
-        centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        pj_widget_ = new pj_widget(centralwidget);
-        pj_widget_->setObjectName(QStringLiteral("pj_widget_"));
-        pj_widget_->setGeometry(QRect(30, 0, 291, 261));
-        pj_widget_->setNeedLoadRes(true);
-        pj_widget_->setResKey(2904516639u);
-        MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 22));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QStringLiteral("statusbar"));
-        MainWindow->setStatusBar(statusbar);
+        if (ui_login->objectName().isEmpty())
+            ui_login->setObjectName(QStringLiteral("ui_login"));
+        ui_login->resize(640, 480);
+        pjtb_account = new pj_linebox(ui_login);
+        pjtb_account->setObjectName(QStringLiteral("pjtb_account"));
+        pjtb_account->setGeometry(QRect(213, 187, 266, 20));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pjtb_account->sizePolicy().hasHeightForWidth());
+        pjtb_account->setSizePolicy(sizePolicy);
+        QPalette palette;
+        QBrush brush(QColor(0, 255, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Text, brush);
+        QBrush brush1(QColor(255, 255, 255, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Inactive, QPalette::Text, brush1);
+        QBrush brush2(QColor(120, 120, 120, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::Text, brush2);
+        pjtb_account->setPalette(palette);
+        QFont font;
+        font.setFamily(QString::fromUtf8("\346\226\260\345\256\213\344\275\223"));
+        font.setPointSize(13);
+        font.setBold(false);
+        font.setItalic(false);
+        font.setUnderline(false);
+        font.setWeight(50);
+        font.setStrikeOut(false);
+        font.setKerning(true);
+        font.setStyleStrategy(QFont::PreferAntialias);
+        pjtb_account->setFont(font);
+        pjtb_account->setTabletTracking(false);
+        pjtb_account->setLayoutDirection(Qt::LeftToRight);
+        pjtb_account->setAutoFillBackground(false);
+        pjtb_account->setFrame(false);
+        pjtb_account->setEchoMode(QLineEdit::Normal);
+        pjtb_account->setCursorMoveStyle(Qt::LogicalMoveStyle);
+        pjtb_account->setClearButtonEnabled(true);
+        pjtb_account->setProperty("tabChangesFocus", QVariant(true));
+        pjtb_password = new pj_linebox(ui_login);
+        pjtb_password->setObjectName(QStringLiteral("pjtb_password"));
+        pjtb_password->setGeometry(QRect(213, 213, 266, 20));
+        sizePolicy.setHeightForWidth(pjtb_password->sizePolicy().hasHeightForWidth());
+        pjtb_password->setSizePolicy(sizePolicy);
+        QPalette palette1;
+        palette1.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette1.setBrush(QPalette::Inactive, QPalette::Text, brush1);
+        palette1.setBrush(QPalette::Disabled, QPalette::Text, brush2);
+        pjtb_password->setPalette(palette1);
+        pjtb_password->setFont(font);
+        pjtb_password->setTabletTracking(false);
+        pjtb_password->setLayoutDirection(Qt::LeftToRight);
+        pjtb_password->setAutoFillBackground(false);
+        pjtb_password->setMaxLength(32767);
+        pjtb_password->setFrame(false);
+        pjtb_password->setEchoMode(QLineEdit::Password);
+        pjtb_password->setCursorMoveStyle(Qt::LogicalMoveStyle);
+        pjtb_password->setClearButtonEnabled(true);
+        pjtb_password->setProperty("tabChangesFocus", QVariant(true));
 
-        retranslateUi(MainWindow);
+        retranslateUi(ui_login);
 
-        QMetaObject::connectSlotsByName(MainWindow);
+        QMetaObject::connectSlotsByName(ui_login);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
+    void retranslateUi(pj_widget *ui_login)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        pj_widget_->setResFileName(QApplication::translate("MainWindow", "d:\\gires3.wdf", nullptr));
+        ui_login->setWindowTitle(QApplication::translate("ui_login", "PJ\347\231\273\345\275\225", nullptr));
+        pjtb_account->setText(QString());
+        pjtb_password->setInputMask(QString());
+        pjtb_password->setText(QString());
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
+    class ui_login: public Ui_ui_login {};
 } // namespace Ui
 
 QT_END_NAMESPACE

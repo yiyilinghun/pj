@@ -93,6 +93,8 @@ typedef void*   IntPtr;
 
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGroupBox>
+#include <QtMultimedia/QMediaPlayer>
+
 
 template <typename T>
 QDataStream& operator>>(QDataStream &s, T &c)

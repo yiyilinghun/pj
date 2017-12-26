@@ -16,9 +16,6 @@
     <Filter Include="00.预编译头">
       <UniqueIdentifier>{c29c58e9-8fc0-4350-90f7-b19dde44bd0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10.登录管理">
-      <UniqueIdentifier>{05e9903c-acb0-4134-a287-49e51a594987}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.资源文件">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
@@ -26,6 +23,9 @@
     </Filter>
     <Filter Include="11.接口文件">
       <UniqueIdentifier>{c2e1073f-d412-49c8-bf84-b1455ffdbfd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.登录管理">
+      <UniqueIdentifier>{05e9903c-acb0-4134-a287-49e51a594987}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

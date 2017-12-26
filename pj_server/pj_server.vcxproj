@@ -60,7 +60,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>01.pj_common.lib;pj_button.lib;pj_checkbox.lib;pj_groupbox.lib;pj_label.lib;pj_listview.lib;pj_textbox.lib;pj_toolbox.lib;pj_widget.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5Widgetsd.lib;Qt5WinExtrasd.lib;Qt5Xmld.lib;Qt5AxBase.lib;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>01.pj_common.lib;pj_button.lib;pj_checkbox.lib;pj_groupbox.lib;pj_label.lib;pj_listview.lib;pj_linebox.lib;pj_textbox.lib;pj_toolbox.lib;pj_widget.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5Widgetsd.lib;Qt5WinExtrasd.lib;Qt5Xmld.lib;Qt5AxBase.lib;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
@@ -84,7 +84,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>01.pj_common.lib;pj_button.lib;pj_checkbox.lib;pj_groupbox.lib;pj_label.lib;pj_listview.lib;pj_textbox.lib;pj_toolbox.lib;pj_widget.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;opengl32.lib;glu32.lib;Qt5Widgets.lib;Qt5WinExtras.lib;Qt5Xml.lib;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>01.pj_common.lib;pj_button.lib;pj_checkbox.lib;pj_groupbox.lib;pj_label.lib;pj_listview.lib;pj_linebox.lib;pj_textbox.lib;pj_toolbox.lib;pj_widget.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;opengl32.lib;glu32.lib;Qt5Widgets.lib;Qt5WinExtras.lib;Qt5Xml.lib;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
       <AssemblyDebug>true</AssemblyDebug>

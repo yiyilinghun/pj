@@ -37,6 +37,7 @@ struct xyUnit
     std::shared_ptr<char> m_resOriginalData;
     QVector<std::shared_ptr<uint32_t>> m_resProductDatas;
     QVector<std::shared_ptr<QImage>> m_ProductImages;
+    QByteArray* m_ByteArray;
 };
 
 struct xyTextureInfo
@@ -78,6 +79,9 @@ public:
 
     // 加载动画
     Boolean pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVector<QImage*>& imageVector);
+
+    // 加载音乐
+    Boolean pjGetMp3(quint64 unitKey, QBuffer* mp3Buffer);
 
     // 资源map
     QHash<quint64, xyUnit> m_hashReses;

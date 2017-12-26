@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pj_clientClass</class>
- <widget class="QMainWindow" name="pj_clientClass">
+ <class>ui_scene</class>
+ <widget class="QMainWindow" name="ui_scene">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>943</width>
     <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>pj_client</string>
+   <string>PJ场景</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="pj_widget" name="pj_widget_">
@@ -19,12 +19,9 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>511</width>
-      <height>421</height>
+      <width>721</width>
+      <height>521</height>
      </rect>
-    </property>
-    <property name="needLoadRes">
-     <bool>true</bool>
     </property>
     <property name="resFileName">
      <string>d:\gires3.wdf</string>
@@ -32,6 +29,39 @@
     <property name="resKey">
      <UInt>2904516639</UInt>
     </property>
+    <property name="needLoadRes" stdset="0">
+     <bool>true</bool>
+    </property>
+    <widget class="QTextEdit" name="textEdit">
+     <property name="geometry">
+      <rect>
+       <x>242</x>
+       <y>221</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="pj_toolbox" name="pj_toolbox_">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>184</y>
+       <width>276</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="pj_toolbox" name="pj_toolbox_1">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>210</y>
+       <width>276</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -39,8 +69,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
-     <height>22</height>
+     <width>943</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -57,9 +87,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>pj_toolbox</class>
+   <extends>QToolBox</extends>
+   <header>pj_toolbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>pj_widget</class>
    <extends>QWidget</extends>
    <header>pj_widget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

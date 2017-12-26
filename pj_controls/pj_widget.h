@@ -14,7 +14,7 @@ class PJ_DLL_API pj_widgetPrivate;
 class PJ_DLL_API pj_widget : public QWidget
 {
     Q_OBJECT;
-    Q_PROPERTY(bool needLoadRes READ isNeedLoadRes WRITE setNeedLoadRes);
+    Q_PROPERTY(bool auto_back_size READ auto_back_size WRITE setAuto_back_size);
     Q_PROPERTY(QString resFileName READ resFileName WRITE setResFileName);
     Q_PROPERTY(quint32 resKey READ resKey WRITE setResKey);
 
@@ -42,8 +42,8 @@ private:
     void update_backres();
 
 public:
-    bool isNeedLoadRes() const;
-    void setNeedLoadRes(const bool &v);
+    bool auto_back_size() const;
+    void setAuto_back_size(const bool &v);
 
     QString resFileName() const;
     void setResFileName(const QString &v);
@@ -63,6 +63,7 @@ public:
     void init();
 
 private:
+    bool _auto_back_size = true;
     bool _needLoadRes = true;
     QString _resFileName = "";
     quint32 _resKey = 0;

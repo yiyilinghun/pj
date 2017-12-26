@@ -21,25 +21,25 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_qt_client_wnd_t {
+struct qt_meta_stringdata_qt_login_wnd_t {
     QByteArrayData data[1];
-    char stringdata0[14];
+    char stringdata0[13];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_qt_client_wnd_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_qt_login_wnd_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_qt_client_wnd_t qt_meta_stringdata_qt_client_wnd = {
+static const qt_meta_stringdata_qt_login_wnd_t qt_meta_stringdata_qt_login_wnd = {
     {
-QT_MOC_LITERAL(0, 0, 13) // "qt_client_wnd"
+QT_MOC_LITERAL(0, 0, 12) // "qt_login_wnd"
 
     },
-    "qt_client_wnd"
+    "qt_login_wnd"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_qt_client_wnd[] = {
+static const uint qt_meta_data_qt_login_wnd[] = {
 
  // content:
        7,       // revision
@@ -55,7 +55,7 @@ static const uint qt_meta_data_qt_client_wnd[] = {
        0        // eod
 };
 
-void qt_client_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void qt_login_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -63,26 +63,92 @@ void qt_client_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     Q_UNUSED(_a);
 }
 
-const QMetaObject qt_client_wnd::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_qt_client_wnd.data,
-      qt_meta_data_qt_client_wnd,  qt_static_metacall, nullptr, nullptr}
+const QMetaObject qt_login_wnd::staticMetaObject = {
+    { &pj_widget::staticMetaObject, qt_meta_stringdata_qt_login_wnd.data,
+      qt_meta_data_qt_login_wnd,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *qt_client_wnd::metaObject() const
+const QMetaObject *qt_login_wnd::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *qt_client_wnd::qt_metacast(const char *_clname)
+void *qt_login_wnd::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_qt_client_wnd.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_qt_login_wnd.stringdata0))
+        return static_cast<void*>(this);
+    return pj_widget::qt_metacast(_clname);
+}
+
+int qt_login_wnd::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = pj_widget::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_qt_scene_wnd_t {
+    QByteArrayData data[1];
+    char stringdata0[13];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_qt_scene_wnd_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_qt_scene_wnd_t qt_meta_stringdata_qt_scene_wnd = {
+    {
+QT_MOC_LITERAL(0, 0, 12) // "qt_scene_wnd"
+
+    },
+    "qt_scene_wnd"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_qt_scene_wnd[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void qt_scene_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+const QMetaObject qt_scene_wnd::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_qt_scene_wnd.data,
+      qt_meta_data_qt_scene_wnd,  qt_static_metacall, nullptr, nullptr}
+};
+
+
+const QMetaObject *qt_scene_wnd::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *qt_scene_wnd::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_qt_scene_wnd.stringdata0))
         return static_cast<void*>(this);
     return QMainWindow::qt_metacast(_clname);
 }
 
-int qt_client_wnd::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int qt_scene_wnd::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     return _id;

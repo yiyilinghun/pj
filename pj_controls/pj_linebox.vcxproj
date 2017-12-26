@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_pj_linebox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_pj_lineboxplugin.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_pj_linebox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_pj_lineboxplugin.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="pj_linebox.cpp" />
+    <ClCompile Include="pj_lineboxplugin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="pj_linebox.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing pj_linebox.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing pj_linebox.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQT_NO_DEBUG -DNDEBUG -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="pj_lineboxplugin.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing pj_lineboxplugin.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing pj_lineboxplugin.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN -DUNICODE -D_UNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_PLUGIN -DQT_NO_DEBUG -DNDEBUG -DQDESIGNER_EXPORT_WIDGETS -DQT_DESIGNER_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtCore\5.10.0" "-I$(QTDIR)\include\QtCore\5.10.0\QtCore" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtWidgets\5.10.0" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtGui\5.10.0" "-I$(QTDIR)\include\QtGui\5.10.0\QtGui" "-I$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private" "-I$(SolutionDir)pj_common" "-I$(ICEDIR)\baselib"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pj_lineboxplugin.json" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1EF794B6-9A2D-4305-9493-7195537B57B8}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN;UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_PLUGIN;QDESIGNER_EXPORT_WIDGETS;QT_DESIGNER_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(QTDIR)\include\QtCore\;$(QTDIR)\include\QtCore\5.10.0\;$(QTDIR)\include\QtCore\5.10.0\QtCore\;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWidgets\5.10.0\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\;$(QTDIR)\include\QtGui\;$(QTDIR)\include\QtGui\5.10.0\;$(QTDIR)\include\QtGui\5.10.0\QtGui\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>01.pj_common.lib;qtmaind.lib;Qt5Designerd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN;UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_PLUGIN;QT_NO_DEBUG;NDEBUG;QDESIGNER_EXPORT_WIDGETS;QT_DESIGNER_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\;$(QTDIR)\include\QtCore\;$(QTDIR)\include\QtCore\5.10.0\;$(QTDIR)\include\QtCore\5.10.0\QtCore\;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWidgets\5.10.0\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\;$(QTDIR)\include\QtGui\;$(QTDIR)\include\QtGui\5.10.0\;$(QTDIR)\include\QtGui\5.10.0\QtGui\;$(QTDIR)\include\QtWidgets\5.10.0\QtWidgets\private\;$(SolutionDir)pj_common\;$(ICEDIR)\baselib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(OutDir);$(SolutionDir)packages\zeroc.ice.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);$(SolutionDir)packages\zeroc.freeze.v140.3.7.0\build\native\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>01.pj_common.lib;qtmain.lib;Qt5Designer.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties IsDesignerPlugin="True" MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="msvc2017_64" MocOptions="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -54,7 +54,7 @@ QString pj_buttuonPlugin::whatsThis() const
 
 bool pj_buttuonPlugin::isContainer() const
 {
-    return false;
+    return true;
 }
 
 QString pj_buttuonPlugin::domXml() const

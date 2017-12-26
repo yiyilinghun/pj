@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{fbf2528a-af31-4300-a621-8dbf58eb6b18}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>publish_pj_controls.py</StartupFile>
+    <StartupFile>web.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -13,7 +13,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>
     </InterpreterId>
-    <CommandLineArguments>out</CommandLineArguments>
+    <CommandLineArguments>out 80</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="auto_compile_ice_assist.py" />
+    <Compile Include="browser.py" />
     <Compile Include="make_macro_assist.py" />
     <Compile Include="publish_pj_controls.py" />
     <Compile Include="test.py" />

@@ -392,13 +392,6 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
                 if (xFileHeadFlag != 0x5053) { return 0; }
             }
 
-            //quint16 imageHeaderSize;
-            //quint16 directionCount;
-            //quint16 frameCount;
-            //quint16 width;
-            //quint16 height;
-            //short hotX;
-            //short hotY;
             xUnitStream >> xWdfUnit.m_imageHeaderSize >> xWdfUnit.m_directionCount >> xWdfUnit.m_frameCount >> xWdfUnit.m_width >> xWdfUnit.m_height >> xWdfUnit.m_hotX >> xWdfUnit.m_hotY;
 
             // 读取帧延迟信息(暂时不需要,先丢弃)
@@ -421,7 +414,6 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
             // 读取帧偏移
             std::shared_ptr<qint32> xFrameOffsets(LAMBDA_AUTO_NEW_DELETE_ARRAY(qint32, xWdfUnit.m_directionCount * xWdfUnit.m_frameCount));
             xUnitStream.device()->seek(xWdfUnit.m_imageHeaderSize + 4 + 512);
-            //xStream.OutSeek(imageHeaderSize + 4 + 512);
             qint32* ptr = xFrameOffsets.get();
             for (qint32 i = 0; i < xWdfUnit.m_directionCount; i++)
             {
@@ -495,6 +487,51 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
     return False;
 }
 
+Boolean
+pjResManager::pjGetMp3(quint64 unitKey, QBuffer* mp3Buffer)
+{
+    // 资源不存在
+    if (m_hashReses.find(unitKey) == m_hashReses.end())
+    {
+        return False;
+    }
+
+    // 资源文件对应表不存在
+    if (m_hashReskeyResFilename.find((quint32)(unitKey >> 32)) == m_hashReskeyResFilename.end()) { return False; }
+
+    // 读取单元数据
+    xyUnit& xWdfUnit = m_hashReses[unitKey];
+    quint32& xLen = xWdfUnit.m_UnitFileInfo.m_Len;
+
+    try
+    {
+        if (!xWdfUnit.m_resOriginalData)
+        {
+            QFile xFile(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]);
+            if (!xFile.open(QIODevice::ReadOnly))
+            {
+                qCritical(QString(u8"打开资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
+                return False;
+            }
+            xFile.seek(xWdfUnit.m_UnitFileInfo.m_Addr);
+            QDataStream xFileStream(&xFile);
+            xFileStream.setByteOrder(QDataStream::LittleEndian);
+
+            xWdfUnit.m_resOriginalData.reset(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xLen));
+            if (xLen != xFileStream.readRawData(xWdfUnit.m_resOriginalData.get(), xLen))
+            {
+                qCritical(QString(u8"读取资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
+                return False;
+            }
+
+            xWdfUnit.m_ByteArray = NEW QByteArray(xWdfUnit.m_resOriginalData.get(), xLen);
+            mp3Buffer->setBuffer(xWdfUnit.m_ByteArray);
+            return True;
+        }
+    }
+    catch (...) {}
+    return False;
+}
 
 // 加载资源文件
 Boolean LoadFile(QString&& filename, quint32& filekey)
