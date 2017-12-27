@@ -1,7 +1,7 @@
 #pragma once
 #include "MsBase.h"
 #include "pj_loader.h"
-#include <QtWidgets\private\qwidget_p.h>
+#include <QtWidgets/private/qwidget_p.h>
 
 #ifdef QDESIGNER_EXPORT_WIDGETS
 #define PJ_DLL_API __declspec(dllexport)

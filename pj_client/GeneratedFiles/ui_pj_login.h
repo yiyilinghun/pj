@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include "pj_button.h"
 #include "pj_linebox.h"
 #include "pj_widget.h"
 
@@ -24,12 +25,15 @@ class Ui_ui_login
 public:
     pj_linebox *pjtb_account;
     pj_linebox *pjtb_password;
+    pj_button *pj_button_;
+    pj_button *pj_button_1;
 
     void setupUi(pj_widget *ui_login)
     {
         if (ui_login->objectName().isEmpty())
             ui_login->setObjectName(QStringLiteral("ui_login"));
         ui_login->resize(640, 480);
+        ui_login->setResKey(2904516639u);
         pjtb_account = new pj_linebox(ui_login);
         pjtb_account->setObjectName(QStringLiteral("pjtb_account"));
         pjtb_account->setGeometry(QRect(213, 187, 266, 20));
@@ -88,6 +92,68 @@ public:
         pjtb_password->setCursorMoveStyle(Qt::LogicalMoveStyle);
         pjtb_password->setClearButtonEnabled(true);
         pjtb_password->setProperty("tabChangesFocus", QVariant(true));
+        pj_button_ = new pj_button(ui_login);
+        pj_button_->setObjectName(QStringLiteral("pj_button_"));
+        pj_button_->setGeometry(QRect(40, 370, 121, 35));
+        QPalette palette2;
+        QBrush brush3(QColor(0, 0, 0, 255));
+        brush3.setStyle(Qt::NoBrush);
+        palette2.setBrush(QPalette::Active, QPalette::Button, brush3);
+        QBrush brush4(QColor(0, 0, 0, 255));
+        brush4.setStyle(Qt::SolidPattern);
+        palette2.setBrush(QPalette::Active, QPalette::Light, brush4);
+        palette2.setBrush(QPalette::Active, QPalette::Midlight, brush4);
+        QBrush brush5(QColor(0, 0, 0, 255));
+        brush5.setStyle(Qt::NoBrush);
+        palette2.setBrush(QPalette::Active, QPalette::Window, brush5);
+        QBrush brush6(QColor(0, 0, 0, 255));
+        brush6.setStyle(Qt::NoBrush);
+        palette2.setBrush(QPalette::Inactive, QPalette::Button, brush6);
+        palette2.setBrush(QPalette::Inactive, QPalette::Light, brush4);
+        palette2.setBrush(QPalette::Inactive, QPalette::Midlight, brush4);
+        QBrush brush7(QColor(0, 0, 0, 255));
+        brush7.setStyle(Qt::NoBrush);
+        palette2.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        QBrush brush8(QColor(0, 0, 0, 255));
+        brush8.setStyle(Qt::NoBrush);
+        palette2.setBrush(QPalette::Disabled, QPalette::Button, brush8);
+        palette2.setBrush(QPalette::Disabled, QPalette::Light, brush4);
+        palette2.setBrush(QPalette::Disabled, QPalette::Midlight, brush4);
+        QBrush brush9(QColor(0, 0, 0, 255));
+        brush9.setStyle(Qt::NoBrush);
+        palette2.setBrush(QPalette::Disabled, QPalette::Window, brush9);
+        pj_button_->setPalette(palette2);
+        pj_button_->setResKey(2537760430u);
+        pj_button_1 = new pj_button(ui_login);
+        pj_button_1->setObjectName(QStringLiteral("pj_button_1"));
+        pj_button_1->setGeometry(QRect(50, 330, 121, 35));
+        QPalette palette3;
+        QBrush brush10(QColor(0, 0, 0, 255));
+        brush10.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Active, QPalette::Button, brush10);
+        palette3.setBrush(QPalette::Active, QPalette::Light, brush4);
+        palette3.setBrush(QPalette::Active, QPalette::Midlight, brush4);
+        QBrush brush11(QColor(0, 0, 0, 255));
+        brush11.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Active, QPalette::Window, brush11);
+        QBrush brush12(QColor(0, 0, 0, 255));
+        brush12.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Inactive, QPalette::Button, brush12);
+        palette3.setBrush(QPalette::Inactive, QPalette::Light, brush4);
+        palette3.setBrush(QPalette::Inactive, QPalette::Midlight, brush4);
+        QBrush brush13(QColor(0, 0, 0, 255));
+        brush13.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush13);
+        QBrush brush14(QColor(0, 0, 0, 255));
+        brush14.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Disabled, QPalette::Button, brush14);
+        palette3.setBrush(QPalette::Disabled, QPalette::Light, brush4);
+        palette3.setBrush(QPalette::Disabled, QPalette::Midlight, brush4);
+        QBrush brush15(QColor(0, 0, 0, 255));
+        brush15.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush15);
+        pj_button_1->setPalette(palette3);
+        pj_button_1->setResKey(464918913u);
 
         retranslateUi(ui_login);
 
@@ -97,9 +163,12 @@ public:
     void retranslateUi(pj_widget *ui_login)
     {
         ui_login->setWindowTitle(QApplication::translate("ui_login", "PJ\347\231\273\345\275\225", nullptr));
+        ui_login->setResFileName(QApplication::translate("ui_login", "A:\\git\\pj\\res\\gires3.wdf", nullptr));
         pjtb_account->setText(QString());
         pjtb_password->setInputMask(QString());
         pjtb_password->setText(QString());
+        pj_button_->setResFileName(QApplication::translate("ui_login", "A:\\git\\pj\\res\\gires3.wdf", nullptr));
+        pj_button_1->setResFileName(QApplication::translate("ui_login", "A:\\git\\pj\\res\\gires3.wdf", nullptr));
     } // retranslateUi
 
 };

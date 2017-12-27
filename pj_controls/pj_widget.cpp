@@ -1,7 +1,6 @@
 #include "Precompiled.h"
 #include "pj_widget.h"
 #include <QtGui/QPainter>
-//#include <QtWidgets/QMessageBox>
 
 
 void pj_widgetPrivate::init()
@@ -9,8 +8,8 @@ void pj_widgetPrivate::init()
     Q_Q(pj_widget);
 
     _needLoadRes = true;
-    _resFileName = "d:\\gires3.wdf";
-    _resKey = 2904516639u;
+    _resFileName = "";
+    _resKey = 0u;
 
     q->setSizePolicy(QSizePolicy(
         QSizePolicy::Preferred,

@@ -143,6 +143,7 @@ xyParseSome(QDataStream& xStream, quint32* lpTextureData, qint32 xTextureWidth,
                         quint32 y = xIndexY;
                         if (x >= 0 && x < xLimitWidth && y >= 0 && y < xLimitHeight)
                         {
+                            //lpTextureData[xTextureWidth * y + x] = WAS_MAKE_ARGB(xPalette.m_Palette[i].m_Color, 0x7F);
                             lpTextureData[xTextureWidth * y + x] = WAS_MAKE_ARGB(xPalette.m_Palette[i].m_Color, 0xFF);
                             xIndexX++;
                         }
@@ -432,6 +433,7 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
                     std::shared_ptr<quint32> xImageData(LAMBDA_AUTO_NEW_DELETE_ARRAY(quint32, xWdfUnit.m_width * xWdfUnit.m_height));
                     xWdfUnit.m_resProductDatas.append(xImageData);
                     quint32* lpImageData = xImageData.get();
+                    memset(lpImageData, 0, sizeof(quint32) * xWdfUnit.m_width * xWdfUnit.m_height);
 
                     Boolean IsInterlacedgh = False;
 
