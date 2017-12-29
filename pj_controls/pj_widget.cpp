@@ -3,62 +3,73 @@
 #include <QtGui/QPainter>
 
 
-void pj_widgetPrivate::init()
+//void pj_widgetPrivate::init()
+//{
+//    Q_Q(pj_widget);
+//
+//    _needLoadRes = true;
+//    _resFileName = "";
+//    _resKey = 0u;
+//
+//    q->setSizePolicy(QSizePolicy(
+//        QSizePolicy::Preferred,
+//        QSizePolicy::Preferred,
+//        QSizePolicy::Frame)
+//    );
+//}
+
+pj_widget::pj_widget(QWidget *parent)
+//: QMainWindow(*(NEW pj_widgetPrivate), parent)
+    : QMainWindow(parent)
 {
-    Q_Q(pj_widget);
+    //Q_D(pj_widget);
+    //d->init();
 
     _needLoadRes = true;
     _resFileName = "";
     _resKey = 0u;
 
-    q->setSizePolicy(QSizePolicy(
+    this->setSizePolicy(QSizePolicy(
         QSizePolicy::Preferred,
         QSizePolicy::Preferred,
         QSizePolicy::Frame)
     );
-}
-
-pj_widget::pj_widget(QWidget *parent)
-    : QWidget(*(NEW pj_widgetPrivate), parent, Qt::WindowFlags::enum_type::Widget)
-{
-    Q_D(pj_widget);
-    d->init();
 
     this->update_backres();
 }
 
 bool pj_widget::auto_back_size() const
 {
-    Q_D(const pj_widget);
-    return d->_auto_back_size;
+    //Q_D(const pj_widget);
+    return this->_auto_back_size;
 }
 void pj_widget::setAuto_back_size(const bool &v)
 {
-    Q_D(pj_widget);
-    d->_auto_back_size = v;
+    //Q_D(pj_widget);
+    this->_auto_back_size = v;
 }
 
 QString pj_widget::resFileName() const
 {
-    Q_D(const pj_widget);
-    return d->_resFileName;
+    //Q_D(const pj_widget);
+    return this->_resFileName;
 }
 void pj_widget::setResFileName(const QString &v)
 {
-    Q_D(pj_widget);
-    d->_resFileName = v;
+    //Q_D(pj_widget);
+    this->_resFileName = v;
     this->update_backres();
 }
 
 quint32 pj_widget::resKey() const
 {
-    Q_D(const pj_widget);
-    return d->_resKey;
+    //Q_D(const pj_widget);
+    return this->_resKey;
 }
 void pj_widget::setResKey(const quint32 &v)
 {
-    Q_D(pj_widget);
-    d->_resKey = v;
+    //Q_D(pj_widget);
+    this->_resKey = v;
     this->update_backres();
 }
 
@@ -91,6 +102,9 @@ void pj_widget::update_backres()
         if (this->auto_back_size())
         {
             this->setFixedSize(xImage->size());
+            this->setMinimumSize(xImage->size());
+            this->setMaximumSize(xImage->size());
         }
     }
 }
+

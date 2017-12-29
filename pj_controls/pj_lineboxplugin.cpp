@@ -1,7 +1,7 @@
 #include "pj_linebox.h"
 #include "pj_lineboxplugin.h"
-
 #include <QtCore/QtPlugin>
+#include <QMessageBox>
 
 pj_lineboxPlugin::pj_lineboxPlugin(QObject *parent)
     : QObject(parent)
@@ -9,7 +9,7 @@ pj_lineboxPlugin::pj_lineboxPlugin(QObject *parent)
     initialized = false;
 }
 
-void pj_lineboxPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
+void pj_lineboxPlugin::initialize(QDesignerFormEditorInterface* core)
 {
     if (initialized)
         return;
@@ -24,7 +24,7 @@ bool pj_lineboxPlugin::isInitialized() const
 
 QWidget *pj_lineboxPlugin::createWidget(QWidget *parent)
 {
-    return new pj_linebox(parent);
+    return new pj_linebox(parent, true);
 }
 
 QString pj_lineboxPlugin::name() const

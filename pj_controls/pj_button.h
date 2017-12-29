@@ -29,7 +29,7 @@ protected:
 private:
     Q_DISABLE_COPY(pj_button);
     Q_DECLARE_PRIVATE(pj_button);
-    //void update_backres();
+    void update_size();
 
 public:
     bool auto_back_size() const;

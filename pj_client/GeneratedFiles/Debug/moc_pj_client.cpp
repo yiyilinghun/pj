@@ -64,7 +64,7 @@ void qt_login_wnd::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
 }
 
 const QMetaObject qt_login_wnd::staticMetaObject = {
-    { &pj_widget::staticMetaObject, qt_meta_stringdata_qt_login_wnd.data,
+    { &pj_groupbox::staticMetaObject, qt_meta_stringdata_qt_login_wnd.data,
       qt_meta_data_qt_login_wnd,  qt_static_metacall, nullptr, nullptr}
 };
 
@@ -79,12 +79,12 @@ void *qt_login_wnd::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_qt_login_wnd.stringdata0))
         return static_cast<void*>(this);
-    return pj_widget::qt_metacast(_clname);
+    return pj_groupbox::qt_metacast(_clname);
 }
 
 int qt_login_wnd::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = pj_widget::qt_metacall(_c, _id, _a);
+    _id = pj_groupbox::qt_metacall(_c, _id, _a);
     return _id;
 }
 struct qt_meta_stringdata_qt_scene_wnd_t {

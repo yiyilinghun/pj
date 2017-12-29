@@ -28,23 +28,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pj_textbox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_pj_textbox.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_pj_textbox.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="pj_textboxplugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_pj_textboxplugin.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_pj_textboxplugin.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_textbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_textboxplugin.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

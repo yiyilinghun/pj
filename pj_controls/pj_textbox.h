@@ -14,4 +14,5 @@ class PJ_DLL_API pj_textbox : public QTextEdit
 
 public:
     pj_textbox(QWidget *parent = Q_NULLPTR);
+    pj_textbox(QWidget *parent, bool inEditor);
 };

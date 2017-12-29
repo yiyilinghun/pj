@@ -1,7 +1,10 @@
 #pragma once
 #include "MsBase.h"
 #include "pj_loader.h"
-#include <QtWidgets/private/qwidget_p.h>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/private/qdialog_p.h>
+//#include <QtWidgets/private/qwidget_p.h>
 
 #ifdef QDESIGNER_EXPORT_WIDGETS
 #define PJ_DLL_API __declspec(dllexport)
@@ -10,8 +13,8 @@
 #endif
 
 
-class PJ_DLL_API pj_widgetPrivate;
-class PJ_DLL_API pj_widget : public QWidget
+//class PJ_DLL_API pj_widgetPrivate;
+class PJ_DLL_API pj_widget : public QMainWindow
 {
     Q_OBJECT;
     Q_PROPERTY(bool auto_back_size READ auto_back_size WRITE setAuto_back_size);
@@ -38,7 +41,7 @@ protected:
     //pj_widget(pj_widgetPrivate& dd, QWidget* parent = Q_NULLPTR);
 private:
     Q_DISABLE_COPY(pj_widget);
-    Q_DECLARE_PRIVATE(pj_widget);
+    //Q_DECLARE_PRIVATE(pj_widget);
     void update_backres();
 
 public:
@@ -50,17 +53,6 @@ public:
 
     quint32 resKey() const;
     void setResKey(const quint32 &v);
-};
-
-class PJ_DLL_API pj_widgetPrivate : public QWidgetPrivate
-{
-    Q_DECLARE_PUBLIC(pj_widget);
-
-public:
-    //explicit pj_widgetPrivate(int version = QObjectPrivateVersion) {}
-    //~pj_widgetPrivate() {}
-
-    void init();
 
 private:
     bool _auto_back_size = true;
@@ -68,3 +60,21 @@ private:
     QString _resFileName = "";
     quint32 _resKey = 0;
 };
+
+////class PJ_DLL_API pj_widgetPrivate : public QWidgetPrivate
+//class PJ_DLL_API pj_widgetPrivate : public QDialogPrivate
+//{
+//    Q_DECLARE_PUBLIC(pj_widget);
+//
+//public:
+//    //explicit pj_widgetPrivate(int version = QObjectPrivateVersion) {}
+//    //~pj_widgetPrivate() {}
+//
+//    void init();
+//
+//private:
+//    bool _auto_back_size = true;
+//    bool _needLoadRes = true;
+//    QString _resFileName = "";
+//    quint32 _resKey = 0;
+//};

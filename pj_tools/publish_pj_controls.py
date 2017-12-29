@@ -21,7 +21,7 @@ copy_pj_control('pj_label')
 copy_pj_control('pj_listview')
 copy_pj_control('pj_linebox')
 copy_pj_control('pj_textbox')
-copy_pj_control('pj_toolbox')
-copy_pj_control('pj_widget');
+#copy_pj_control('pj_toolbox')
+#copy_pj_control('pj_widget');
 os.system(r'start "" A:\Qt5.10.0\5.10.0\msvc2017_64\bin\designer.exe')
-os.system('pause')
+#os.system('pause')

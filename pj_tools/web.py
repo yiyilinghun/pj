@@ -184,11 +184,11 @@ def db_get_num_info(name, dbaddr):
 
         plyaer_sum = db_get_online_info(dbaddr)
     except :
-        rs_device_sum = 0
-        rs_money_sum = 0 
-        rs_cs_money_sum = 0
-        plyaer_sum = 0
-        rs_has_phone_sum = 0
+        rs_device_sum = -1
+        rs_money_sum = -1
+        rs_cs_money_sum = -1
+        plyaer_sum = -1
+        rs_has_phone_sum = -1
         name = name
     finally:
         return rs_device_sum, rs_money_sum, rs_cs_money_sum, plyaer_sum, rs_has_phone_sum, name
@@ -237,8 +237,10 @@ def _parallel_get_channel_info(*servers):
     tPool.join()
     for res in result:
         num, money, cs_money, online_in_cell_sum, rs_has_phone_sum, name = res.get()
-        if num == 0:
+        if num == -1:
             num = '查询失败'
+        elif num == 0:
+            num = 1
         strdict += '''<tr align="center" border="8" width="1000">
         <td>%s</td>
         <td>%s</td>

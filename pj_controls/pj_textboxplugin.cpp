@@ -55,7 +55,7 @@ QString pj_textboxPlugin::whatsThis() const
 
 bool pj_textboxPlugin::isContainer() const
 {
-    return false;
+    return true;
 }
 
 QString pj_textboxPlugin::domXml() const

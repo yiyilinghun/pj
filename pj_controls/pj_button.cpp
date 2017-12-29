@@ -48,7 +48,7 @@ pj_button::pj_button(QWidget *parent)
     Q_D(pj_button);
     d->init();
 
-    //this->update_backres();
+    this->update_size();
 }
 
 
@@ -72,7 +72,7 @@ void pj_button::setResFileName(const QString &v)
 {
     Q_D(pj_button);
     d->_resFileName = v;
-    //this->update_backres();
+    this->update_size();
 }
 
 quint32 pj_button::resKey() const
@@ -84,7 +84,7 @@ void pj_button::setResKey(const quint32 &v)
 {
     Q_D(pj_button);
     d->_resKey = v;
-    //this->update_backres();
+    this->update_size();
 }
 
 void pj_button::enterEvent(QEvent *)
@@ -131,10 +131,6 @@ pj_button::paintEvent(QPaintEvent *)
         return;
     }
 
-    //imageVector[0]->save("d:\\0.png", "PNG");
-    //imageVector[1]->save("d:\\1.png", "PNG");
-    //imageVector[2]->save("d:\\2.png", "PNG");
-
     if (this->isDown())
     {
         qPainter.drawPixmap(0, 0, QPixmap::fromImage(*imageVector[1]));
@@ -150,62 +146,29 @@ pj_button::paintEvent(QPaintEvent *)
     qPainter.end();
 }
 
-//
-//void pj_button::update_backres()
-//{
-//    Q_D(pj_button);
-//
-//    xyTextureInfo m_backTextureInfo;
-//    quint32 file_key = 0;
-//    if (!pj_GetResManager().pjLoadFile(this->resFileName(), file_key))
-//    {
-//        return;
-//    }
-//
-//    quint64 tempKey = (((quint64)file_key) << 32) + this->resKey();
-//    QVector<QImage*> imageVector;
-//    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
-//    {
-//        return;
-//    }
-//
-//    if (imageVector.size() > 0)
-//    {
-//        //QPushButton* x = NEW QPushButton((QWidget*)this->parent());
-//        QImage* xImage = imageVector[0];
-//        //QPainter xQPainter(xImage);
-//        //xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"àÃÆ¨ÁË");
-//
-//        QIcon icon;
-//        QPixmap qPixmap = QPixmap::fromImage(*xImage);
-//        icon.addPixmap(qPixmap);
-//        this->setIcon(icon);
-//        this->setIconSize(qPixmap.size());
-//        this->setFixedSize(qPixmap.size());
-//        //this->setMask(qPixmap.mask());
-//
-//        //QPalette palette;
-//        //for (int i = 0; i < 20; i++)
-//        //{
-//        //    palette.setColor(QPalette::ColorRole(i), QColor(255, 0, 0));
-//        //}
-//
-//        //this->setAutoFillBackground(true);
-//        //palette.setColor(QPalette::Button, QColor(255, 0, 0));
-//        //palette.setColor(QPalette::Button, QColor(255, 0, 0));
-//
-//        //palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
-//        //palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
-//        //palette.setBrush(QPalette::ColorRole::Window, QBrush(*xImage));
-//        //x->setPalette(palette);
-//        //x->setStyleSheet("background-color: rgb(170, 0, 255);");
-//        //x->setAutoFillBackground(true);
-//        //x->show();
-//        //x->move(10, 10);
-//
-//        //if (this->auto_back_size())
-//        //{
-//        //    this->setFixedSize(xImage->size());
-//        //}
-//    }
-//}
+
+void pj_button::update_size()
+{
+    Q_D(pj_button);
+
+    xyTextureInfo m_backTextureInfo;
+    quint32 file_key = 0;
+    if (!pj_GetResManager().pjLoadFile(this->resFileName(), file_key))
+    {
+        return;
+    }
+
+    quint64 tempKey = (((quint64)file_key) << 32) + this->resKey();
+    QVector<QImage*> imageVector;
+    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
+    {
+        return;
+    }
+
+    if (imageVector.size() > 0)
+    {
+        QImage* xImage = imageVector[0];
+        this->setMinimumSize(xImage->size());
+        this->setMaximumSize(xImage->size());
+    }
+}

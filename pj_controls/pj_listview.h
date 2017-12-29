@@ -14,4 +14,5 @@ class PJ_DLL_API pj_listview : public QListView
 
 public:
     pj_listview(QWidget *parent = Q_NULLPTR);
+    pj_listview(QWidget *parent, bool inEditor);
 };

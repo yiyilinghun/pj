@@ -14,4 +14,5 @@ class PJ_DLL_API pj_toolbox : public QToolBox
 
 public:
     pj_toolbox(QWidget *parent = Q_NULLPTR);
+
 };

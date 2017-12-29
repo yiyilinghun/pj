@@ -55,7 +55,7 @@ QString pj_groupboxPlugin::whatsThis() const
 
 bool pj_groupboxPlugin::isContainer() const
 {
-    return false;
+    return true;
 }
 
 QString pj_groupboxPlugin::domXml() const
