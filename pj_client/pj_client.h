@@ -4,7 +4,9 @@
 #include "ui_pj_client.h"
 #include "ui_pj_login.h"
 #include "pj_loader.h"
+#include "pj_wasani.h"
 
+class pj_view;
 class ice_client_app : virtual public Ice::Application
 {
 public:
@@ -20,6 +22,7 @@ public:
 
     //// µÇÂ¼¹ÜÀíÆ÷
     //PJ_LoginManager* m_LoginManager;
+    pj_view* m_view;
 };
 extern ice_client_app g_ice_client_app;
 
@@ -29,10 +32,27 @@ class pj_main_wnd : public QWidget
 {
 public:
 
+    pj_main_wnd()
+    {
+        int w = 1024;
+        int h = 768;
+        QDesktopWidget* desktop = QApplication::desktop();
+
+        this->setMinimumSize(400, 300);
+        this->setMaximumSize(desktop->width(), desktop->height());
+        this->setGeometry((desktop->width() - w) / 2, (desktop->height() - h) / 2, w, h);
+    }
+
+    void update()
+    {
+        QWidget::update();
+    }
+
 };
 
 
 
+class qt_login_wnd;
 class pj_scene;
 class pj_view : public QGraphicsView
 {
@@ -57,6 +77,8 @@ public:
     {
         return;
     }
+
+    qt_login_wnd* m_login = nullptr;
 };
 
 class pj_image : public QGraphicsItem
@@ -96,11 +118,21 @@ public:
             //    this->setMaximumSize(xImage->size());
             //}
         }
+
+        //((DOUBLE)rand());
+        qsrand(QTime::currentTime().msec() + QTime::currentTime().second() * 1000);
+        auto x = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 4000;
+        auto y = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 2000;
+        this->setPos(x, y);
+        //if (x > 500000 || y > 500000)
+        //{
+        //    qDebug(QString("%1,%2").arg(x).arg(y).toStdString().c_str());
+        //}
     }
 
     virtual QRectF boundingRect() const
     {
-        return { 0,0,0,0 };
+        return { 0,0,640,480 };
     }
 
     QImage* m_QImage = nullptr;
@@ -130,8 +162,8 @@ class qt_login_wnd : public pj_groupbox
     Q_OBJECT
 
 public:
-    qt_login_wnd(QWidget *parent = Q_NULLPTR);
-    qt_login_wnd(QWidget *parent, bool);
+    qt_login_wnd(ice_client_app* app, QWidget *parent = Q_NULLPTR);
+    qt_login_wnd(ice_client_app* app, QWidget *parent,  bool);
 
 public:
     void go_start();
@@ -139,30 +171,63 @@ public:
 
     bool isDrag = false;
     QPoint m_position;
+    pj_wasani* m_ani;
+    ice_client_app* m_app;
 
-    void mousePressEvent(QMouseEvent *e)
-    {
-        if (e->button() == Qt::LeftButton)
-        {
-            isDrag = true;
-            m_position = e->globalPos() - this->pos();
-            e->accept();
-        }
-    }
+    //void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE
+    //{
+    //    if (isDrag)
+    //    {
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        return pj_groupbox::paintEvent(e);
+    //    }
+    //}
 
-    void mouseMoveEvent(QMouseEvent *e)
-    {
-        if (isDrag && (e->buttons() && Qt::LeftButton))
-        {
-            move(e->globalPos() - m_position);
-            e->accept();
-        }
-    }
+    //void mousePressEvent(QMouseEvent *e)
+    //{
+    //    if (e->button() == Qt::LeftButton)
+    //    {
+    //        isDrag = true;
+    //        m_position = e->globalPos() - this->pos();
 
-    void mouseReleaseEvent(QMouseEvent *)
-    {
-        isDrag = false;
-    }
+    //        //QListIterator<QWidget*> _it(this->findChildren<QWidget*>());
+    //        //while (_it.hasNext())
+    //        //{
+    //        //    _it.next()->hide();
+    //        //}
+    //        //this->setEnabled(false);
+    //        //e->accept();
+    //    }
+    //}
+
+    //void mouseMoveEvent(QMouseEvent *e)
+    //{
+    //    if (isDrag && (e->buttons() && Qt::LeftButton))
+    //    {
+    //        //if (qrand() % 2 == 0)
+    //        {
+    //            auto x = e->globalPos() - m_position;
+    //            move(e->globalPos() - m_position);
+    //            //setGeometry(QRect(x.x(), x.y(), 640, 480));
+    //            //e->accept();
+    //        }
+    //    }
+    //}
+
+    //void mouseReleaseEvent(QMouseEvent *)
+    //{
+    //    isDrag = false;
+    //    this->update();
+    //    //QListIterator<QWidget*> _it(this->findChildren<QWidget*>());
+    //    //while (_it.hasNext())
+    //    //{
+    //    //    _it.next()->show();
+    //    //}
+    //    //this->setEnabled(true);
+    //}
 
 public:
     Ui::ui_login uiLogin;

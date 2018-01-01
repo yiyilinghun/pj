@@ -24,6 +24,9 @@
     <Filter Include="11.接口文件">
       <UniqueIdentifier>{d565eeb4-3158-47f7-9c18-ea381adb3fb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.动画管理">
+      <UniqueIdentifier>{e8cd58ed-2dce-4282-9b51-d092f7fef2c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_pj_client.cpp">
@@ -62,6 +65,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MsILogin.cpp">
       <Filter>04.生成文件</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_pj_wasani.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_pj_wasani.cpp">
+      <Filter>04.生成文件</Filter>
+    </ClCompile>
+    <ClCompile Include="pj_wasani.cpp">
+      <Filter>04.动画管理</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_pj_client.h">
@@ -95,6 +107,9 @@
     </CustomBuild>
     <CustomBuild Include="pj_login.ui">
       <Filter>02.窗体文件</Filter>
+    </CustomBuild>
+    <CustomBuild Include="pj_wasani.h">
+      <Filter>04.动画管理</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

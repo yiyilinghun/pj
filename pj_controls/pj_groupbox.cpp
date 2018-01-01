@@ -1,25 +1,26 @@
 #include "Precompiled.h"
+#include <qevent.h>
 #include "pj_groupbox.h"
-#include <QtGui/QPainter>
 
 pj_groupbox::pj_groupbox(QWidget *parent)
-    //: QGroupBox(parent)
     : QGroupBox(parent)
+    //: QOpenGLWidget(parent)
 {
-
+    timeFPS.start();
+    //this->setFont(QFont(u8"¿¬Ìå", 20));
 }
 
 
 
-bool pj_groupbox::auto_back_size() const
+bool pj_groupbox::autoBackSize() const
 {
     //Q_D(const pj_groupbox);
-    return this->_auto_back_size;
+    return this->_autoBackSize;
 }
-void pj_groupbox::setAuto_back_size(const bool &v)
+void pj_groupbox::setAutoBackSize(const bool &v)
 {
     //Q_D(pj_groupbox);
-    this->_auto_back_size = v;
+    this->_autoBackSize = v;
 }
 
 QString pj_groupbox::resFileName() const
@@ -46,6 +47,66 @@ void pj_groupbox::setResKey(const quint32 &v)
     this->update_backres();
 }
 
+bool pj_groupbox::canMove() const
+{
+    return _can_move;
+}
+
+void pj_groupbox::setCanMove(const bool &v)
+{
+    _can_move = v;
+}
+
+
+void pj_groupbox::mousePressEvent(QMouseEvent *e)
+{
+    if (_can_move && e->button() == Qt::LeftButton)
+    {
+        _isDrag = true;
+        _move_position = e->globalPos() - this->pos();
+        e->accept();
+    }
+}
+
+void pj_groupbox::mouseMoveEvent(QMouseEvent *e)
+{
+    if (_can_move && _isDrag && (e->buttons() && Qt::LeftButton))
+    {
+        auto x = e->globalPos() - _move_position;
+        move(e->globalPos() - _move_position);
+        e->accept();
+    }
+}
+
+void pj_groupbox::mouseReleaseEvent(QMouseEvent *)
+{
+    if (_can_move)
+    {
+        _isDrag = false;
+        this->update();
+    }
+}
+
+
+//void pj_groupbox::paintEvent(QPaintEvent *e)
+//{
+//    QPainter qPainter(this);
+//    if (_backimageVector.size() > 0)
+//    {
+//        qPainter.drawImage(0, 0, *_backimageVector[0]);
+//    }
+//
+//    if (timeFPS.elapsed() > 1000)
+//    {
+//        timeFPS.restart();
+//        uiFPS = sumFPS;
+//        sumFPS = 0;
+//    }
+//    sumFPS++;
+//    qPainter.drawText(QRect(5, 5, 400, 400), QString("ui_fps:%1\nui_name:%2").arg(uiFPS).arg(this->objectName()));
+//}
+
+
 void pj_groupbox::update_backres()
 {
     xyTextureInfo m_backTextureInfo;
@@ -56,27 +117,29 @@ void pj_groupbox::update_backres()
     }
 
     quint64 tempKey = (((quint64)file_key) << 32) + this->resKey();
-    QVector<QImage*> imageVector;
-    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
+
+    _backimageVector.clear();
+    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, _backimageVector))
     {
         return;
     }
 
-    if (imageVector.size() > 0)
+    if (_backimageVector.size() > 0)
     {
-        QImage* xImage = imageVector[0];
-        QPainter xQPainter(xImage);
-        xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"àÃÆ¨ÁË");
+        QImage* xImage = _backimageVector[0];
+        //QPainter xQPainter(xImage);
+        //xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"àÃÆ¨ÁË");
         QPalette palette;
         palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
         this->setAutoFillBackground(true);
         this->setPalette(palette);
 
-        if (this->auto_back_size())
+        if (this->autoBackSize())
         {
-            this->setFixedSize(xImage->size());
             this->setMinimumSize(xImage->size());
             this->setMaximumSize(xImage->size());
+            this->setFixedSize(xImage->size());
+            this->setGeometry(QRect(0, 0, xImage->width(), xImage->height()));
         }
     }
 }

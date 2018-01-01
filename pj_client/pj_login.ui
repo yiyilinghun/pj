@@ -2,6 +2,12 @@
 <ui version="4.0">
  <class>ui_login</class>
  <widget class="pj_groupbox" name="ui_login">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -18,6 +24,12 @@
   </property>
   <property name="resKey">
    <UInt>2904516639</UInt>
+  </property>
+  <property name="canMove">
+   <bool>false</bool>
+  </property>
+  <property name="auto_back_size" stdset="0">
+   <bool>true</bool>
   </property>
   <widget class="pj_linebox" name="pjtb_account">
    <property name="geometry">
@@ -140,9 +152,9 @@
   <widget class="QFrame" name="f_buttons">
    <property name="geometry">
     <rect>
-     <x>24</x>
+     <x>40</x>
      <y>235</y>
-     <width>591</width>
+     <width>581</width>
      <height>51</height>
     </rect>
    </property>
@@ -285,53 +297,6 @@
      </widget>
     </item>
     <item>
-     <widget class="pj_listview" name="pj_listview_">
-      <property name="palette">
-       <palette>
-        <active>
-         <colorrole role="Base">
-          <brush brushstyle="SolidPattern">
-           <color alpha="0">
-            <red>255</red>
-            <green>255</green>
-            <blue>255</blue>
-           </color>
-          </brush>
-         </colorrole>
-        </active>
-        <inactive>
-         <colorrole role="Base">
-          <brush brushstyle="SolidPattern">
-           <color alpha="0">
-            <red>255</red>
-            <green>255</green>
-            <blue>255</blue>
-           </color>
-          </brush>
-         </colorrole>
-        </inactive>
-        <disabled>
-         <colorrole role="Base">
-          <brush brushstyle="SolidPattern">
-           <color alpha="255">
-            <red>240</red>
-            <green>240</green>
-            <blue>240</blue>
-           </color>
-          </brush>
-         </colorrole>
-        </disabled>
-       </palette>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="lineWidth">
-       <number>5</number>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="pj_button" name="pjb_login">
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
@@ -408,8 +373,8 @@
   <widget class="QToolBox" name="toolBox">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>320</y>
+     <x>480</x>
+     <y>30</y>
      <width>141</width>
      <height>121</height>
     </rect>
@@ -526,19 +491,6 @@
     <attribute name="label">
      <string>Page 1</string>
     </attribute>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
    </widget>
    <widget class="QWidget" name="page_2">
     <property name="geometry">
@@ -570,8 +522,8 @@
   <widget class="pj_textbox" name="pj_textbox_">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>240</y>
+     <x>10</x>
+     <y>300</y>
      <width>481</width>
      <height>171</height>
     </rect>
@@ -590,6 +542,59 @@ p, li { white-space: pre-wrap; }
    <property name="placeholderText">
     <string/>
    </property>
+   <widget class="pj_listview" name="pj_listview_">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>100</y>
+      <width>237</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="0">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="0">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>240</red>
+          <green>240</green>
+          <blue>240</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>5</number>
+    </property>
+   </widget>
   </widget>
   <widget class="pj_button" name="pjb_register_2">
    <property name="geometry">
@@ -732,7 +737,20 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>150</y>
+     <y>170</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>210</y>
      <width>75</width>
      <height>23</height>
     </rect>

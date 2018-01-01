@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "pj_loader.h"
 #include "pj_client.h"
+#include "pj_wasani.h"
 
 ice_client_app g_ice_client_app;
 
@@ -105,44 +106,80 @@ ice_client_app::run(int argc, char* argv[])
     QApplication a(argc, argv);
 
     pj_main_wnd* w_main = NEW pj_main_wnd();
+    //w_main->setGeometry(QRect(0, 0, 1024, 768));
 
     //return a.exec();
 
     pj_scene* scene = NEW pj_scene();
-    scene->setSceneRect(0, 0, 1920, 1080);
+    scene->setSceneRect(0, 0, 4000, 2000);
 
-    for (qint32 i = 0; i < 100; i++)
+    for (qint32 i = 0; i < 20; i++)
+    {
+        //if (i % 10000 == 0)
+        //{
+        //    qDebug(QString("%1").arg(i).toStdString().c_str());
+        //}
         scene->addItem(NEW pj_image());
+    }
 
     scene->m_QGraphicsTextItem = NEW QGraphicsTextItem();
     scene->addItem(scene->m_QGraphicsTextItem);
     //////scene.setItemIndexMethod(QGraphicsScene::NoIndex);
-    //qt_login_wnd* w_login = NEW qt_login_wnd();
     //w_login->setGeometry(0, 0, 300, 400);
     //scene->addWidget(w_login);
 
     //w_main.update();
-    pj_view* view = NEW pj_view(scene);
+    m_view = NEW pj_view(scene);
 
-    QTimer* timer = NEW QTimer(view);
-    QObject::connect(timer, &QTimer::timeout, view, &pj_view::update);
-    timer->start(16); // 2秒单触发定时器
+    m_view->centerOn(0, 0);
+    QTimer* timer = NEW QTimer(m_view);
+    QObject::connect(timer, &QTimer::timeout, m_view, &pj_view::update);
+    //QObject::connect(timer, &QTimer::timeout, view, &pj_view::update);
+    timer->start(1); // 2秒单触发定时器
 
     //view.setCacheMode(QGraphicsView::CacheBackground);
 
     ////view.setDragMode(QGraphicsView::NoDrag);
     ////view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
-    qt_login_wnd* w_login2 = NEW qt_login_wnd();
 
     auto* opglwg = NEW QOpenGLWidget();
-    opglwg->setGeometry(QRect(0, 0, 1920, 1080));
+    //opglwg->setGeometry(QRect(0, 0, 4000, 2000));
     ////view->setRenderHint(QPainter::Antialiasing);
-    view->setViewport(opglwg);
-    view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    m_view->setGeometry(QRect(0, 0, 1024, 768));
+    m_view->setViewport(opglwg);
+    m_view->setParent(w_main);
+    //auto* opglwg2 = NEW QOpenGLWidget();
+    //opglwg2->setAutoFillBackground(true);
+    //opglwg2->setParent(opglwg);
+    //opglwg2->move(100, 100);
+    //w_login->setParent(opglwg);
+    m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 
-    view->setParent(w_main);
-    w_login2->setParent(w_main);
+    //FORRANGE(10)
+    {
+        qt_login_wnd* w_login = NEW qt_login_wnd(this);
+        w_login->setParent(w_main);
+        w_login->move(100, 100);
+    }
+    //view->m_login->setAutoFillBackground(true);
+    //view->m_login->setParent(view);
+    //view->m_login->move(0, 0);
+    //view->m_login->show();
+
+    //view->setParent(w_login);
+    //w_login2->setParent(w_main);
+    //w_login2->show();
+
+
+    //for (qint32 i = 0; i < 10; i++)
+    //{
+    //    qt_login_wnd* w_login2 = NEW qt_login_wnd();
+    //    w_login2->setParent(w_main);
+    //    //scene->addWidget(w_login2);
+    //    w_login2->setGeometry(qrand() % 100, qrand() % 100, 640, 480);
+    //    w_login2->show();
+    //}
 
     //for (qint32 i = 0; i < 10; i++)
     //{
@@ -160,8 +197,8 @@ ice_client_app::run(int argc, char* argv[])
     //view->resize(640, 480);
     //view->show();
 
-    //view->show();
     w_main->show();
+    //w_login->show();
 
     return a.exec();
 }
@@ -171,6 +208,12 @@ pj_view::pj_view(pj_scene* scene)
     , m_scene(scene)
 {
     time.start();
+
+    //m_scene->m_QGraphicsTextItem->setFont(QFont("楷体", ))
+    m_scene->m_QGraphicsTextItem->setDefaultTextColor(QColor(255, 0, 0));
+    //qDebug(QString("%1").arg(m_FPS).toStdString().c_str());
+    m_scene->m_QGraphicsTextItem->setPos(0, 0);
+    m_scene->m_QGraphicsTextItem->show();
 }
 
 
@@ -179,9 +222,9 @@ void pj_view::update()
     //QRect x(0, 0, this->parentWidget()->frameSize().width(), this->parentWidget()->frameSize().height());
     //m_scene->setSceneRect(x);
     //this->setGeometry(x);
-    this->centerOn(0, 0);
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //this->centerOn(0, 0);
+    //this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //this->resize(this->parentWidget()->frameSize().width(), this->parentWidget()->frameSize().height());
     //this->geometry(x);
 
@@ -192,59 +235,66 @@ void pj_view::update()
         m_tempFPS = 0;
     }
     m_tempFPS++;
-    //m_scene->m_QGraphicsTextItem->setFont(QFont("楷体", ))
-    m_scene->m_QGraphicsTextItem->setDefaultTextColor(QColor(255, 0, 0));
+    //auto x = QGraphicsView::mapToScene(0, 0);
+    //m_scene->m_QGraphicsTextItem->setPos(x);
     m_scene->m_QGraphicsTextItem->setPlainText(QString("%1").arg(m_FPS));
-    qDebug(QString("%1").arg(m_FPS).toStdString().c_str());
-    m_scene->m_QGraphicsTextItem->setPos(0, 0);
-    m_scene->m_QGraphicsTextItem->show();
-    QGraphicsView::update();
+
+    //m_login->paintEvent(nullptr);
+    //this->findChildren<qt_login_wnd>()[0].paintEvent(nullptr);
+
+    //m_scene->items()[1]->setPos(qrand() % 1000, qrand() % 1000);
+    //QGraphicsView::update();
 }
 
 void qt_login_wnd::finished()
 {
-    QPropertyAnimation* animation = NEW QPropertyAnimation(uiLogin.pushButton_3, "geometry");
+    QPropertyAnimation* animation = NEW QPropertyAnimation(&m_ani->_wasaniAssist, "indexAni");
     QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
 
-    animation->setDuration(2000);
-    animation->setStartValue(QRect(320, 240, 50, 50));
-    animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
-    animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
-    animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
-    animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
-    animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
-    animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
-    animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
-    animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
-    animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
-    animation->setEndValue(QRect(320, 240, 50, 50));
+    animation->setDuration(50000);
+    animation->setStartValue(0);
+    //animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
+    //animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
+    //animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
+    //animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
+    //animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
+    //animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
+    //animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
+    //animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
+    //animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
+    animation->setEndValue(10);
     animation->start();
 }
 
 void qt_login_wnd::go_start()
 {
-    QPropertyAnimation* animation = NEW QPropertyAnimation(uiLogin.pushButton_3, "geometry");
+    m_ani = NEW pj_wasani();
+    m_ani->setPos(0, 0);
+
+    QPropertyAnimation* animation = NEW QPropertyAnimation(&m_ani->_wasaniAssist, "indexAni");
     QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
 
-    animation->setDuration(3000);
-    animation->setStartValue(QRect(320, 240, 50, 50));
-    animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
-    animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
-    animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
-    animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
-    animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
-    animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
-    animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
-    animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
-    animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
-    animation->setEndValue(QRect(320, 240, 50, 50));
+    animation->setDuration(50000);
+    animation->setStartValue(0);
+    //animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
+    //animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
+    //animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
+    //animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
+    //animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
+    //animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
+    //animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
+    //animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
+    //animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
+    animation->setEndValue(10);
     animation->start();
+
+    this->m_app->m_view->scene()->addItem(m_ani);
 }
 
-qt_login_wnd::qt_login_wnd(QWidget *parent, bool)
+qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent, bool)
     : pj_groupbox(parent)
+    , m_app(app)
 {
-
     uiLogin.setupUi(this);
     //this->setWindowFlags(Qt::FramelessWindowHint);
     //this->setWindowFlags(Qt::FramelessWindowHint | windowFlags());
@@ -252,7 +302,7 @@ qt_login_wnd::qt_login_wnd(QWidget *parent, bool)
     //uiLogin.pj_listview_.;
 
     QObject::connect(uiLogin.pushButton_3, &QPushButton::clicked, this, &qt_login_wnd::go_start);
-    auto x = uiLogin.pj_label_->font();
+    //auto x = uiLogin.pj_label_->font();
 
     //go_start();
     //auto xx = x.family();
@@ -413,8 +463,9 @@ qt_login_wnd::qt_login_wnd(QWidget *parent, bool)
 }
 
 
-qt_login_wnd::qt_login_wnd(QWidget *parent)
+qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent)
     : pj_groupbox(parent)
+    , m_app(app)
 {
     uiLogin.setupUi(this);
     //this->setWindowFlags(Qt::FramelessWindowHint);
@@ -423,9 +474,9 @@ qt_login_wnd::qt_login_wnd(QWidget *parent)
     //uiLogin.pj_listview_.;
 
     QObject::connect(uiLogin.pushButton_3, &QPushButton::clicked, this, &qt_login_wnd::go_start);
-    auto x = uiLogin.pj_label_->font();
+    //auto x = uiLogin.pj_label_->font();
 
-    go_start();
+    //go_start();
     //auto xx = x.family();
     //QPropertyAnimation* animation = NEW QPropertyAnimation(uiLogin.pushButton_3, "geometry");
 
@@ -488,10 +539,12 @@ qt_login_wnd::qt_login_wnd(QWidget *parent)
     //this->palette().
     int w = this->width();
     int h = this->height();
+    this->setMinimumSize(0, 0);
+    this->setMaximumSize(60000, 60000);
     QDesktopWidget* desktop = QApplication::desktop();
     this->setGeometry((desktop->width() - w) / 2, (desktop->height() - h) / 2, w, h);
-    this->setMinimumSize(this->size());
-    this->setMaximumSize(this->size());
+    //this->setMinimumSize(this->size());
+    //this->setMaximumSize(this->size());
 
 
     quint32 file_key = 0;
@@ -579,6 +632,8 @@ qt_login_wnd::qt_login_wnd(QWidget *parent)
     //uiLogin.textEdit->setPalette(pal);
     //uiLogin.textEdit->setAttribute(Qt::WA_TranslucentBackground, true);
 
+
+    //this->resize(100, 100);
     g_ice_client_app.init_client();
 }
 

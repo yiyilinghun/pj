@@ -409,7 +409,6 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
             // 读取调色板
             WPixels xPalette = { 0 };
             xUnitStream.device()->seek(xWdfUnit.m_imageHeaderSize + 4);
-            //xStream.OutSeek(imageHeaderSize + 4);
             xUnitStream >> xPalette;
 
             // 读取帧偏移
@@ -446,7 +445,13 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
 
                         std::shared_ptr<qint32> xLineOffsets(LAMBDA_AUTO_NEW_DELETE_ARRAY(qint32, textureInfo.height));
                         qint32* lineptr = xLineOffsets.get();
-                        for (qint32 l = 0; l < textureInfo.height; l++) { xUnitStream >> lineptr[l]; }
+                        //char* p = (char*)lineptr;
+                        //quint32 s = textureInfo.height * sizeof(qint32);
+                        //xUnitStream.readBytes(p, s);
+                        for (qint32 l = 0; l < textureInfo.height; l++)
+                        {
+                            xUnitStream >> lineptr[l];
+                        }
 
                         if (textureInfo.width > 0 || textureInfo.height > 0)
                         {

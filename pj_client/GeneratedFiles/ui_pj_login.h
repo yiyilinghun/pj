@@ -36,24 +36,28 @@ public:
     QFrame *f_buttons;
     QHBoxLayout *horizontalLayout;
     pj_button *pjb_register;
-    pj_listview *pj_listview_;
     pj_button *pjb_login;
     pj_label *pj_label_;
     QToolBox *toolBox;
     QWidget *page;
-    QPushButton *pushButton;
     QWidget *page_2;
     QPushButton *pushButton_2;
     pj_textbox *pj_textbox_;
+    pj_listview *pj_listview_;
     pj_button *pjb_register_2;
     QPushButton *pushButton_3;
+    QPushButton *pushButton;
 
     void setupUi(pj_groupbox *ui_login)
     {
         if (ui_login->objectName().isEmpty())
             ui_login->setObjectName(QStringLiteral("ui_login"));
+        ui_login->setWindowModality(Qt::NonModal);
+        ui_login->setEnabled(true);
         ui_login->resize(640, 480);
         ui_login->setResKey(2904516639u);
+        ui_login->setCanMove(false);
+        ui_login->setProperty("auto_back_size", QVariant(true));
         pjtb_account = new pj_linebox(ui_login);
         pjtb_account->setObjectName(QStringLiteral("pjtb_account"));
         pjtb_account->setGeometry(QRect(213, 187, 266, 20));
@@ -98,7 +102,7 @@ public:
         pjtb_password->setProperty("tabChangesFocus", QVariant(true));
         f_buttons = new QFrame(ui_login);
         f_buttons->setObjectName(QStringLiteral("f_buttons"));
-        f_buttons->setGeometry(QRect(24, 235, 591, 51));
+        f_buttons->setGeometry(QRect(40, 235, 581, 51));
         f_buttons->setFrameShape(QFrame::StyledPanel);
         f_buttons->setFrameShadow(QFrame::Raised);
         horizontalLayout = new QHBoxLayout(f_buttons);
@@ -138,22 +142,6 @@ public:
 
         horizontalLayout->addWidget(pjb_register);
 
-        pj_listview_ = new pj_listview(f_buttons);
-        pj_listview_->setObjectName(QStringLiteral("pj_listview_"));
-        QPalette palette1;
-        QBrush brush7(QColor(255, 255, 255, 0));
-        brush7.setStyle(Qt::SolidPattern);
-        palette1.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette1.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        QBrush brush8(QColor(240, 240, 240, 255));
-        brush8.setStyle(Qt::SolidPattern);
-        palette1.setBrush(QPalette::Disabled, QPalette::Base, brush8);
-        pj_listview_->setPalette(palette1);
-        pj_listview_->setFrameShape(QFrame::Box);
-        pj_listview_->setLineWidth(5);
-
-        horizontalLayout->addWidget(pj_listview_);
-
         pjb_login = new pj_button(f_buttons);
         pjb_login->setObjectName(QStringLiteral("pjb_login"));
         pjb_login->setFocusPolicy(Qt::NoFocus);
@@ -164,15 +152,15 @@ public:
         pj_label_ = new pj_label(ui_login);
         pj_label_->setObjectName(QStringLiteral("pj_label_"));
         pj_label_->setGeometry(QRect(20, 20, 601, 121));
-        QPalette palette2;
-        QBrush brush9(QColor(255, 0, 0, 255));
-        brush9.setStyle(Qt::SolidPattern);
-        palette2.setBrush(QPalette::Active, QPalette::WindowText, brush9);
-        palette2.setBrush(QPalette::Inactive, QPalette::WindowText, brush9);
-        QBrush brush10(QColor(120, 120, 120, 255));
-        brush10.setStyle(Qt::SolidPattern);
-        palette2.setBrush(QPalette::Disabled, QPalette::WindowText, brush10);
-        pj_label_->setPalette(palette2);
+        QPalette palette1;
+        QBrush brush7(QColor(255, 0, 0, 255));
+        brush7.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::WindowText, brush7);
+        palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush7);
+        QBrush brush8(QColor(120, 120, 120, 255));
+        brush8.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush8);
+        pj_label_->setPalette(palette1);
         QFont font1;
         font1.setFamily(QString::fromUtf8("\346\245\267\344\275\223"));
         font1.setPointSize(24);
@@ -180,30 +168,29 @@ public:
         pj_label_->setAlignment(Qt::AlignCenter);
         toolBox = new QToolBox(ui_login);
         toolBox->setObjectName(QStringLiteral("toolBox"));
-        toolBox->setGeometry(QRect(390, 320, 141, 121));
-        QPalette palette3;
-        QBrush brush11(QColor(240, 240, 240, 0));
+        toolBox->setGeometry(QRect(480, 30, 141, 121));
+        QPalette palette2;
+        QBrush brush9(QColor(240, 240, 240, 0));
+        brush9.setStyle(Qt::SolidPattern);
+        palette2.setBrush(QPalette::Active, QPalette::Button, brush9);
+        QBrush brush10(QColor(255, 255, 255, 0));
+        brush10.setStyle(Qt::SolidPattern);
+        palette2.setBrush(QPalette::Active, QPalette::Base, brush10);
+        QBrush brush11(QColor(0, 0, 0, 0));
         brush11.setStyle(Qt::SolidPattern);
-        palette3.setBrush(QPalette::Active, QPalette::Button, brush11);
-        palette3.setBrush(QPalette::Active, QPalette::Base, brush7);
-        QBrush brush12(QColor(0, 0, 0, 0));
-        brush12.setStyle(Qt::SolidPattern);
-        palette3.setBrush(QPalette::Active, QPalette::Window, brush12);
-        palette3.setBrush(QPalette::Inactive, QPalette::Button, brush11);
-        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush12);
-        palette3.setBrush(QPalette::Disabled, QPalette::Button, brush11);
-        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush12);
-        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush12);
-        toolBox->setPalette(palette3);
+        palette2.setBrush(QPalette::Active, QPalette::Window, brush11);
+        palette2.setBrush(QPalette::Inactive, QPalette::Button, brush9);
+        palette2.setBrush(QPalette::Inactive, QPalette::Base, brush10);
+        palette2.setBrush(QPalette::Inactive, QPalette::Window, brush11);
+        palette2.setBrush(QPalette::Disabled, QPalette::Button, brush9);
+        palette2.setBrush(QPalette::Disabled, QPalette::Base, brush11);
+        palette2.setBrush(QPalette::Disabled, QPalette::Window, brush11);
+        toolBox->setPalette(palette2);
         toolBox->setFrameShape(QFrame::Box);
         toolBox->setLineWidth(5);
         page = new QWidget();
         page->setObjectName(QStringLiteral("page"));
         page->setGeometry(QRect(0, 0, 131, 59));
-        pushButton = new QPushButton(page);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(20, 10, 75, 23));
         toolBox->addItem(page, QStringLiteral("Page 1"));
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
@@ -214,7 +201,19 @@ public:
         toolBox->addItem(page_2, QStringLiteral("Page 2"));
         pj_textbox_ = new pj_textbox(ui_login);
         pj_textbox_->setObjectName(QStringLiteral("pj_textbox_"));
-        pj_textbox_->setGeometry(QRect(50, 240, 481, 171));
+        pj_textbox_->setGeometry(QRect(10, 300, 481, 171));
+        pj_listview_ = new pj_listview(pj_textbox_);
+        pj_listview_->setObjectName(QStringLiteral("pj_listview_"));
+        pj_listview_->setGeometry(QRect(360, 100, 237, 31));
+        QPalette palette3;
+        palette3.setBrush(QPalette::Active, QPalette::Base, brush10);
+        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush10);
+        QBrush brush12(QColor(240, 240, 240, 255));
+        brush12.setStyle(Qt::SolidPattern);
+        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush12);
+        pj_listview_->setPalette(palette3);
+        pj_listview_->setFrameShape(QFrame::Box);
+        pj_listview_->setLineWidth(5);
         pjb_register_2 = new pj_button(ui_login);
         pjb_register_2->setObjectName(QStringLiteral("pjb_register_2"));
         pjb_register_2->setGeometry(QRect(500, 420, 121, 35));
@@ -248,7 +247,10 @@ public:
         pjb_register_2->setResKey(2537760430u);
         pushButton_3 = new QPushButton(ui_login);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(550, 150, 75, 23));
+        pushButton_3->setGeometry(QRect(550, 170, 75, 23));
+        pushButton = new QPushButton(ui_login);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(560, 210, 75, 23));
         QWidget::setTabOrder(pjtb_account, pjtb_password);
         QWidget::setTabOrder(pjtb_password, pjb_register);
 
@@ -270,7 +272,6 @@ public:
         pjb_register->setResFileName(QApplication::translate("ui_login", "A:\\git\\pj\\res\\gires3.wdf", nullptr));
         pjb_login->setResFileName(QApplication::translate("ui_login", "A:\\git\\pj\\res\\gires3.wdf", nullptr));
         pj_label_->setText(QApplication::translate("ui_login", "\346\265\213\350\257\225\346\240\207\351\242\230\346\241\206", nullptr));
-        pushButton->setText(QApplication::translate("ui_login", "PushButton", nullptr));
         toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("ui_login", "Page 1", nullptr));
         pushButton_2->setText(QApplication::translate("ui_login", "PushButton", nullptr));
         toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("ui_login", "Page 2", nullptr));
@@ -288,6 +289,7 @@ public:
         pj_textbox_->setPlaceholderText(QString());
         pjb_register_2->setResFileName(QApplication::translate("ui_login", "A:\\git\\pj\\res\\gires3.wdf", nullptr));
         pushButton_3->setText(QApplication::translate("ui_login", "PushButton", nullptr));
+        pushButton->setText(QApplication::translate("ui_login", "PushButton", nullptr));
     } // retranslateUi
 
 };

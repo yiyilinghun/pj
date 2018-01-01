@@ -88,6 +88,9 @@ typedef void*   IntPtr;
 #define SAFE_CLOSE(p)           ((p) ? (::CloseHandle(p), (p)=nullptr) : ((p) = (p)))
 #endif
 
+#define FORRANGE(_num)             for (qint32 i = 0; i < _num; i++)
+
+
 #include <QtCore/QFile>
 #include <QtCore/QBuffer>
 
