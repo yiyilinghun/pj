@@ -251,18 +251,9 @@ void qt_login_wnd::finished()
     QPropertyAnimation* animation = NEW QPropertyAnimation(&m_ani->_wasaniAssist, "indexAni");
     QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
 
-    animation->setDuration(50000);
+    animation->setDuration((m_ani->_imageVector.size() - 1) * 100);
     animation->setStartValue(0);
-    //animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
-    //animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
-    //animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
-    //animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
-    //animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
-    //animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
-    //animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
-    //animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
-    //animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
-    animation->setEndValue(10);
+    animation->setEndValue(m_ani->_imageVector.size() - 1);
     animation->start();
 }
 
@@ -274,18 +265,9 @@ void qt_login_wnd::go_start()
     QPropertyAnimation* animation = NEW QPropertyAnimation(&m_ani->_wasaniAssist, "indexAni");
     QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
 
-    animation->setDuration(50000);
+    animation->setDuration((m_ani->_imageVector.size() - 1) * 100);
     animation->setStartValue(0);
-    //animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
-    //animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
-    //animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
-    //animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
-    //animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
-    //animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
-    //animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
-    //animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
-    //animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
-    animation->setEndValue(10);
+    animation->setEndValue(m_ani->_imageVector.size() - 1);
     animation->start();
 
     this->m_app->m_view->scene()->addItem(m_ani);

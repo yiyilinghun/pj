@@ -86,6 +86,7 @@ xyParseSome(QDataStream& xStream, quint32* lpTextureData, qint32 xTextureWidth,
             uint8_t xTemp;
             xStream >> xTemp;
             quint32 xPixelTemp = (quint32)xTemp;
+            //qDebug(QString("%1").arg(xPixelTemp).toStdString().c_str());
 
             // 象素行结束
             if (xPixelTemp == 0) { break; }
@@ -351,7 +352,7 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
 
     // 读取动画数据
     xyUnit& xWdfUnit = m_hashReses[unitKey];
-    quint32& xLen = xWdfUnit.m_UnitFileInfo.m_Len;
+    quint32& xxLen = xWdfUnit.m_UnitFileInfo.m_Len;
 
     try
     {
@@ -367,14 +368,14 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
             QDataStream xFileStream(&xFile);
             xFileStream.setByteOrder(QDataStream::LittleEndian);
 
-            xWdfUnit.m_resOriginalData.reset(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xLen));
-            if (xLen != xFileStream.readRawData(xWdfUnit.m_resOriginalData.get(), xLen))
+            xWdfUnit.m_resOriginalData.reset(LAMBDA_AUTO_NEW_DELETE_ARRAY(char, xxLen));
+            if (xxLen != xFileStream.readRawData(xWdfUnit.m_resOriginalData.get(), xxLen))
             {
                 qCritical(QString(u8"读取资源文件失败:%1").arg(m_hashReskeyResFilename[(quint32)(unitKey >> 32)]).toStdString().c_str());
                 return False;
             }
 
-            QByteArray xByteArray(xWdfUnit.m_resOriginalData.get(), xLen);
+            QByteArray xByteArray(xWdfUnit.m_resOriginalData.get(), xxLen);
             QDataStream xUnitStream(&xByteArray, QIODevice::ReadOnly);
             xUnitStream.setByteOrder(QDataStream::LittleEndian);
             xUnitStream.device()->seek(0);
@@ -429,10 +430,7 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
             {
                 for (qint32 xFrameIndex = 0; xFrameIndex < xWdfUnit.m_frameCount; xFrameIndex++)
                 {
-                    std::shared_ptr<quint32> xImageData(LAMBDA_AUTO_NEW_DELETE_ARRAY(quint32, xWdfUnit.m_width * xWdfUnit.m_height));
-                    xWdfUnit.m_resProductDatas.append(xImageData);
-                    quint32* lpImageData = xImageData.get();
-                    memset(lpImageData, 0, sizeof(quint32) * xWdfUnit.m_width * xWdfUnit.m_height);
+                    quint32* lpImageData = nullptr;
 
                     Boolean IsInterlacedgh = False;
 
@@ -442,6 +440,11 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
                         xUnitStream.device()->seek(xOffset + xWdfUnit.m_imageHeaderSize + 4);
 
                         xUnitStream >> textureInfo.hotX >> textureInfo.hotY >> textureInfo.width >> textureInfo.height;
+
+                        std::shared_ptr<quint32> xImageData(LAMBDA_AUTO_NEW_DELETE_ARRAY(quint32, textureInfo.width * textureInfo.height));
+                        xWdfUnit.m_resProductDatas.append(xImageData);
+                        lpImageData = xImageData.get();
+                        memset(lpImageData, 0, sizeof(quint32) * textureInfo.width * textureInfo.height);
 
                         std::shared_ptr<qint32> xLineOffsets(LAMBDA_AUTO_NEW_DELETE_ARRAY(qint32, textureInfo.height));
                         qint32* lineptr = xLineOffsets.get();
@@ -455,26 +458,36 @@ pjResManager::pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVec
 
                         if (textureInfo.width > 0 || textureInfo.height > 0)
                         {
-                            xyParseSome(xUnitStream, lpImageData, textureInfo.width, xPalette, xOffset, lineptr, textureInfo.width, textureInfo.height, xWdfUnit.m_imageHeaderSize, IsInterlacedgh);
+                            xyParseSome(xUnitStream,
+                                lpImageData,
+                                textureInfo.width,
+                                xPalette,
+                                xOffset,
+                                lineptr,
+                                textureInfo.width,
+                                textureInfo.height,
+                                xWdfUnit.m_imageHeaderSize,
+                                IsInterlacedgh
+                            );
                         }
                     }
 
-                    if (IsInterlacedgh)
+                    if (IsInterlacedgh && lpImageData)
                     {
-                        for (int y = 0; y < xWdfUnit.m_height; y++)
+                        for (int y = 0; y < textureInfo.height; y++)
                         {
-                            if (((y % 2) == 0) && y < (xWdfUnit.m_height - 1))
+                            if (((y % 2) == 0) && y < (textureInfo.height - 1))
                             {
-                                void* lpDst = &(lpImageData[(y + 1) * xWdfUnit.m_width]);
-                                void* lpSrc = &(lpImageData[(y)* xWdfUnit.m_width]);
-                                memcpy(lpDst, lpSrc, xWdfUnit.m_width * sizeof(quint32));
+                                void* lpDst = &(lpImageData[(y + 1) * textureInfo.width]);
+                                void* lpSrc = &(lpImageData[(y)* textureInfo.width]);
+                                memcpy(lpDst, lpSrc, textureInfo.width * sizeof(quint32));
                             }
                         }
                     }
                     xUnitStream.device()->seek(0);
 
                     std::shared_ptr<QImage> xImage(LAMBDA_AUTO_NEW_DELETE_P4(QImage,
-                        (uchar*)lpImageData, xWdfUnit.m_width, xWdfUnit.m_height, QImage::Format::Format_ARGB32)
+                        (uchar*)lpImageData, textureInfo.width, textureInfo.height, QImage::Format::Format_ARGB32)
                     );
                     xWdfUnit.m_ProductImages.append(xImage);
                 }

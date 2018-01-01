@@ -38,7 +38,7 @@ public:
             return;
         }
 
-        quint64 tempKey = (((quint64)file_key) << 32) + 0x4e4577e9;
+        quint64 tempKey = (((quint64)file_key) << 32) + 0xa896b4;
 
         _imageVector.clear();
         if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, _imageVector))
@@ -57,12 +57,11 @@ public:
 
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = Q_NULLPTR)
     {
-        _imageVector[_wasaniAssist._indexAni%_imageVector.size()]->save(QString(R"(d:\%1.png)").arg(_wasaniAssist._indexAni%_imageVector.size()));
         painter->drawImage(0, 0, *(_imageVector[_wasaniAssist._indexAni%_imageVector.size()]));
     }
 
 public:
     pjWasaniAssist _wasaniAssist;
-private:
+//private:
     QVector<QImage*> _imageVector;
 };
