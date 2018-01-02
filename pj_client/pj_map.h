@@ -180,6 +180,7 @@ private:
     std::shared_ptr<QImage> m_blockImage;
 };
 
+class pj_wasani;
 class pj_map : public QGraphicsScene
 {
 public:
@@ -193,7 +194,8 @@ public:
 
 public:
     QVector<pj_mapCell*> _mapCellVector;
-    QGraphicsTextItem* m_QGraphicsTextItem;
+    QVector<pj_wasani*> aniVector;
+    //QGraphicsTextItem* m_QGraphicsTextItem;
 
 private:
     QFile m_File;

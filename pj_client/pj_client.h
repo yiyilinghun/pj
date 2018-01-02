@@ -7,24 +7,6 @@
 #include "pj_wasani.h"
 
 class pj_view;
-class ice_client_app : virtual public Ice::Application
-{
-public:
-    ice_client_app();
-
-    virtual int run(int, char *[]);
-
-public:
-    bool init_client();
-
-    ////   ≈‰∆˜
-    //Ice::ObjectAdapterPtr m_Adapter;
-
-    //// µ«¬ºπ‹¿Ì∆˜
-    //PJ_LoginManager* m_LoginManager;
-    pj_view* m_view;
-};
-extern ice_client_app g_ice_client_app;
 
 
 //class pj_scene;
@@ -61,90 +43,83 @@ public:
 
     void update();
 
-    //void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE
-    //{
-    //    QPainter qPainter(this);
-    //    qPainter.setPen(QColor(255, 0, 0));
-    //    qPainter.drawText(QPoint(100, 100), "123");
-    //}
-
-    QTime time;
-    int m_tempFPS = 0;
-    int m_FPS = 0;
-    pj_map* m_map;
+    QTime qTimeFPS;
+    qint32 tempFPS = 0;
+    qint32 FPS = 0;
 
     void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE
     {
         return;
     }
 
-    qt_login_wnd* m_login = nullptr;
+    QTimer* qTimerRender;
+    QGraphicsTextItem* m_QGraphicsTextItem;
 };
 
-class pj_image : public QGraphicsItem
-{
-public:
-
-    pj_image()
-    {
-        quint32 file_key = 0;
-        if (!pj_GetResManager().pjLoadFile(R"(A:\git\pj\res\gires3.wdf)", file_key))
-        {
-            return;
-        }
-
-        quint64 tempKey = (((quint64)file_key) << 32) + 2904516639;
-        QVector<hotImage> imageVector;
-        XYUnit* xyUnit = nullptr;
-        if (!pj_GetResManager().pjGetWasTextures(tempKey, xyUnit))
-        {
-            return;
-        }
-
-        if (imageVector.size() > 0)
-        {
-            m_QImage = imageVector[0].qImage.get();
-            QPainter xQPainter(m_QImage);
-            xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"¡À∆®‡√");
-            //QPalette palette;
-            //palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
-            //this->setAutoFillBackground(true);
-            //this->setPalette(palette);
-
-            //if (this->auto_back_size())
-            //{
-            //    this->setFixedSize(xImage->size());
-            //    this->setMinimumSize(xImage->size());
-            //    this->setMaximumSize(xImage->size());
-            //}
-        }
-
-        //((DOUBLE)rand());
-        qsrand(QTime::currentTime().msec() + QTime::currentTime().second() * 1000);
-        auto x = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 4000;
-        auto y = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 2000;
-        this->setPos(x, y);
-        //if (x > 500000 || y > 500000)
-        //{
-        //    qDebug(QString("%1,%2").arg(x).arg(y).toStdString().c_str());
-        //}
-    }
-
-    virtual QRectF boundingRect() const
-    {
-        return { 0,0,640,480 };
-    }
-
-    QImage* m_QImage = nullptr;
-    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = Q_NULLPTR)
-    {
-        if (m_QImage)
-        {
-            //painter->drawImage(100 + qrand() % 100, 100 + qrand() % 20, *m_QImage);
-            painter->drawImage(100, 100, *m_QImage);
-        }
-    }
-};
+//class pj_image : public QGraphicsItem
+//{
+//public:
+//
+//    pj_image()
+//    {
+//        quint32 file_key = 0;
+//        if (!pj_GetResManager().pjLoadFile(R"(A:\git\pj\res\gires3.wdf)", file_key))
+//        {
+//            return;
+//        }
+//
+//        quint64 tempKey = (((quint64)file_key) << 32) + 2904516639;
+//        QVector<hotImage> imageVector;
+//        XYUnit* xyUnit = nullptr;
+//        if (!pj_GetResManager().pjGetWasTextures(tempKey, xyUnit))
+//        {
+//            return;
+//        }
+//
+//        if (imageVector.size() > 0)
+//        {
+//            m_QImage = imageVector[0].qImage.get();
+//            QPainter xQPainter(m_QImage);
+//            xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"¡À∆®‡√");
+//            //QPalette palette;
+//            //palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
+//            //this->setAutoFillBackground(true);
+//            //this->setPalette(palette);
+//
+//            //if (this->auto_back_size())
+//            //{
+//            //    this->setFixedSize(xImage->size());
+//            //    this->setMinimumSize(xImage->size());
+//            //    this->setMaximumSize(xImage->size());
+//            //}
+//        }
+//
+//        //((DOUBLE)rand());
+//        qsrand(QTime::currentTime().msec() + QTime::currentTime().second() * 1000);
+//        auto x = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 4000;
+//        auto y = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 2000;
+//        this->setPos(x, y);
+//        //if (x > 500000 || y > 500000)
+//        //{
+//        //    qDebug(QString("%1,%2").arg(x).arg(y).toStdString().c_str());
+//        //}
+//    }
+//
+//    virtual QRectF boundingRect() const
+//    {
+//        return { 0,0,640,480 };
+//    }
+//
+//    QImage* m_QImage = nullptr;
+//    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = Q_NULLPTR)
+//    {
+//        if (m_QImage)
+//        {
+//            //painter->drawImage(100 + qrand() % 100, 100 + qrand() % 20, *m_QImage);
+//            painter->drawImage(100, 100, *m_QImage);
+//        }
+//    }
+//};
 
 
 //class pj_scene : public QGraphicsScene
@@ -161,8 +136,7 @@ class qt_login_wnd : public pj_groupbox
     Q_OBJECT
 
 public:
-    qt_login_wnd(ice_client_app* app, QWidget *parent = Q_NULLPTR);
-    qt_login_wnd(ice_client_app* app, QWidget *parent,  bool);
+    qt_login_wnd(QWidget *parent = Q_NULLPTR);
 
 public:
     void go_start();
@@ -170,8 +144,7 @@ public:
 
     bool isDrag = false;
     QPoint m_position;
-    QVector<pj_wasani*> aniVector;
-    ice_client_app* m_app;
+    //ice_client_app* m_app;
 
     //void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE
     //{
@@ -246,3 +219,30 @@ private:
     Ui::ui_scene uiScene;
 };
 
+
+
+
+
+class ice_client_app : virtual public Ice::Application
+{
+public:
+    ice_client_app();
+
+    virtual int run(int, char *[]);
+
+public:
+    bool init_client();
+
+    ////   ≈‰∆˜
+    //Ice::ObjectAdapterPtr m_Adapter;
+
+    //// µ«¬ºπ‹¿Ì∆˜
+    //PJ_LoginManager* m_LoginManager;
+    pj_main_wnd*    mainWnd;
+    pj_map*         currentScene;
+    pj_view*        mainView;
+    qt_login_wnd*   loginWnd;
+    qt_scene_wnd*   sceneWnd;
+    QLabel*         leftTopTextInfo;
+};
+extern ice_client_app g_ice_client_app;
