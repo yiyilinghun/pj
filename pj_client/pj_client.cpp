@@ -2,6 +2,7 @@
 #include "pj_loader.h"
 #include "pj_client.h"
 #include "pj_wasani.h"
+#include "pj_map.h"
 
 ice_client_app g_ice_client_app;
 
@@ -235,42 +236,62 @@ void pj_view::update()
         m_tempFPS = 0;
     }
     m_tempFPS++;
-    //auto x = QGraphicsView::mapToScene(0, 0);
-    //m_scene->m_QGraphicsTextItem->setPos(x);
+    auto x = QGraphicsView::mapToScene(0, 0);
+    m_scene->m_QGraphicsTextItem->setPos(x);
     m_scene->m_QGraphicsTextItem->setPlainText(QString("%1").arg(m_FPS));
-
+    m_scene->m_QGraphicsTextItem->setZValue(1000.0);
+    //m_scene->m_QGraphicsTextItem->setPos()
     //m_login->paintEvent(nullptr);
     //this->findChildren<qt_login_wnd>()[0].paintEvent(nullptr);
 
     //m_scene->items()[1]->setPos(qrand() % 1000, qrand() % 1000);
-    //QGraphicsView::update();
+    QGraphicsView::update();
 }
 
 void qt_login_wnd::finished()
 {
-    QPropertyAnimation* animation = NEW QPropertyAnimation(&m_ani->_wasaniAssist, "indexAni");
-    QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
+    QVectorIterator<pj_wasani*> it(aniVector);
+    while (it.hasNext())
+    {
+        pj_wasani* ani = it.next();
 
-    animation->setDuration((m_ani->_imageVector.size() - 1) * 100);
-    animation->setStartValue(0);
-    animation->setEndValue(m_ani->_imageVector.size() - 1);
-    animation->start();
+        QPropertyAnimation* animation = NEW QPropertyAnimation(&ani->_wasaniAssist, "indexAni");
+        QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
+
+        animation->setDuration((ani->m_xyUnit->m_ProductImages.size() - 1) * 100);
+        animation->setStartValue(0);
+        animation->setEndValue(ani->m_xyUnit->m_ProductImages.size() - 1);
+        animation->start();
+    }
 }
 
 void qt_login_wnd::go_start()
 {
-    m_ani = NEW pj_wasani();
-    m_ani->setPos(0, 0);
+    pj_map map;
+    map.load(R"(A:\git\pj\res\scene\1201.map)");
 
-    QPropertyAnimation* animation = NEW QPropertyAnimation(&m_ani->_wasaniAssist, "indexAni");
-    QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
+    FORRANGE(1000)
+    {
+        pj_wasani* ani = NEW pj_wasani(R"(A:\git\pj\res\shape.wdf)", 0xb012d547);
+        ani->setPos(100 + qrand() % 1000, 100 + qrand() % 1000);
+        aniVector.append(ani);
+    }
 
-    animation->setDuration((m_ani->_imageVector.size() - 1) * 100);
-    animation->setStartValue(0);
-    animation->setEndValue(m_ani->_imageVector.size() - 1);
-    animation->start();
+    QVectorIterator<pj_wasani*> it(aniVector);
+    while (it.hasNext())
+    {
+        pj_wasani* ani = it.next();
 
-    this->m_app->m_view->scene()->addItem(m_ani);
+        QPropertyAnimation* animation = NEW QPropertyAnimation(&(ani->_wasaniAssist), "indexAni");
+        QObject::connect(animation, &QPropertyAnimation::finished, this, &qt_login_wnd::finished);
+
+        animation->setDuration((ani->m_xyUnit->m_ProductImages.size() - 1) * 100);
+        animation->setStartValue(0);
+        animation->setEndValue(ani->m_xyUnit->m_ProductImages.size() - 1);
+        animation->start();
+
+        this->m_app->m_view->scene()->addItem(ani);
+    }
 }
 
 qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent, bool)
@@ -278,6 +299,7 @@ qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent, bool)
     , m_app(app)
 {
     uiLogin.setupUi(this);
+
     //this->setWindowFlags(Qt::FramelessWindowHint);
     //this->setWindowFlags(Qt::FramelessWindowHint | windowFlags());
 
@@ -362,11 +384,11 @@ qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent, bool)
     }
     quint64 tempKey = (((quint64)file_key) << 32) + 0x2142584c;
 
-    QBuffer* mp3Buffer = NEW QBuffer();
-    if (!pj_GetResManager().pjGetMp3(tempKey, mp3Buffer))
-    {
-        return;
-    }
+    //QBuffer* mp3Buffer = NEW QBuffer();
+    //if (!pj_GetResManager().pjGetMp3(tempKey, mp3Buffer))
+    //{
+    //    return;
+    //}
 
     QPalette pal = palette();
     pal.setColor(QPalette::Background, QColor(0x00, 0x00, 0x00, 0x00));
@@ -397,10 +419,12 @@ qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent, bool)
     //QByteArray* arr = new QByteArray(file.readAll());
     //file.close();
     //QBuffer* buffer = new QBuffer(arr);
-    mp3Buffer->open(QIODevice::ReadOnly);
-    mp3Buffer->seek(0);
-    m_QMediaPlayer.setMedia(QMediaContent(), mp3Buffer);
-    m_QMediaPlayer.play();
+
+
+    //mp3Buffer->open(QIODevice::ReadOnly);
+    //mp3Buffer->seek(0);
+    //m_QMediaPlayer.setMedia(QMediaContent(), mp3Buffer);
+    //m_QMediaPlayer.play();
 
 
     //QAudioOutput *audio = new QAudioOutput(QAudioDeviceInfo::defaultOutputDevice(), audioFormat);
@@ -536,11 +560,11 @@ qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent)
     }
     quint64 tempKey = (((quint64)file_key) << 32) + 0x2142584c;
 
-    QBuffer* mp3Buffer = NEW QBuffer();
-    if (!pj_GetResManager().pjGetMp3(tempKey, mp3Buffer))
-    {
-        return;
-    }
+    //QBuffer* mp3Buffer = NEW QBuffer();
+    //if (!pj_GetResManager().pjGetMp3(tempKey, mp3Buffer))
+    //{
+    //    return;
+    //}
 
     QPalette pal = palette();
     pal.setColor(QPalette::Background, QColor(0x00, 0x00, 0x00, 0x00));
@@ -571,10 +595,13 @@ qt_login_wnd::qt_login_wnd(ice_client_app* app, QWidget *parent)
     //QByteArray* arr = new QByteArray(file.readAll());
     //file.close();
     //QBuffer* buffer = new QBuffer(arr);
-    mp3Buffer->open(QIODevice::ReadOnly);
-    mp3Buffer->seek(0);
-    m_QMediaPlayer.setMedia(QMediaContent(), mp3Buffer);
-    m_QMediaPlayer.play();
+
+
+
+    //mp3Buffer->open(QIODevice::ReadOnly);
+    //mp3Buffer->seek(0);
+    //m_QMediaPlayer.setMedia(QMediaContent(), mp3Buffer);
+    //m_QMediaPlayer.play();
 
 
     //QAudioOutput *audio = new QAudioOutput(QAudioDeviceInfo::defaultOutputDevice(), audioFormat);

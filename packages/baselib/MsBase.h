@@ -98,12 +98,38 @@ typedef void*   IntPtr;
 #include <QtWidgets/QGroupBox>
 #include <QtMultimedia/QMediaPlayer>
 
+struct ReadBytesAssist
+{
+    inline ReadBytesAssist(void* p, quint32 l)
+    {
+        data = (char*)p;
+        len = l;
+    }
+
+    template <typename T>
+    inline ReadBytesAssist(std::shared_ptr<T>& sp, quint32 l)
+    {
+        sp.reset(NEW T[l]);
+        data = (char*)sp.get();
+        len = l;
+    }
+    char* data;
+    quint32 len;
+};
+
+inline QDataStream& operator>>(QDataStream &s, ReadBytesAssist &c)
+{
+    s.readRawData(c.data, c.len);
+    return s;
+}
 
 template <typename T>
-QDataStream& operator>>(QDataStream &s, T &c)
+inline QDataStream& operator>>(QDataStream &s, T &c)
 {
     s.readRawData((char*)&(c), sizeof(c));
     return s;
 }
+
+
 
 #endif  // __MS_BASE_H__

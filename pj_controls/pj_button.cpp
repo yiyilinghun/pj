@@ -117,7 +117,6 @@ pj_button::paintEvent(QPaintEvent *)
     QPainter qPainter;
     qPainter.begin(this);
 
-    xyTextureInfo m_backTextureInfo;
     quint32 file_key = 0;
     if (!pj_GetResManager().pjLoadFile(this->resFileName(), file_key))
     {
@@ -125,23 +124,23 @@ pj_button::paintEvent(QPaintEvent *)
     }
 
     quint64 tempKey = (((quint64)file_key) << 32) + this->resKey();
-    QVector<QImage*> imageVector;
-    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
+    XYUnit* xyUnit = nullptr;
+    if (!pj_GetResManager().pjGetWasTextures(tempKey, xyUnit))
     {
         return;
     }
 
     if (this->isDown())
     {
-        qPainter.drawPixmap(0, 0, QPixmap::fromImage(*imageVector[1]));
+        qPainter.drawPixmap(0, 0, QPixmap::fromImage(*(xyUnit->m_ProductImages[1].qImage.get())));
     }
     else if (d->_isHover)
     {
-        qPainter.drawPixmap(0, 0, QPixmap::fromImage(*imageVector[2]));
+        qPainter.drawPixmap(0, 0, QPixmap::fromImage(*(xyUnit->m_ProductImages[2].qImage.get())));
     }
     else
     {
-        qPainter.drawPixmap(0, 0, QPixmap::fromImage(*imageVector[0]));
+        qPainter.drawPixmap(0, 0, QPixmap::fromImage(*(xyUnit->m_ProductImages[0].qImage.get())));
     }
     qPainter.end();
 }
@@ -151,7 +150,6 @@ void pj_button::update_size()
 {
     Q_D(pj_button);
 
-    xyTextureInfo m_backTextureInfo;
     quint32 file_key = 0;
     if (!pj_GetResManager().pjLoadFile(this->resFileName(), file_key))
     {
@@ -159,15 +157,15 @@ void pj_button::update_size()
     }
 
     quint64 tempKey = (((quint64)file_key) << 32) + this->resKey();
-    QVector<QImage*> imageVector;
-    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
+    XYUnit* xyUnit = nullptr;
+    if (!pj_GetResManager().pjGetWasTextures(tempKey, xyUnit))
     {
         return;
     }
 
-    if (imageVector.size() > 0)
+    if (xyUnit->m_ProductImages.size() > 0)
     {
-        QImage* xImage = imageVector[0];
+        QImage* xImage = xyUnit->m_ProductImages[0].qImage.get();
         this->setMinimumSize(xImage->size());
         this->setMaximumSize(xImage->size());
     }

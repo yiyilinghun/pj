@@ -66,6 +66,6 @@ private:
     bool _needLoadRes = true;
     QString _resFileName = "";
     quint32 _resKey = 0;
-    QVector<QImage*> _backimageVector;
+    XYUnit* _xyUnit = nullptr;
 };
 

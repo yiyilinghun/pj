@@ -56,7 +56,7 @@ public:
         ui_login->setEnabled(true);
         ui_login->resize(640, 480);
         ui_login->setResKey(2904516639u);
-        ui_login->setCanMove(false);
+        ui_login->setCanMove(true);
         ui_login->setProperty("auto_back_size", QVariant(true));
         pjtb_account = new pj_linebox(ui_login);
         pjtb_account->setObjectName(QStringLiteral("pjtb_account"));
@@ -194,7 +194,7 @@ public:
         toolBox->addItem(page, QStringLiteral("Page 1"));
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, 0, 131, 59));
+        page_2->setGeometry(QRect(0, 0, 98, 28));
         pushButton_2 = new QPushButton(page_2);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
         pushButton_2->setGeometry(QRect(30, 10, 75, 23));

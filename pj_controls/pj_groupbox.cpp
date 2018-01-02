@@ -109,7 +109,6 @@ void pj_groupbox::mouseReleaseEvent(QMouseEvent *)
 
 void pj_groupbox::update_backres()
 {
-    xyTextureInfo m_backTextureInfo;
     quint32 file_key = 0;
     if (!pj_GetResManager().pjLoadFile(this->resFileName(), file_key))
     {
@@ -117,16 +116,14 @@ void pj_groupbox::update_backres()
     }
 
     quint64 tempKey = (((quint64)file_key) << 32) + this->resKey();
-
-    _backimageVector.clear();
-    if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, _backimageVector))
+    if (!pj_GetResManager().pjGetWasTextures(tempKey, _xyUnit))
     {
         return;
     }
 
-    if (_backimageVector.size() > 0)
+    if (_xyUnit->m_ProductImages.size() > 0)
     {
-        QImage* xImage = _backimageVector[0];
+        QImage* xImage = _xyUnit->m_ProductImages[0].qImage.get();
         //QPainter xQPainter(xImage);
         //xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"‡√∆®¡À");
         QPalette palette;

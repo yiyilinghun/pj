@@ -87,7 +87,6 @@ public:
 
     pj_image()
     {
-        xyTextureInfo m_backTextureInfo;
         quint32 file_key = 0;
         if (!pj_GetResManager().pjLoadFile(R"(A:\git\pj\res\gires3.wdf)", file_key))
         {
@@ -95,15 +94,16 @@ public:
         }
 
         quint64 tempKey = (((quint64)file_key) << 32) + 2904516639;
-        QVector<QImage*> imageVector;
-        if (!pj_GetResManager().pjGetWasTextures(tempKey, m_backTextureInfo, imageVector))
+        QVector<hotImage> imageVector;
+        XYUnit* xyUnit = nullptr;
+        if (!pj_GetResManager().pjGetWasTextures(tempKey, xyUnit))
         {
             return;
         }
 
         if (imageVector.size() > 0)
         {
-            m_QImage = imageVector[0];
+            m_QImage = imageVector[0].qImage.get();
             QPainter xQPainter(m_QImage);
             xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"¡À∆®‡√");
             //QPalette palette;
@@ -171,7 +171,7 @@ public:
 
     bool isDrag = false;
     QPoint m_position;
-    pj_wasani* m_ani;
+    QVector<pj_wasani*> aniVector;
     ice_client_app* m_app;
 
     //void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE

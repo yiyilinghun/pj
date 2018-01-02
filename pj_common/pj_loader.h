@@ -3,7 +3,24 @@
 
 #pragma pack(push)
 #pragma pack(1)
-struct xyUnit
+
+struct hotImage
+{
+    hotImage()
+    {
+
+    }
+    hotImage(std::shared_ptr<QImage> _qImage, QPoint& _qPoint)
+        : qImage(_qImage)
+        , qPoint(_qPoint)
+    {
+
+    }
+    std::shared_ptr<QImage> qImage;
+    QPoint qPoint;
+};
+
+struct XYUnit
 {
     enum E_UNIT_TYPE
     {
@@ -24,7 +41,19 @@ struct xyUnit
         uint32_t m_UnKnow;
     };
 
+    struct xyTextureInfo
+    {
+        IntPtr textureHandle = nullptr;
+        quint64 resKey = 0;
+        quint64 wasKey = 0;
+        int32_t width;
+        int32_t height;
+        int32_t hotX;
+        int32_t hotY;
+    };
+
     UnitFileInfo m_UnitFileInfo;
+    xyTextureInfo m_xyTextureInfo;
     E_UNIT_TYPE m_resType = E_UNIT_TYPE::EUT_UNKNOW;
 
     quint16 m_imageHeaderSize;
@@ -36,19 +65,8 @@ struct xyUnit
     qint16 m_hotY;
     std::shared_ptr<char> m_resOriginalData;
     QVector<std::shared_ptr<uint32_t>> m_resProductDatas;
-    QVector<std::shared_ptr<QImage>> m_ProductImages;
+    QVector<hotImage> m_ProductImages;
     QByteArray* m_ByteArray;
-};
-
-struct xyTextureInfo
-{
-    IntPtr textureHandle = nullptr;
-    quint64 resKey = 0;
-    quint64 wasKey = 0;
-    int32_t width;
-    int32_t height;
-    int32_t hotX;
-    int32_t hotY;
 };
 
 struct WPixel
@@ -78,13 +96,13 @@ public:
     //Boolean pjGetWasTextures(xyTextureInfo* ptrTextureInfo, int32_t& textureSum);
 
     // 加载动画
-    Boolean pjGetWasTextures(quint64 unitKey, xyTextureInfo& textureInfo, QVector<QImage*>& imageVector);
+    Boolean pjGetWasTextures(quint64 unitKey, XYUnit*& xyUnit);
 
     // 加载音乐
     Boolean pjGetMp3(quint64 unitKey, QBuffer* mp3Buffer);
 
     // 资源map
-    QHash<quint64, xyUnit> m_hashReses;
+    QHash<quint64, XYUnit> m_hashReses;
 
     // 资源文件key,文件路径名对应map
     QHash<uint32_t, QString> m_hashReskeyResFilename;
