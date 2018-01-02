@@ -53,11 +53,11 @@ public:
 
 
 class qt_login_wnd;
-class pj_scene;
+class pj_map;
 class pj_view : public QGraphicsView
 {
 public:
-    pj_view(pj_scene* scene);
+    pj_view(pj_map* map);
 
     void update();
 
@@ -71,7 +71,7 @@ public:
     QTime time;
     int m_tempFPS = 0;
     int m_FPS = 0;
-    pj_scene* m_scene;
+    pj_map* m_map;
 
     void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE
     {
@@ -147,13 +147,12 @@ public:
 };
 
 
-class pj_scene : public QGraphicsScene
-{
-
-public:
-    QGraphicsTextItem * m_QGraphicsTextItem;
-    //QGraphicsItem * m_QGraphicsTextItem;
-};
+//class pj_scene : public QGraphicsScene
+//{
+//
+//public:
+//    //QGraphicsItem * m_QGraphicsTextItem;
+//};
 
 
 // µÇÂ¼½çÃæ

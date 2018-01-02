@@ -51,11 +51,9 @@ struct BlockUnitInfo { quint32 m_Flag; qint32 m_Size; };
 
 struct BlockUnitData
 {
-    ~BlockUnitData() { SAFE_DELETE_ARRAY(m_Data); }
-
     quint32  m_Flag = 0;
     qint32  m_Size = 0;
-    quint8* m_Data = nullptr;
+    std::shared_ptr<quint8> m_Data;
 };
 
 // 阻挡数据信息
@@ -152,30 +150,53 @@ class pj_map;
 class pj_mapCell : public QGraphicsItem
 {
 public:
-    pj_mapCell(pj_map* _pj_map) :m_pj_map(_pj_map) {}
+    pj_mapCell(pj_map* _pj_map, quint32 mapHeaderFlag) :m_pj_map(_pj_map), m_MapHeaderFlag(mapHeaderFlag) {}
 
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = Q_NULLPTR);
 
 private:
     friend class pj_map;
+    quint32 m_MapHeaderFlag;
     pj_map* m_pj_map = nullptr;
+
+    quint32 m_UnitCount;
+    std::shared_ptr<quint32> m_UnitAddr;
+    //LPBYTE m_lpData = nullptr;
+    //GameSprite* m_BlockSprite = nullptr;
+    //MsList<MapMask*> m_ListMapMask;
+    QVector<std::shared_ptr<BlockUnitData>> m_mask; // MASK 数据
+    std::shared_ptr<BlockUnitData> m_imag;  // IMAG
+    std::shared_ptr<BlockUnitData> m_msk2;  // MSK2
+    std::shared_ptr<BlockUnitData> m_jpgh;  // JPGH
+    std::shared_ptr<BlockUnitData> m_blok;  // BLOK
+    std::shared_ptr<BlockUnitData> m_cell;  // CELL
+    std::shared_ptr<BlockUnitData> m_brig;  // BRIG
+    std::shared_ptr<BlockUnitData> m_ligt;  // LIGT
+    std::shared_ptr<BlockUnitData> m_head;  // HEAD
+    std::shared_ptr<BlockUnitData> m_jpeg;  // JPEG
+    std::shared_ptr<BlockUnitData> m_rol0;  // ROL0
+
+    std::shared_ptr<QImage> m_blockImage;
 };
 
-class pj_map
+class pj_map : public QGraphicsScene
 {
 public:
 
-    pj_map();
+    pj_map(QString&& file);
 
-    Boolean load(QString&& file);
+    Boolean load();
+    Boolean ReadBlockUnit(QDataStream& xStream, pj_mapCell* mapCell);
+    Boolean ReadBlockUnitCellOnly(QDataStream& xStream, pj_mapCell* mapCell);
+    pj_mapCell* readCellData(quint32 cellAddr);
 
 public:
-    //XYUnit* m_xyUnit = nullptr;
     QVector<pj_mapCell*> _mapCellVector;
+    QGraphicsTextItem* m_QGraphicsTextItem;
 
 private:
-
+    QFile m_File;
 
     inline qint32 GetMapHeader_Width()
     {
@@ -208,7 +229,6 @@ private:
     // 块数据地址列表
     std::shared_ptr<quint32> m_ArrayBlockOffset;
 
-
     // 遮罩数据头
     MaskHead m_MaskHead;
     quint8* m_JPGHData;
@@ -231,5 +251,6 @@ private:
         }
         return False;
     }
+
 };
 

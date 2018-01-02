@@ -111,8 +111,10 @@ ice_client_app::run(int argc, char* argv[])
 
     //return a.exec();
 
-    pj_scene* scene = NEW pj_scene();
-    scene->setSceneRect(0, 0, 4000, 2000);
+
+    pj_map* scene = NEW pj_map(R"(A:\git\pj\res\scene\1201.map)");
+    scene->load();
+
 
     for (qint32 i = 0; i < 20; i++)
     {
@@ -204,17 +206,17 @@ ice_client_app::run(int argc, char* argv[])
     return a.exec();
 }
 
-pj_view::pj_view(pj_scene* scene)
-    :QGraphicsView(scene)
-    , m_scene(scene)
+pj_view::pj_view(pj_map* map)
+    : QGraphicsView(map)
+    , m_map(map)
 {
     time.start();
 
     //m_scene->m_QGraphicsTextItem->setFont(QFont("¿¬Ìå", ))
-    m_scene->m_QGraphicsTextItem->setDefaultTextColor(QColor(255, 0, 0));
+    m_map->m_QGraphicsTextItem->setDefaultTextColor(QColor(255, 0, 0));
     //qDebug(QString("%1").arg(m_FPS).toStdString().c_str());
-    m_scene->m_QGraphicsTextItem->setPos(0, 0);
-    m_scene->m_QGraphicsTextItem->show();
+    m_map->m_QGraphicsTextItem->setPos(0, 0);
+    m_map->m_QGraphicsTextItem->show();
 }
 
 
@@ -237,9 +239,9 @@ void pj_view::update()
     }
     m_tempFPS++;
     auto x = QGraphicsView::mapToScene(0, 0);
-    m_scene->m_QGraphicsTextItem->setPos(x);
-    m_scene->m_QGraphicsTextItem->setPlainText(QString("%1").arg(m_FPS));
-    m_scene->m_QGraphicsTextItem->setZValue(1000.0);
+    m_map->m_QGraphicsTextItem->setPos(x);
+    m_map->m_QGraphicsTextItem->setPlainText(QString("%1").arg(m_FPS));
+    m_map->m_QGraphicsTextItem->setZValue(1000.0);
     //m_scene->m_QGraphicsTextItem->setPos()
     //m_login->paintEvent(nullptr);
     //this->findChildren<qt_login_wnd>()[0].paintEvent(nullptr);
@@ -267,9 +269,6 @@ void qt_login_wnd::finished()
 
 void qt_login_wnd::go_start()
 {
-    pj_map map;
-    map.load(R"(A:\git\pj\res\scene\1201.map)");
-
     FORRANGE(1000)
     {
         pj_wasani* ani = NEW pj_wasani(R"(A:\git\pj\res\shape.wdf)", 0xb012d547);
