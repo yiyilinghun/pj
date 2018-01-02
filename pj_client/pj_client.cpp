@@ -128,20 +128,18 @@ ice_client_app::run(int argc, char* argv[])
 
     //w_main.update();
     mainView = NEW pj_view(currentScene);
-    mainView->centerOn(0, 0);
     mainView->setParent(mainWnd);
-    mainView->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
 
 
     loginWnd = NEW qt_login_wnd(mainWnd);
 
 
-    leftTopTextInfo = NEW QLabel(mainWnd);
-    leftTopTextInfo->show();
-    leftTopTextInfo->move(0, 0);
-    leftTopTextInfo->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-    leftTopTextInfo->setAlignment(Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignTop);
-    leftTopTextInfo->setGeometry(QRect(0, 0, 100, 100));
+    //leftTopTextInfo = NEW QLabel(mainWnd);
+    //leftTopTextInfo->show();
+    //leftTopTextInfo->move(0, 0);
+    //leftTopTextInfo->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+    //leftTopTextInfo->setAlignment(Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignTop);
+    //leftTopTextInfo->setGeometry(QRect(0, 0, 100, 100));
 
     //view.setCacheMode(QGraphicsView::CacheBackground);
     ////view.setDragMode(QGraphicsView::NoDrag);
@@ -204,6 +202,8 @@ ice_client_app::run(int argc, char* argv[])
 pj_view::pj_view(pj_map* map)
     : QGraphicsView(map)
 {
+    this->centerOn(0, 0);
+    this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     this->setGeometry(QRect(0, 0, 1024, 768));
     this->setViewport(NEW QOpenGLWidget());
 
@@ -228,8 +228,8 @@ void pj_view::update()
 {
     m_QGraphicsTextItem->setPos(QGraphicsView::mapToScene(0, 0));
     m_QGraphicsTextItem->update();
-    //m_QGraphicsTextItem->setPlainText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
-    g_ice_client_app.leftTopTextInfo->setText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
+    m_QGraphicsTextItem->setPlainText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
+    //g_ice_client_app.leftTopTextInfo->setText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
 
     //QRect x(0, 0, this->parentWidget()->frameSize().width(), this->parentWidget()->frameSize().height());
     //m_scene->setSceneRect(x);
@@ -318,176 +318,28 @@ void qt_login_wnd::go_start()
 
 qt_login_wnd::qt_login_wnd(QWidget *parent)
     : pj_groupbox(parent)
-    //, m_app(app)
 {
     uiLogin.setupUi(this);
 
-    //this->setWindowFlags(Qt::FramelessWindowHint);
-    //this->setWindowFlags(Qt::FramelessWindowHint | windowFlags());
-
-    //uiLogin.pj_listview_.;
-
     QObject::connect(uiLogin.pushButton_3, &QPushButton::clicked, this, &qt_login_wnd::go_start);
-    //auto x = uiLogin.pj_label_->font();
 
-    //go_start();
-    //auto xx = x.family();
-    //QPropertyAnimation* animation = NEW QPropertyAnimation(uiLogin.pushButton_3, "geometry");
+    quint32 file_key = 0;
+    if (!pj_GetResManager().pjLoadFile("A:/git/pj/bin/mh/music.wdf", file_key))
+    {
+        return;
+    }
+    quint64 tempKey = (((quint64)file_key) << 32) + 0x2142584c;
 
-    ////QFont xFont = uiLogin.pj_label_->font();
-    //animation->setDuration(5000);
-    //animation->setStartValue(QRect(320, 240, 50, 50));
-    //animation->setKeyValueAt(0.1, QRect(0, 0, 50, 100));
-    //animation->setKeyValueAt(0.2, QRect(600, 0, 100, 70));
-    //animation->setKeyValueAt(0.3, QRect(500, 0, 80, 100));
-    //animation->setKeyValueAt(0.4, QRect(500, 400, 90, 100));
-    //animation->setKeyValueAt(0.5, QRect(600, 450, 100, 100));
-    //animation->setKeyValueAt(0.6, QRect(0, 450, 100, 90));
-    //animation->setKeyValueAt(0.7, QRect(0, 400, 50, 40));
-    //animation->setKeyValueAt(0.8, QRect(0, 0, 30, 100));
-    //animation->setKeyValueAt(0.9, QRect(0, 0, 100, 60));
-    ////animation->setKeyValueAt(0.9, QRect(0, 0, 10, 10));
-    ////xFont.setPointSize(99);
-    //animation->setEndValue(QRect(320, 240, 50, 50));
-    //animation->start();
+    QBuffer* mp3Buffer = NEW QBuffer();
+    if (!pj_GetResManager().pjGetMp3(tempKey, mp3Buffer))
+    {
+        return;
+    }
 
-    //QSize x;
-    //x.setWidth;
-    //QGraphicsItem;
-    //QGraphicsPixmapItem;
-    //QFont()
-    //QVariant v = QRect(640, 480, 200, 150);
-    //QVariant v1 = x;
-    //QFont aa;
-    //aa.fromString(v1.toString());
-
-    //uiLogin.pj_label_->setFont(aa);
-
-
-    ////connect(animation, SIGNAL(finished()), ani, SLOT(deleteLater()));
-    //animation->setStartValue(x);
-    //x.setWeight(99); animation->setEndValue(x);
-    //QVariant v2 = x;
-
-    //x.setWeight(10);    animation->setKeyValueAt(0.1, x);
-    //x.setWeight(20);    animation->setKeyValueAt(0.2, x);
-    //x.setWeight(30);    animation->setKeyValueAt(0.3, x);
-    //x.setWeight(40);    animation->setKeyValueAt(0.4, x);
-    //x.setWeight(50);    animation->setKeyValueAt(0.5, x);
-    //x.setWeight(60);    animation->setKeyValueAt(0.6, x);
-    //x.setWeight(70);    animation->setKeyValueAt(0.7, x);
-    //x.setWeight(80);    animation->setKeyValueAt(0.8, x);
-    //x.setWeight(90);    animation->setKeyValueAt(0.9, x);
-    //x.setWeight(99); animation->setEndValue(x);
-    //animation->setDuration(1000);
-    ////animation->setEasingCurve(QEasingCurve::Linear);
-    //animation->start();
-
-
-    //QPropertyAnimation *animation2 = NEW QPropertyAnimation(uiLogin.pjb_register_2, "geometry");
-    //animation2->setDuration(10000);
-    //animation2->setStartValue(QRect(640, 480, 200, 150));
-    //animation2->setEndValue(QRect(0, 0, 10, 10));
-    //animation2->start();
-
-    //this->palette().
-    //int w = this->width();
-    //int h = this->height();
-    //QDesktopWidget* desktop = QApplication::desktop();
-    //this->setGeometry((desktop->width() - w) / 2, (desktop->height() - h) / 2, w, h);
-    //this->setMinimumSize(this->size());
-    //this->setMaximumSize(this->size());
-
-
-    //quint32 file_key = 0;
-    //if (!pj_GetResManager().pjLoadFile("A:/git/pj/bin/mh/music.wdf", file_key))
-    //{
-    //    return;
-    //}
-    //quint64 tempKey = (((quint64)file_key) << 32) + 0x2142584c;
-
-    //QBuffer* mp3Buffer = NEW QBuffer();
-    //if (!pj_GetResManager().pjGetMp3(tempKey, mp3Buffer))
-    //{
-    //    return;
-    //}
-
-    //QPalette pal = palette();
-    //pal.setColor(QPalette::Background, QColor(0x00, 0x00, 0x00, 0x00));
-
-    //QGraphicsEffect* x = uiLogin.textEdit->graphicsEffect();
-    //x->Opacity();
-    //uiLogin.textEdit->setGraphicsEffect();
-
-    //uiLogin.textEdit->setWindowOpacity(0);
-    //uiLogin.pjtb_account->setStyleSheet("background-color:transparent;");
-    //uiLogin.pjtb_password->setStyleSheet("background-color:transparent;");
-
-    //QFile xFile("A:\\1.mp3");
-    //if (!xFile.open(QIODevice::ReadOnly))
-    //{
-    //    return;
-    //}
-    //QByteArray xData = xFile.readAll();
-    //xFile.close();
-    //m_QMediaPlayer.setMedia(QUrl::fromEncoded(xData)) 
-    ////m_QMediaPlayer.setMedia(QUrl::fromLocalFile("A:\\1.mp3"));
-    //m_QMediaPlayer.setVolume(100);  
-    //m_QMediaPlayer.data (100);
-    //m_QMediaPlayer.play();
-
-    //QFile file("A:\\1.mp3");
-    //file.open(QIODevice::ReadOnly);
-    //QByteArray* arr = new QByteArray(file.readAll());
-    //file.close();
-    //QBuffer* buffer = new QBuffer(arr);
-
-
-    //mp3Buffer->open(QIODevice::ReadOnly);
-    //mp3Buffer->seek(0);
-    //m_QMediaPlayer.setMedia(QMediaContent(), mp3Buffer);
-    //m_QMediaPlayer.play();
-
-
-    //QAudioOutput *audio = new QAudioOutput(QAudioDeviceInfo::defaultOutputDevice(), audioFormat);
-
-    //uiLogin.pjtb_password->setStyleSheet("background-color:rgb(102,102,102);border:1px solid #e1e0e0;");
-    //uiLogin.pjtb_password->setStyleSheet("background-color:transparent;");
-
-    //auto* standardItemModel = NEW QStandardItemModel(this);
-    //QStringList strList;
-    //strList.append("string1");
-    //strList.append("string2");
-    //strList.append("string3");
-    //strList.append("string4");
-    //strList.append("string5");
-    //strList.append("string6");
-    //strList.append("string7");
-    //strList << "string8";
-    //strList += "string9";
-    //int nCount = strList.size();
-    //for (int i = 0; i < nCount; i++)
-    //{
-    //    QString string = static_cast<QString>(strList.at(i));
-    //    QStandardItem *item = new QStandardItem(string);
-    //    if (i % 2 == 1)
-    //    {
-    //        QLinearGradient linearGrad(QPointF(0, 0), QPointF(200, 200));
-    //        linearGrad.setColorAt(0, Qt::darkGreen);
-    //        linearGrad.setColorAt(1, Qt::yellow);
-    //        QBrush brush(linearGrad);
-    //        item->setBackground(brush);
-    //    }
-    //    standardItemModel->appendRow(item);
-    //}
-    //uiLogin.pj_listview_->setModel(standardItemModel);
-
-    //uiLogin.textEdit->setAutoFillBackground(true);
-    //uiLogin.textEdit->setPalette(pal);
-    //uiLogin.textEdit->setAttribute(Qt::WA_TranslucentBackground, true);
-
-    //g_ice_client_app.init_client();
-
+    mp3Buffer->open(QIODevice::ReadOnly);
+    mp3Buffer->seek(0);
+    m_QMediaPlayer.setMedia(QMediaContent(), mp3Buffer);
+    m_QMediaPlayer.play();
 }
 
 
