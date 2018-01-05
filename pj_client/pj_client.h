@@ -5,11 +5,8 @@
 #include "ui_pj_login.h"
 #include "pj_loader.h"
 #include "pj_wasani.h"
+#include "pj_map.h"
 
-class pj_view;
-
-
-//class pj_scene;
 class pj_main_wnd : public QWidget
 {
 public:
@@ -18,11 +15,12 @@ public:
     {
         int w = 1024;
         int h = 768;
-        QDesktopWidget* desktop = QApplication::desktop();
-
-        this->setMinimumSize(400, 300);
-        this->setMaximumSize(desktop->width(), desktop->height());
-        this->setGeometry((desktop->width() - w) / 2, (desktop->height() - h) / 2, w, h);
+        const QRect&& masterScreen1 = QApplication::desktop()->screenGeometry(0);
+        const QRect&& masterScreen2 = QApplication::desktop()->screenGeometry(1);
+        this->setMinimumSize(640, 480);
+        this->setMaximumSize(masterScreen2.width(), masterScreen2.height());
+        QPoint x((masterScreen2.width() - w) / 2, (masterScreen2.height() - h) / 2);
+        this->setGeometry(x.x(), x.y(), w, h);
     }
 
     void update()
@@ -32,14 +30,10 @@ public:
 
 };
 
-
-
-class qt_login_wnd;
-class pj_map;
-class pj_view : public QGraphicsView
+class pj_main_view : public QGraphicsView
 {
 public:
-    pj_view(pj_map* map);
+    pj_main_view(pj_map* map);
 
     void update();
 
@@ -55,80 +49,6 @@ public:
     QTimer* qTimerRender;
     QGraphicsTextItem* m_QGraphicsTextItem;
 };
-
-//class pj_image : public QGraphicsItem
-//{
-//public:
-//
-//    pj_image()
-//    {
-//        quint32 file_key = 0;
-//        if (!pj_GetResManager().pjLoadFile(R"(A:\git\pj\res\gires3.wdf)", file_key))
-//        {
-//            return;
-//        }
-//
-//        quint64 tempKey = (((quint64)file_key) << 32) + 2904516639;
-//        QVector<hotImage> imageVector;
-//        XYUnit* xyUnit = nullptr;
-//        if (!pj_GetResManager().pjGetWasTextures(tempKey, xyUnit))
-//        {
-//            return;
-//        }
-//
-//        if (imageVector.size() > 0)
-//        {
-//            m_QImage = imageVector[0].qImage.get();
-//            QPainter xQPainter(m_QImage);
-//            xQPainter.drawText(QRect(10, 10, 300, 300), Qt::AlignCenter, u8"了屁嗝");
-//            //QPalette palette;
-//            //palette.setBrush(QPalette::ColorRole::Background, QBrush(*xImage));
-//            //this->setAutoFillBackground(true);
-//            //this->setPalette(palette);
-//
-//            //if (this->auto_back_size())
-//            //{
-//            //    this->setFixedSize(xImage->size());
-//            //    this->setMinimumSize(xImage->size());
-//            //    this->setMaximumSize(xImage->size());
-//            //}
-//        }
-//
-//        //((DOUBLE)rand());
-//        qsrand(QTime::currentTime().msec() + QTime::currentTime().second() * 1000);
-//        auto x = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 4000;
-//        auto y = (qint64)qrand()*(qint64)qrand()*(qint64)qrand() % 2000;
-//        this->setPos(x, y);
-//        //if (x > 500000 || y > 500000)
-//        //{
-//        //    qDebug(QString("%1,%2").arg(x).arg(y).toStdString().c_str());
-//        //}
-//    }
-//
-//    virtual QRectF boundingRect() const
-//    {
-//        return { 0,0,640,480 };
-//    }
-//
-//    QImage* m_QImage = nullptr;
-//    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = Q_NULLPTR)
-//    {
-//        if (m_QImage)
-//        {
-//            //painter->drawImage(100 + qrand() % 100, 100 + qrand() % 20, *m_QImage);
-//            painter->drawImage(100, 100, *m_QImage);
-//        }
-//    }
-//};
-
-
-//class pj_scene : public QGraphicsScene
-//{
-//
-//public:
-//    //QGraphicsItem * m_QGraphicsTextItem;
-//};
-
 
 // 登录界面
 class qt_login_wnd : public pj_groupbox
@@ -206,7 +126,6 @@ public:
     QMediaPlayer m_QMediaPlayer;
 };
 
-
 // 游戏界面
 class qt_scene_wnd : public QMainWindow
 {
@@ -218,10 +137,6 @@ public:
 private:
     Ui::ui_scene uiScene;
 };
-
-
-
-
 
 class ice_client_app : virtual public Ice::Application
 {
@@ -239,8 +154,8 @@ public:
     //// 登录管理器
     //PJ_LoginManager* m_LoginManager;
     pj_main_wnd*    mainWnd;
+    pj_main_view*   mainView;
     pj_map*         currentScene;
-    pj_view*        mainView;
     qt_login_wnd*   loginWnd;
     qt_scene_wnd*   sceneWnd;
     QLabel*         leftTopTextInfo;

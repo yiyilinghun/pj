@@ -92,7 +92,7 @@ void
 setHighDpiEnvironmentVariable()
 {
     static const char ENV_VAR_QT_DEVICE_PIXEL_RATIO[] = "QT_DEVICE_PIXEL_RATIO";
-    if (!qEnvironmentVariableIsSet(ENV_VAR_QT_DEVICE_PIXEL_RATIO) // legacy in 5.6, but still functional
+    if (!qEnvironmentVariableIsSet(ENV_VAR_QT_DEVICE_PIXEL_RATIO)
         && !qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR")
         && !qEnvironmentVariableIsSet("QT_SCALE_FACTOR")
         && !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) {
@@ -127,19 +127,24 @@ ice_client_app::run(int argc, char* argv[])
     //scene->addWidget(w_login);
 
     //w_main.update();
-    mainView = NEW pj_view(currentScene);
+    mainView = NEW pj_main_view(currentScene);
     mainView->setParent(mainWnd);
 
 
     loginWnd = NEW qt_login_wnd(mainWnd);
 
 
-    //leftTopTextInfo = NEW QLabel(mainWnd);
-    //leftTopTextInfo->show();
-    //leftTopTextInfo->move(0, 0);
-    //leftTopTextInfo->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-    //leftTopTextInfo->setAlignment(Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignTop);
-    //leftTopTextInfo->setGeometry(QRect(0, 0, 100, 100));
+    leftTopTextInfo = NEW QLabel(mainWnd);
+    leftTopTextInfo->show();
+    leftTopTextInfo->move(0, 0);
+    leftTopTextInfo->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+    leftTopTextInfo->setAlignment(Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignTop);
+    leftTopTextInfo->setGeometry(QRect(0, 0, 200, 100));
+    leftTopTextInfo->setFont(QFont(u8"楷体", 24));
+    leftTopTextInfo->setTextFormat(Qt::TextFormat::AutoText);
+    QPalette palette;
+    palette.setColor(QPalette::ColorRole::WindowText, QColor(255, 0, 0));
+    leftTopTextInfo->setPalette(palette);
 
     //view.setCacheMode(QGraphicsView::CacheBackground);
     ////view.setDragMode(QGraphicsView::NoDrag);
@@ -199,16 +204,19 @@ ice_client_app::run(int argc, char* argv[])
     return a.exec();
 }
 
-pj_view::pj_view(pj_map* map)
+pj_main_view::pj_main_view(pj_map* map)
     : QGraphicsView(map)
 {
+    //qDebug(QString(u8"显示器数量%1").arg(QApplication::desktop()->numScreens()).toStdString().c_str());
+    //QApplication::desktop()->screenGeometry(1).width();
+
     this->centerOn(0, 0);
     this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     this->setGeometry(QRect(0, 0, 1024, 768));
     this->setViewport(NEW QOpenGLWidget());
 
     qTimerRender = NEW QTimer(this);
-    QObject::connect(qTimerRender, &QTimer::timeout, this, &pj_view::update);
+    QObject::connect(qTimerRender, &QTimer::timeout, this, &pj_main_view::update);
 
     // 渲染定时器,间接控制帧数
     qTimerRender->start(10);
@@ -224,12 +232,12 @@ pj_view::pj_view(pj_map* map)
 }
 
 
-void pj_view::update()
+void pj_main_view::update()
 {
     m_QGraphicsTextItem->setPos(QGraphicsView::mapToScene(0, 0));
     m_QGraphicsTextItem->update();
-    m_QGraphicsTextItem->setPlainText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
-    //g_ice_client_app.leftTopTextInfo->setText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
+    //m_QGraphicsTextItem->setPlainText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
+    g_ice_client_app.leftTopTextInfo->setText(QString("%1,%2").arg(FPS).arg(g_ice_client_app.currentScene->aniVector.size()));
 
     //QRect x(0, 0, this->parentWidget()->frameSize().width(), this->parentWidget()->frameSize().height());
     //m_scene->setSceneRect(x);
@@ -287,6 +295,8 @@ void qt_login_wnd::finished()
 
 void qt_login_wnd::go_start()
 {
+    auto x = this->geometry();
+
     FORRANGE(1000)
     {
         pj_wasani* ani = NEW pj_wasani(R"(A:\git\pj\res\shape.wdf)", 0xb012d547);
