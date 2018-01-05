@@ -29,5 +29,8 @@ then
 	rm ./$packetname.tar.gz
 fi
 
+echo -e "\033[32m 正在推送到github...\033[0m"
+git push origin master
+
 echo -e "\033[32m 备份完成...\033[0m"
 
